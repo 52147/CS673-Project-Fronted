@@ -14,9 +14,7 @@ function App() {
     <Router>
       <Routes>
         <Route>
-          {/* <InputCar/> */}
           <Route path='/' exact element={<InputCar />} /> 
-          <Route path='/login' exact element={<Login />} />      
         </Route>
       </Routes>
       </Router>
