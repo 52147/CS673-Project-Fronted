@@ -1,9 +1,14 @@
+import './index.css'
+import ParkingInformation from "./parking-info";
+import NavBarComponent from "../navBar";
+
+
 const ParkingInformationComponent = () =>{
-    return(
-        <div >
-abc
-        </div>
-    )
+    return(<>
+            <NavBarComponent></NavBarComponent>
+            <ParkingInformation></ParkingInformation>
+        </>
+       )
 }
 
 
