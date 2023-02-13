@@ -1,6 +1,6 @@
 import {Button,Form} from "react-bootstrap";
-import './index.css'
 import {useState} from "react";
+import styles from './parking-pay.module.css'
 
 const ParkingPayment = () =>{
     let [credit, setCredit] = useState(1);
@@ -18,7 +18,7 @@ const ParkingPayment = () =>{
 
 
     return(<>
-            <div className="backG">
+            <div className={styles.backG} >
                 <div className="container">
                     <div className="row mt-5">
                         <div className="col text-white">
@@ -26,11 +26,11 @@ const ParkingPayment = () =>{
                         </div>
                     </div>
 
-                    <div className="row mt-5">
-                        <div className="col-6 text-white textRight">
+                    <div className="row mt-3">
+                        <div className={`col-6 text-white ${styles.textRight}`}>
                             <Button  onClick={creditPayClickHandler} variant="light">Use Credit Card Pay</Button>
                         </div>
-                        <div className="col-6  text-white textLeft">
+                        <div className={`col-6 text-white ${styles.textLeft}`}>
                             <Button  onClick={debitPayClickHandler} variant="light">Use Debit Card Pay</Button>
 
                         </div>
@@ -44,29 +44,75 @@ const ParkingPayment = () =>{
                     }
                     {
                         credit == 1 && <div>
-                            <div className="row mt-5">
+                            <div className="row mt-3">
+
                                 <Form>
-                                    <Form.Group controlId="formBasicEmail">
+                                    <Form.Group controlId="FirstName">
                                         <div className="row">
-                                            <div className="col-5 text-white textRight">
-                                                First Name:
+                                            <div className={`col-5 text-white ${styles.textRight}`}>
+                                                <h3>First Name: </h3>
                                             </div>
-                                            <div className="col-5  text-white textLeft">
-                                                <Form.Control type="email" placeholder="First Name" />
+                                            <div className={`col-5 text-white  ${styles.textLeft}`}>
+                                                <Form.Control type="FirstName" placeholder="Enter First Name" />
                                             </div>
                                         </div>
                                     </Form.Group>
 
-                                    <Form.Group controlId="formBasicEmail">
+                                    <Form.Group controlId="LastName">
                                         <div className="row">
-                                            <div className="col-5 mt-3 text-white textRight">
-                                                Last Name:
+                                            <div className={`col-5 text-white mt-1 ${styles.textRight}`}>
+                                                <h3>Last Name: </h3>
                                             </div>
-                                            <div className="col-5  mt-3 text-white textLeft">
-                                                <Form.Control type="email" placeholder="Last Name" />
+                                            <div className={`col-5 text-white mt-1 ${styles.textLeft}`}>
+                                                <Form.Control type="LastName" placeholder="Enter Last Name" />
                                             </div>
                                         </div>
                                     </Form.Group>
+
+                                    <Form.Group controlId="Email">
+                                        <div className="row">
+                                            <div className={`col-5 text-white mt-1 ${styles.textRight}`}>
+                                                <h3>Email Address: </h3>
+                                            </div>
+                                            <div className={`col-5 text-white mt-1 ${styles.textLeft}`}>
+                                                <Form.Control type="Email" placeholder="Enter Email Address" />
+                                            </div>
+                                        </div>
+                                    </Form.Group>
+
+                                    <Form.Group controlId="CardNumber">
+                                        <div className="row">
+                                            <div className={`col-5 text-white mt-1 ${styles.textRight}`}>
+                                                <h3>Card Number: </h3>
+                                            </div>
+                                            <div className={`col-5 text-white mt-1 ${styles.textLeft}`}>
+                                                <Form.Control type="CardNumber" placeholder="Enter Card Number" />
+                                            </div>
+                                        </div>
+                                    </Form.Group>
+
+                                    <Form.Group controlId="ExpirationDate">
+                                        <div className="row">
+                                            <div className={`col-5 text-white mt-1 ${styles.textRight}`}>
+                                                <h3>Expiration Date: </h3>
+                                            </div>
+                                            <div className={`col-5 text-white mt-1 ${styles.textLeft}`}>
+                                                <Form.Control type="ExpirationDate" placeholder="Enter Expiration Date" />
+                                            </div>
+                                        </div>
+                                    </Form.Group>
+
+                                    <Form.Group controlId="CVC">
+                                        <div className="row">
+                                            <div className={`col-5 text-white mt-1 ${styles.textRight}`}>
+                                                <h3>CVC: </h3>
+                                            </div>
+                                            <div className={`col-5 text-white mt-1 ${styles.textLeft}`}>
+                                                <Form.Control type="CVC" placeholder="Enter CVC" />
+                                            </div>
+                                        </div>
+                                    </Form.Group>
+
                                 </Form>
 
 
@@ -75,13 +121,12 @@ const ParkingPayment = () =>{
                     }
 
 
-                    <br/>
-                    <br/>
 
 
                 </div>
 
-                <Button id="payButton" onClick={payButtonClickHandler} variant="warning">Pay</Button>
+                <Button className={`mt-3 ${styles.payButton}`} onClick={payButtonClickHandler} variant="warning">Pay</Button>
+
             </div>
 
         </>

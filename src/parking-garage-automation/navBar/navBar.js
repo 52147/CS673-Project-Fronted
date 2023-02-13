@@ -1,11 +1,12 @@
 import {Container, Navbar, Nav, Button} from "react-bootstrap";
+import styles from './navBar.module.css'
 
 const NavBar = () =>{
     return(<>
             <Navbar bg="light">
                 <Container>
                     <Navbar.Brand href="#home">
-                        <div className="textColor">Victory Eight</div>
+                        <div className={styles.textColor}>Victory Eight</div>
                     </Navbar.Brand>
 
                         <Nav className="me-auto">

@@ -1,4 +1,4 @@
-import './index.css'
+
 import ParkingInformation from "./parking-info";
 import NavBarComponent from "../navBar";
 
