@@ -1,0 +1,21 @@
+.payButton {
+    width: 25%;
+    font-size: x-large;
+}
+
+.backG {
+    text-align: center;
+    position: fixed;
+    width: 100%;
+    height: 75%;
+    background-size: cover;
+    background: #50A3A2 center;
+}
+
+.textRight {
+    text-align: right;
+}
+
+.textLeft {
+    text-align: left;
+}
