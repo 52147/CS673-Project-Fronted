@@ -14,7 +14,6 @@ const NavBar = () => {
                         <Nav.Link href="#home">Home</Nav.Link>
                         <Nav.Link href="#features">Management System</Nav.Link>
                     </Nav>
-
                     <Button id="logInButton" >Log In</Button>
 
                 </Container>

@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-
 import styles from './inputCar.module.css'
 
 export const InputCar = () => {

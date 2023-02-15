@@ -78,5 +78,4 @@ const ParkingInformation = () => {
     )
 }
 
-
 export default ParkingInformation;

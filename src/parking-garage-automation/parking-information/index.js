@@ -12,5 +12,4 @@ const ParkingInformationComponent = () => {
     )
 }
 
-
 export default ParkingInformationComponent;
