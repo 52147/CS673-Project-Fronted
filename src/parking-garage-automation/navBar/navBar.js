@@ -1,6 +1,7 @@
-import {Container, Navbar, Nav, Button} from "react-bootstrap";
+import { Container, Navbar, Nav, Button } from "react-bootstrap";
 import styles from './navBar.module.css'
 import {useNavigate} from "react-router";
+
 
 
 
@@ -17,6 +18,7 @@ const NavBar = () =>{
 
 
     return(<>
+
             <Navbar bg="light">
                 <Container>
                     <Navbar.Brand onClick={navHome}>
@@ -32,10 +34,8 @@ const NavBar = () =>{
 
                 </Container>
             </Navbar>
-
         </>
     )
 }
-
 
 export default NavBar;

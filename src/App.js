@@ -1,19 +1,19 @@
 import './App.css';
-import { InputCar } from './parking-garage-automation/InputCar/InputCar';
-import {Routes, Route} from "react-router";
-import {BrowserRouter} from "react-router-dom";
+import { Routes, Route } from "react-router";
+import { BrowserRouter } from "react-router-dom";
+
 import ParkingGarageAutomation from "./parking-garage-automation";
 
 function App() {
   return (
     <div className="App">
-        <BrowserRouter>
-          <Routes>
 
-            <Route path="/*" element={<ParkingGarageAutomation/>}/>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/*" element={<ParkingGarageAutomation />} />
+        </Routes>
+      </BrowserRouter>
 
-          </Routes>
-        </BrowserRouter>
     </div>
   );
 }
