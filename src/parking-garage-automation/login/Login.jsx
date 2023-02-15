@@ -1,11 +1,12 @@
 import React, { useState } from 'react'
-import styles from './inputCar.module.css'
-
-export const InputCar = () => {
+import styles from './login.module.css'
+export const Login = () => {
   //[current state, function is used to update state]
   // useState(initial state to empty string)
   const [contact, setContact] = useState({
-    carNumber: "",
+    fName: "",
+    lName: "",
+    email: ""
   });
 
   const [isMouseOver, setMouseOver] = useState(false);
@@ -32,19 +33,29 @@ export const InputCar = () => {
   return (
     <div className={styles.body}>
       <div className={styles.container}>
+        {/* useState to update first and last name */}
         <h1>
-          Input Plate License Number 
+          Login {contact.email}
         </h1>
-        <p>{contact.carNumber}</p>
+        <p>{contact.password}</p>
         <form>
+          <input
+            className={styles.inputClass}
+            onChange={handleChange}
+            name="email"
+            value={contact.email}
+            placeholder="Email"
+          />
           <input
             className={styles.inputClass}
             // onchange event: event occurs when value of element has been changed
             onChange={handleChange}
-            name="carNumber"
-            value={contact.carNumber}
-            placeholder="Car Number"
+            name="password"
+            value={contact.password}
+            placeholder="Password"
           />
+
+
           <button
             className={styles.buttonClass}
             style={{ background: isMouseOver ? "black" : "white" }}
