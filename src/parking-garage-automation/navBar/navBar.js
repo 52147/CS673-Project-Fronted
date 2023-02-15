@@ -1,17 +1,31 @@
 import {Container, Navbar, Nav, Button} from "react-bootstrap";
 import styles from './navBar.module.css'
+import {useNavigate} from "react-router";
+
+
 
 const NavBar = () =>{
+    const navigate = useNavigate()
+
+    const navHome = ()=>{
+        navigate('/');
+    }
+
+    const navManagementSystem = ()=>{
+
+    }
+
+
     return(<>
             <Navbar bg="light">
                 <Container>
-                    <Navbar.Brand href="#home">
+                    <Navbar.Brand onClick={navHome}>
                         <div className={styles.textColor}>Victory Eight</div>
                     </Navbar.Brand>
 
-                        <Nav className="me-auto">
-                            <Nav.Link href="#home">Home</Nav.Link>
-                            <Nav.Link href="#features">Management System</Nav.Link>
+                        <Nav className="me-auto" >
+                            <Nav.Link onClick={navHome}>Home</Nav.Link>
+                            <Nav.Link onClick={navManagementSystem}>Management System</Nav.Link>
                         </Nav>
 
                     <Button id="logInButton" >Log In</Button>

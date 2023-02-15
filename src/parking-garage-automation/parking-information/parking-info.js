@@ -1,9 +1,11 @@
 import {Button} from "react-bootstrap";
 import styles from './parking-info.module.css'
+import {useNavigate} from "react-router";
 
 const ParkingInformation = () =>{
+    const navigate = useNavigate()
     const payButtonClickHandler = () =>{
-
+        navigate('/payment');
     }
 
     return(<>
