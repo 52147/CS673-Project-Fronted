@@ -1,6 +1,5 @@
 import NavBar from "./navBar";
 
-
 const NavBarComponent = () => {
     return (
         <>
@@ -8,6 +7,5 @@ const NavBarComponent = () => {
         </>
     )
 }
-
 
 export default NavBarComponent;

@@ -18,7 +18,6 @@ const NavBar = () => {
                         <Nav.Link href="/payment" >Payment</Nav.Link>
                         {/* <Nav.Link href="/">Management System</Nav.Link> */}
                     </Nav>
-
                     <Button id="logInButton" >Log In</Button>
 
                 </Container>

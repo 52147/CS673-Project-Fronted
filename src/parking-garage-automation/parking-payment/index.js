@@ -12,5 +12,4 @@ const ParkingPaymentComponent = () => {
     )
 }
 
-
 export default ParkingPaymentComponent;
