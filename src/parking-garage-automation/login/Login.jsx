@@ -31,12 +31,10 @@ export const Login = () => {
   }
 
   return (
-    <div className={styles.body}>
+    <div>
       <div className={styles.container}>
         {/* useState to update first and last name */}
-        <h1>
-          Login {contact.email}
-        </h1>
+        <h1 className="font-medium">Login {contact.email}</h1>
         <p>{contact.password}</p>
         <form>
           <input
@@ -54,7 +52,6 @@ export const Login = () => {
             value={contact.password}
             placeholder="Password"
           />
-
 
           <button
             className={styles.buttonClass}
