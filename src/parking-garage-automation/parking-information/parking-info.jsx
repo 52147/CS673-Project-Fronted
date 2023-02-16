@@ -7,66 +7,61 @@ const ParkingInformation = () => {
     }
 
     return (<>
-        <div className={styles.backG}>
-
+        <div className="py-4">
             <div className="container">
-
-                <div className="row mt-5">
+                <div className="row">
                     <div className="col text-white">
                         <h1>Parking Information</h1>
                     </div>
                 </div>
-
-                <div className="row mt-5">
-                    <div className={`col-5 text-white ${styles.textRight}`}>
+                <div className="row">
+                    <div className="col-6 text-white text-right">
                         <h3>Plate Number:</h3>
                     </div>
-                    <div className={`col-7 text-white ${styles.textLeft}`}>
+                    <div className="col-6 text-white text-left">
                         <h3>XXXXXX</h3>
                     </div>
                 </div>
-
                 <div className="row">
-                    <div className={`col-5 text-white ${styles.textRight}`}>
+                    <div className="col-6 text-white text-right">
                         <h3>Parking Location:</h3>
                     </div>
-                    <div className={`col-7 text-white ${styles.textLeft}`}>
+                    <div className="col-6 text-white text-left">
                         <h3>Boston</h3>
                     </div>
                 </div>
-
                 <div className="row">
-                    <div className={`col-5 text-white ${styles.textRight}`}>
+                    <div className="col-6 text-white text-right">
                         <h3>Enter Time:</h3>
                     </div>
-                    <div className={`col-7 text-white ${styles.textLeft}`}>
+                    <div className="col-6 text-white text-left">
                         <h3>2023-01-01 19:00:00</h3>
                     </div>
                 </div>
 
                 <div className="row">
-                    <div className={`col-5 text-white ${styles.textRight}`}>
+                    <div className="col-6 text-white text-right">
                         <h3>Departure Time:</h3>
                     </div>
-                    <div className={`col-7 text-white ${styles.textLeft}`}>
+                    <div className="col-6 text-white text-left">
                         <h3>2023-01-01 20:30:00</h3>
                     </div>
                 </div>
 
                 <div className="row">
-                    <div className={`col-5 text-white ${styles.textRight}`}>
+                    <div className="col-6 text-white text-right">
                         <h3>Total Parking Time:</h3>
                     </div>
-                    <div className={`col-7 text-white ${styles.textLeft}`}>
+                    <div className="col-6 text-white text-left">
                         <h3>1 hour 30 minutes</h3>
                     </div>
                 </div>
 
                 <div className="row">
-                    <div className={`col-5 text-white ${styles.textRight}`}>
+                    <div className={`col-6 text-white text-right`}>
                         <h3>Parking Fee:</h3>
                     </div>
-                    <div className={`col-7 text-white ${styles.textLeft}`}>
+                    <div className={`col-6 text-white text-left`}>
                         <h3>10.00 USD</h3>
                     </div>
                 </div>
