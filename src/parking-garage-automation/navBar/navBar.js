@@ -16,6 +16,10 @@ const NavBar = () =>{
 
     }
 
+    const navLogIn = ()=>{
+        navigate('/login');
+    }
+
 
     return(<>
 
@@ -30,7 +34,7 @@ const NavBar = () =>{
                             <Nav.Link onClick={navManagementSystem}>Management System</Nav.Link>
                         </Nav>
 
-                    <Button id="logInButton" >Log In</Button>
+                    <Button id="logInButton" onClick={navLogIn} >Log In</Button>
 
                 </Container>
             </Navbar>

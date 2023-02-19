@@ -3,6 +3,7 @@ import { Route, Routes } from "react-router";
 import ParkingPaymentComponent from "./parking-payment";
 import InputCarComponent from "./InputCar";
 import LoginComponent from "./login";
+import GarageDataComponent from "./garage-data";
 
 
 function ParkingGarageAutomation() {
