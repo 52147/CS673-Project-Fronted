@@ -6,20 +6,23 @@ import styles from './footer.module.css'
 export const Footer = () => {
   return (
     <>
-      <footer>
-        <div className={styles.container}>
+      <footer className="bg-stone-800 absolute bottom-0 w-100">
+        <div className="flex justify-center">
           <div className={styles.box}>
-
-            <div className={styles.icon}>
+            <div className="text-white">
               <h2>Get in Touch</h2>
-              <p><FontAwesomeIcon icon={faLocation} />
-                &nbsp; MA, Cambridge, US</p>
-              <p><FontAwesomeIcon icon={faEnvelope} />
-                &nbsp; support@gmail.com</p>
+              <p>
+                <FontAwesomeIcon icon={faLocation} />
+                &nbsp; MA, Cambridge, US
+              </p>
+              <p>
+                <FontAwesomeIcon icon={faEnvelope} />
+                &nbsp; support@gmail.com
+              </p>
             </div>
           </div>
         </div>
       </footer>
     </>
-  )
+  );
 }
