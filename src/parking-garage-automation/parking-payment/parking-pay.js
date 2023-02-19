@@ -117,17 +117,16 @@ const ParkingPayment = () =>{
 
 
                             </div>
+
                         </div>
                     }
-
-
-
 
                 </div>
 
                 <Button className={`mt-3 ${styles.payButton}`} onClick={payButtonClickHandler} variant="warning">Pay</Button>
 
             </div>
+
 
         </>
     )

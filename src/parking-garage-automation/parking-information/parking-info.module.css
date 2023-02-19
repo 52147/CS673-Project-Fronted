@@ -1,26 +1,29 @@
-.textColor {
+.textColor{
     color: #50A3A2;
 }
 
-.payButton {
-    width: 25%;
-    font-size: x-large;
-    /* color: #50A3A2 !important; */
+
+.payButton{
+    width : 25%;
+    font-size: x-large !important;
+/*
+    color: #50A3A2 !important;
+*/
 }
 
-/* .backG {
+.backG{
     text-align: center;
-    position: fixed;
+    position:fixed;
     width: 100%;
-    height: 65%;
+    height: 75%;
     background-size: cover;
     background: #50A3A2 center;
-} */
+}
 
-.textRight {
+.textRight{
     text-align: right;
 }
 
-.textLeft {
+.textLeft{
     text-align: left;
 }
