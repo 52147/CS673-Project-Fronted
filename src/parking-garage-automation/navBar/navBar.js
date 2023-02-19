@@ -1,29 +1,41 @@
-import { Container, Navbar, Nav, Button } from "react-bootstrap";
+import {Container, Navbar, Nav, Button} from "react-bootstrap";
 import styles from './navBar.module.css'
-import { NavLink } from "react-router-dom";
+import {useNavigate} from "react-router";
 
-const NavBar = () => {
-    return (
-        <>
 
+
+const NavBar = () =>{
+    const navigate = useNavigate()
+
+    const navHome = ()=>{
+        navigate('/');
+    }
+
+    const navManagementSystem = ()=>{
+
+    }
+
+
+    return(<>
             <Navbar bg="light">
                 <Container>
-                    <Navbar.Brand href="/">
+                    <Navbar.Brand onClick={navHome}>
                         <div className={styles.textColor}>Victory Eight</div>
                     </Navbar.Brand>
 
-                    <Nav className="me-auto">
-                        <Nav.Link href="/" >Home</Nav.Link>
-                        <Nav.Link href="/information" >Information</Nav.Link>
-                        <Nav.Link href="/payment" >Payment</Nav.Link>
-                        {/* <Nav.Link href="/">Management System</Nav.Link> */}
-                    </Nav>
+                        <Nav className="me-auto" >
+                            <Nav.Link onClick={navHome}>Home</Nav.Link>
+                            <Nav.Link onClick={navManagementSystem}>Management System</Nav.Link>
+                        </Nav>
+
                     <Button id="logInButton" >Log In</Button>
 
                 </Container>
             </Navbar>
+
         </>
     )
 }
+
 
 export default NavBar;
