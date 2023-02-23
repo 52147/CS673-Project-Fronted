@@ -6,16 +6,13 @@
 .payButton{
     width : 25%;
     font-size: x-large !important;
-/*
-    color: #50A3A2 !important;
-*/
 }
 
 .backG{
     text-align: center;
     position:fixed;
     width: 100%;
-    height: 75%;
+    height: 100%;
     background-size: cover;
     background: #50A3A2 center;
 }
