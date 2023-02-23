@@ -1,45 +1,65 @@
-import {Button,Form} from "react-bootstrap";
-import {useState} from "react";
+import {Button, Form, Modal} from "react-bootstrap";
+import React, {useState} from "react";
 import styles from './parking-pay.module.css'
+import {useSelector} from "react-redux";
+import zelleImg from '../../image/zelleImg.jpeg'
+import {useNavigate} from "react-router";
 
-const ParkingPayment = () =>{
-    let [credit, setCredit] = useState(1);
+const ParkingPayment = () => {
+    const {ParkingFee} = useSelector((state) => state.parkInfo)
 
-    const creditPayClickHandler = () =>{
-        setCredit(1)
-    }
-    const debitPayClickHandler = () =>{
+    let [credit, setCredit] = useState(0);
+
+    const cashPayClickHandler = () => {
         setCredit(0)
     }
-
-    const payButtonClickHandler = () =>{
-
+    const onlinePayClickHandler = () => {
+        setCredit(1)
     }
 
+    const zellePayClickHandler = () => {
+        setCredit(2)
+    }
 
-    return(<>
-            <div className={styles.backG} >
+    const [show, setShow] = useState(false);
+
+    const payButtonClickHandlerClose = () => setShow(false);
+    const  payButtonClickHandlerShow = () => setShow(true);
+
+    const navigate = useNavigate()
+    const navHome = ()=>{
+        navigate('/');
+    }
+
+    return (<>
+            <div className={styles.backG}>
                 <div className="container">
                     <div className="row mt-5">
                         <div className="col text-white">
-                            <h1>Payment</h1>
+                                <div className={`col-6 text-white ${styles.textRight}`}>
+                                    <h1>Total Fee:</h1>
+                                </div>
+                                <div className={`col-6 text-white ${styles.textLeft}`}>
+                                    <h3>{ParkingFee}</h3>
+                                </div>
                         </div>
                     </div>
 
-                    <div className="row mt-3">
-                        <div className={`col-6 text-white ${styles.textRight}`}>
-                            <Button  onClick={creditPayClickHandler} variant="light">Use Credit Card Pay</Button>
+                    <div className="row mt-5">
+                        <div className={`col-5 text-white ${styles.textRight}`}>
+                            <Button onClick={cashPayClickHandler} variant="light">Pay with Cash/Card</Button>
                         </div>
-                        <div className={`col-6 text-white ${styles.textLeft}`}>
-                            <Button  onClick={debitPayClickHandler} variant="light">Use Debit Card Pay</Button>
-
+                        <div className={`col-2 text-white `}>
+                            <Button onClick={onlinePayClickHandler} variant="light"> Pay Online </Button>
+                        </div>
+                        <div className={`col-5 text-white ${styles.textLeft}`}>
+                            <Button onClick={zellePayClickHandler} variant="light">Pay with Zelle</Button>
                         </div>
                     </div>
-
-
                     {
                         credit == 0 && <div>
-                            debit
+                            <br/>
+                            <br/>
                         </div>
                     }
                     {
@@ -53,7 +73,7 @@ const ParkingPayment = () =>{
                                                 <h3>First Name: </h3>
                                             </div>
                                             <div className={`col-5 text-white  ${styles.textLeft}`}>
-                                                <Form.Control type="FirstName" placeholder="Enter First Name" />
+                                                <Form.Control type="FirstName" placeholder="Enter First Name"/>
                                             </div>
                                         </div>
                                     </Form.Group>
@@ -64,7 +84,7 @@ const ParkingPayment = () =>{
                                                 <h3>Last Name: </h3>
                                             </div>
                                             <div className={`col-5 text-white mt-1 ${styles.textLeft}`}>
-                                                <Form.Control type="LastName" placeholder="Enter Last Name" />
+                                                <Form.Control type="LastName" placeholder="Enter Last Name"/>
                                             </div>
                                         </div>
                                     </Form.Group>
@@ -75,7 +95,7 @@ const ParkingPayment = () =>{
                                                 <h3>Email Address: </h3>
                                             </div>
                                             <div className={`col-5 text-white mt-1 ${styles.textLeft}`}>
-                                                <Form.Control type="Email" placeholder="Enter Email Address" />
+                                                <Form.Control type="Email" placeholder="Enter Email Address"/>
                                             </div>
                                         </div>
                                     </Form.Group>
@@ -86,7 +106,7 @@ const ParkingPayment = () =>{
                                                 <h3>Card Number: </h3>
                                             </div>
                                             <div className={`col-5 text-white mt-1 ${styles.textLeft}`}>
-                                                <Form.Control type="CardNumber" placeholder="Enter Card Number" />
+                                                <Form.Control type="CardNumber" placeholder="Enter Card Number"/>
                                             </div>
                                         </div>
                                     </Form.Group>
@@ -97,7 +117,7 @@ const ParkingPayment = () =>{
                                                 <h3>Expiration Date: </h3>
                                             </div>
                                             <div className={`col-5 text-white mt-1 ${styles.textLeft}`}>
-                                                <Form.Control type="ExpirationDate" placeholder="Enter Expiration Date" />
+                                                <Form.Control type="ExpirationDate" placeholder="Enter Expiration Date"/>
                                             </div>
                                         </div>
                                     </Form.Group>
@@ -108,7 +128,7 @@ const ParkingPayment = () =>{
                                                 <h3>CVC: </h3>
                                             </div>
                                             <div className={`col-5 text-white mt-1 ${styles.textLeft}`}>
-                                                <Form.Control type="CVC" placeholder="Enter CVC" />
+                                                <Form.Control type="CVC" placeholder="Enter CVC"/>
                                             </div>
                                         </div>
                                     </Form.Group>
@@ -119,11 +139,29 @@ const ParkingPayment = () =>{
                             </div>
 
                         </div>
-                    }
+                    }{
+                    credit == 2 && <div className={` mt-3 ${styles.content}`}>
+
+                            <img src={zelleImg} height={280} width={280} alt=''/>
+                    </div>
+                }
 
                 </div>
 
-                <Button className={`mt-3 ${styles.payButton}`} onClick={payButtonClickHandler} variant="warning">Pay</Button>
+                <Button className={`mt-3 ${styles.payButton}`} onClick={payButtonClickHandlerShow}
+                        variant="warning">Pay</Button>
+
+                <Modal show={show} onHide={payButtonClickHandlerClose}>
+                    <Modal.Header closeButton>
+                        <Modal.Title>Payment</Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body> Pay successfully! Thank you!</Modal.Body>
+                    <Modal.Footer>
+                        <Button variant="primary" onClick={navHome}>
+                            Close
+                        </Button>
+                    </Modal.Footer>
+                </Modal>
 
             </div>
 
