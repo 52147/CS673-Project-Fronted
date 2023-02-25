@@ -1,23 +1,24 @@
-import logo from './logo.svg';
 import './App.css';
+import { Routes, Route } from "react-router";
+import { BrowserRouter } from "react-router-dom";
+
+import ParkingGarageAutomation from "./parking-garage-automation";
+import {configureStore} from "@reduxjs/toolkit";
+import inputCarReducer from "./parking-garage-automation/reducers/inputCarReducer";
+import {Provider} from "react-redux";
+import parkInfoReducer from "./parking-garage-automation/reducers/parkInfoReducer";
+const store = configureStore({reducer: {checkInCars: inputCarReducer,parkInfo: parkInfoReducer}})
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+        <Provider store={store}>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/*" element={<ParkingGarageAutomation />} />
+        </Routes>
+      </BrowserRouter>
+        </Provider>
     </div>
   );
 }
