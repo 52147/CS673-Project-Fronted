@@ -19,9 +19,12 @@ const ParkingInformation = () => {
         navigate('/payment');
     }
 
+    const navHome = () => {
+        navigate('/');
+    }
+
     return (<>
             <div className={styles.backG}>
-
                 {
                     !loading && <div className="container">
 
@@ -94,8 +97,19 @@ const ParkingInformation = () => {
                     </Spinner>
                 }
 
-                <Button className={`mt-3 ${styles.payButton}`} onClick={payButtonClickHandler}
-                        variant="warning">Pay</Button>
+
+
+                <div className="row mt-3">
+                    <div className={`col-6  ${styles.textRight}`}>
+                        <Button className={`${styles.payButton}`} onClick={payButtonClickHandler}
+                                variant="warning">Pay</Button>
+                    </div>
+                    <div className={`col-6 text-white ${styles.textLeft}`}>
+                        <Button className={`${styles.payButton}`} onClick={navHome}
+                                variant="secondary">Back</Button>
+                    </div>
+                </div>
+
             </div>
         </>
     )
