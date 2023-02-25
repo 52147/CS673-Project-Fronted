@@ -1,24 +1,42 @@
 import React, { useState } from 'react'
 import styles from './login.module.css'
+
+
+import {useDispatch, useSelector} from "react-redux";
+import {loginThunk} from "../../services/loginThunk";
+
 export const Login = () => {
   //[current state, function is used to update state]
   // useState(initial state to empty string)
+  const {loading, responseMsg, car} = useSelector((state) => state.checkInCars)
+  const dispatch = useDispatch()
+
   const [contact, setContact] = useState({
-    fName: "",
-    lName: "",
-    email: ""
+    userEmail: "",
+    userPassword: ""
   });
+
+  const submitUser = ()=>{
+    const content = {
+      email: contact.userEmail,
+      password: contact.userPassword
+    }
+    console.log(content)
+
+    dispatch(loginThunk(content))
+
+  }
 
   const [isMouseOver, setMouseOver] = useState(false);
 
   function handleChange(event) {
-    const { name, value } = event.target;
+    const { email, value } = event.target;
 
     setContact((preValue) => {
       return {
         // spread operator(...) : allows us to copy existing array/object into another array/object
         ...preValue,
-        [name]: value
+        [email]: value
       };
     });
   }
@@ -60,6 +78,7 @@ export const Login = () => {
             // event handling: allows javascript handle html event
             onMouseOver={handleMouseOver} // handleMouseOver function will be executed when Mouse over
             onMouseOut={handleMouseOut}
+            onClick={submitUser}
           >
             Submit
           </button>
