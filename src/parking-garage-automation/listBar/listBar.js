@@ -5,6 +5,7 @@ import GarageData from "../garage-historyData/garage-data";
 import React from "react";
 
 
+
 const ListBar = () => {
 
     const alertClicked = () => {
@@ -14,6 +15,7 @@ const ListBar = () => {
     const navigate = useNavigate()
 
     const navHome = () => {
+
         navigate('/');
     }
 
@@ -26,6 +28,7 @@ const ListBar = () => {
         //         <li><a href="#contact">Pay</a></li>
         //     </ul>
         // </>
+
         <div className={'container-fluid mt-3'}>
             <Tab.Container id="list-group-tabs-example" defaultActiveKey="#History Data">
                 <Row>

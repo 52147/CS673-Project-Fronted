@@ -6,7 +6,8 @@ import styles from './footer.module.css'
 export const Footer = () => {
   return (
     <>
-      <footer className="bg-stone-800 absolute bottom-0 w-100">
+      <footer className="bg-stone-800 fixed bottom-0 w-100">
+
         <div className="flex justify-center">
           <div className={styles.box}>
             <div className="text-white">

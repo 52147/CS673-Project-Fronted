@@ -1,4 +1,5 @@
 import ParkingInformationComponent from "./parking-information";
+
 import {Route, Routes} from "react-router";
 import ParkingPaymentComponent from "./parking-payment";
 import InputCarComponent from "./InputCar";
@@ -7,6 +8,7 @@ import GarageDataComponent from "./garage-historyData";
 import {useState} from "react";
 import FooterComponent from "./footer";
 import NavBarComponent from "./navBar";
+import ModulesComponent from "./modules";
 
 function ParkingGarageAutomation() {
     // const [value, setValue] = useState('')
@@ -18,6 +20,7 @@ function ParkingGarageAutomation() {
                 <Route path="login" element={<LoginComponent/>}/>
                 <Route path='/' exact element={<InputCarComponent/>}/>
                 <Route path='/garageData' exact element={<GarageDataComponent/>}/>
+                <Route path="/modules" exact element={<ModulesComponent />} />
             </Routes>
         )
 
@@ -32,3 +35,4 @@ function ParkingGarageAutomation() {
 }
 
 export default ParkingGarageAutomation;
+
