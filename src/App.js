@@ -7,7 +7,8 @@ import {configureStore} from "@reduxjs/toolkit";
 import inputCarReducer from "./parking-garage-automation/reducers/inputCarReducer";
 import {Provider} from "react-redux";
 import parkInfoReducer from "./parking-garage-automation/reducers/parkInfoReducer";
-const store = configureStore({reducer: {checkInCars: inputCarReducer,parkInfo: parkInfoReducer}})
+import loginReducer from './parking-garage-automation/reducers/loginReducer';
+const store = configureStore({reducer: {checkInCars: inputCarReducer,parkInfo: parkInfoReducer, submitUser: loginReducer}})
 
 function App() {
   return (
