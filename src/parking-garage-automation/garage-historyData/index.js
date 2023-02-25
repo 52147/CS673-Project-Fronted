@@ -1,11 +1,14 @@
-
 import GarageData from "./garage-data";
 import ListBar from "../listBar/listBar";
 import NavBar from "../navBar/navBar";
+import FooterComponent from "../footer";
+import styles from "../parking-payment/parking-pay.module.css";
+import {Form} from "react-bootstrap";
+import React from "react";
 
 
-const GarageDataComponent = () =>{
-    return(<>
+const GarageDataComponent = () => {
+    return (<>
             {/*<div className="row"><NavBar></NavBar></div>*/}
             {/*<div className="row">*/}
             {/*    <div className="col-6">*/}
@@ -18,8 +21,7 @@ const GarageDataComponent = () =>{
 
             <NavBar></NavBar>
             <ListBar></ListBar>
-            <GarageData></GarageData>
-
+            <FooterComponent></FooterComponent>
         </>
     )
 }

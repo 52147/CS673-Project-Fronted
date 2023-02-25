@@ -45,7 +45,7 @@ const ParkingPayment = () => {
                         </div>
                     </div>
 
-                    <div className="row mt-5">
+                    <div className="row mt-4">
                         <div className={`col-5 text-white ${styles.textRight}`}>
                             <Button onClick={cashPayClickHandler} variant="light">Pay with Cash/Card</Button>
                         </div>
@@ -142,7 +142,7 @@ const ParkingPayment = () => {
                     }{
                     credit == 2 && <div className={` mt-3 ${styles.content}`}>
 
-                            <img src={zelleImg} height={280} width={280} alt=''/>
+                            <img src={zelleImg} height={250} width={250} alt=''/>
                     </div>
                 }
 
