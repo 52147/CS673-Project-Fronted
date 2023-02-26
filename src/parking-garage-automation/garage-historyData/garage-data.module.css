@@ -7,5 +7,10 @@
 }
 
 .textRight{
-    text-align: right;
+    text-align: right !important;
+}
+
+.horizontalUL{
+    flex-direction: row;
+    display: flex;
 }

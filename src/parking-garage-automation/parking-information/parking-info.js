@@ -1,8 +1,9 @@
 import {Button, Spinner} from "react-bootstrap";
 import styles from './parking-info.module.css'
 import {useNavigate} from "react-router";
-import {useSelector} from "react-redux";
-import React from "react";
+import {useDispatch, useSelector} from "react-redux";
+import React, {useEffect} from "react";
+import {getParkingInfoThunk} from "../../services/parkInfoThunk";
 
 const ParkingInformation = () => {
     const {
@@ -20,8 +21,18 @@ const ParkingInformation = () => {
     }
 
     const navHome = () => {
-        navigate('/');
+        setTimeout(() => {
+            navigate('/');
+        }, 3000)
+
     }
+
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        dispatch(getParkingInfoThunk())
+    }, []);
+
 
     return (<>
             <div className={styles.backG}>
@@ -63,7 +74,7 @@ const ParkingInformation = () => {
 
                         <div className="row">
                             <div className={`col-6 text-white ${styles.textRight}`}>
-                                <h3>Departure Time:</h3>
+                                <h3>Exit Time:</h3>
                             </div>
                             <div className={`col-6 text-white ${styles.textLeft}`}>
                                 <h3>{DepartureTime}</h3>

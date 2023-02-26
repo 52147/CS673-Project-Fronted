@@ -10,7 +10,7 @@ const NavBar = () =>{
     }
 
     const navManagementSystem = ()=>{
-
+        navigate('/modules');
     }
 
     const navLogIn = ()=>{

@@ -19,9 +19,7 @@ const GarageDataComponent = () => {
             {/*    </div>*/}
             {/*</div>*/}
 
-            <NavBar></NavBar>
-            <ListBar></ListBar>
-            <FooterComponent></FooterComponent>
+            <GarageData></GarageData>
         </>
     )
 }

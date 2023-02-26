@@ -1,5 +1,5 @@
 import {createSlice} from "@reduxjs/toolkit";
-import {getThunk} from "../../services/parkInfoThunk";
+import {getParkingInfoThunk} from "../../services/parkInfoThunk";
 
 const initialState = {
     loading: false,
@@ -14,12 +14,12 @@ const parkInfoSlice = createSlice({
     name: 'parkInfo',
     initialState,
     extraReducers: {
-        [getThunk.pending]:
+        [getParkingInfoThunk.pending]:
             (state) => {
                 state.loading = true
                 console.log("pending")
             },
-        [getThunk.fulfilled]:
+        [getParkingInfoThunk.fulfilled]:
             (state, { payload }) => {
                 state.loading = false
                 state.PlateNumber = payload.plate
@@ -29,9 +29,8 @@ const parkInfoSlice = createSlice({
                 state.ParkingFee = payload.payAmount
 
                 console.log("**")
-                console.log(state.responseMsg)
             },
-        [getThunk.rejected]:
+        [getParkingInfoThunk.rejected]:
             (state) => {
                 state.loading = false
             }

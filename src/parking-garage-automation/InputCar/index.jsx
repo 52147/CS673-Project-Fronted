@@ -6,9 +6,7 @@ import { InputCar } from './InputCar';
 export const InputCarComponent = () => {
   return (
     <>
-      <NavBarComponent />
       <InputCar />
-      <FooterComponent />
     </>
   )
 }
