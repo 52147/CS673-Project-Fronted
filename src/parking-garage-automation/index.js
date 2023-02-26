@@ -9,29 +9,32 @@ import {useState} from "react";
 import FooterComponent from "./footer";
 import NavBarComponent from "./navBar";
 import ModulesComponent from "./modules";
+import ListBarComponent from "./listBar";
 
 function ParkingGarageAutomation() {
-    // const [value, setValue] = useState('')
-    // let dom = (value) => {
+    const [value, setValue] = useState('')
+    let dom = (value) => {
         return (
             <Routes>
                 <Route path="information" element={<ParkingInformationComponent/>}/>
                 <Route path="payment" element={<ParkingPaymentComponent/>}/>
                 <Route path="login" element={<LoginComponent/>}/>
                 <Route path='/' exact element={<InputCarComponent/>}/>
-                <Route path='/garageData' exact element={<GarageDataComponent/>}/>
-                <Route path="/modules" exact element={<ModulesComponent />} />
+                <Route path='/garageData' exact element={<ListBarComponent/>}/>
+                <Route path="/modules" exact element={<ModulesComponent/>}/>
             </Routes>
         )
 
-    // }
-    // return (
-    //     <div className="row">
-    //         <NavBarComponent valueChange={(e) => {setValue(e);}}></NavBarComponent>
-    //         {dom(value)}
-    //         <FooterComponent></FooterComponent>
-    //     </div>
-    // );
+    }
+    return (
+        <div className="row">
+            <NavBarComponent valueChange={(e) => {
+                setValue(e);
+            }}></NavBarComponent>
+            {dom(value)}
+            <FooterComponent></FooterComponent>
+        </div>
+    );
 }
 
 export default ParkingGarageAutomation;

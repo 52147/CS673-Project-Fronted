@@ -8,7 +8,8 @@ import inputCarReducer from "./parking-garage-automation/reducers/inputCarReduce
 import {Provider} from "react-redux";
 import parkInfoReducer from "./parking-garage-automation/reducers/parkInfoReducer";
 import loginReducer from './parking-garage-automation/reducers/loginReducer';
-const store = configureStore({reducer: {checkInCars: inputCarReducer,parkInfo: parkInfoReducer, submitUser: loginReducer}})
+import parkHistoryReducer from "./parking-garage-automation/reducers/parkHistoryReducer";
+const store = configureStore({reducer: {checkInCars: inputCarReducer,parkInfo: parkInfoReducer,parkHistory:parkHistoryReducer,submitUser: loginReducer}})
 
 function App() {
   return (

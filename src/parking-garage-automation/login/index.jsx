@@ -5,9 +5,7 @@ import FooterComponent from '../footer';
 export const LoginComponent = () => {
     return (
         <>
-            <NavBarComponent></NavBarComponent>
             <Login />
-            <FooterComponent />
         </>
     )
 }

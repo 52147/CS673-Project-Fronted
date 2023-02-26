@@ -6,6 +6,7 @@ import React from "react";
 
 
 
+
 const ListBar = () => {
 
     const alertClicked = () => {
@@ -29,25 +30,31 @@ const ListBar = () => {
         //     </ul>
         // </>
 
-        <div className={'container-fluid mt-3'}>
+        <div className="container mt-3">
             <Tab.Container id="list-group-tabs-example" defaultActiveKey="#History Data">
-                <Row>
+                <Row className={"ms-2"}>
                     <Col sm={2}>
                         <ListGroup>
+                            {/*<ListGroup.Item action href="#Parking Lot">*/}
+                            {/*    Parking Lot Management*/}
+                            {/*</ListGroup.Item>*/}
                             <ListGroup.Item action href="#History Data">
-                                History Data
+                                Parking History
                             </ListGroup.Item>
-                            <ListGroup.Item action href="#link2">
-                                Link 2
+                            <ListGroup.Item action href="#Authority">
+                                Authority
+                                Management
                             </ListGroup.Item>
                         </ListGroup>
                     </Col>
                     <Col sm={10}>
                         <Tab.Content>
+                            {/*<Tab.Pane eventKey="#Parking Lot">*/}
+                            {/*</Tab.Pane>*/}
                             <Tab.Pane eventKey="#History Data">
                                 <GarageData></GarageData>
                             </Tab.Pane>
-                            <Tab.Pane eventKey="#link2">
+                            <Tab.Pane eventKey="#Authority">
 
                             </Tab.Pane>
                         </Tab.Content>

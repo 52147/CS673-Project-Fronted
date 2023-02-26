@@ -5,9 +5,7 @@ import { FooterComponent } from '../footer/index';
 const ParkingInformationComponent = () => {
     return (
         <>
-            <NavBarComponent></NavBarComponent>
             <ParkingInformation></ParkingInformation>
-            <FooterComponent />
         </>
     )
 }
