@@ -5,7 +5,10 @@ import {useDispatch, useSelector} from "react-redux";
 import React, {useEffect} from "react";
 import {getParkingInfoThunk} from "../../services/parkInfoThunk";
 
+
 const ParkingInformation = () => {
+
+
     const {
         loading,
         PlateNumber,
