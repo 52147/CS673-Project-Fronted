@@ -13,6 +13,7 @@ const GarageData = () => {
     const [posts, setPosts] = useState([]);
     let [startDate, setStartDate] = useState(new Date());
     let [endDate, setEndDate] = useState(new Date());
+
     const searchClickHandler = () => {
 
     }
@@ -24,16 +25,13 @@ const GarageData = () => {
 
     useEffect(() => {
         dispatch(getHistoryThunk())
-            .then((o) => {
-                firstPageHandler()
-            })
-
-        // setTimeout(() => {
-        //     paginationClickHandler(1)
-        // }, 2000)
-
     }, []);
 
+    useEffect(() => {
+        if (!loading) {
+            paginationClickHandler(1)
+        }
+    }, [loading])
 
     let tempArr = []
     const paginationClickHandler = (number) => {
@@ -45,18 +43,6 @@ const GarageData = () => {
         }
         setPosts(tempArr)
 
-    }
-
-
-    const firstPageHandler = () => {
-        let tempArr0 = []
-        for (let i = 0; i <= 9; i++) {
-            if (i < history.length) {
-                tempArr0.push(history[i]);
-            }
-        }
-        setPosts(tempArr0)
-        console.log(tempArr0)
     }
 
 
@@ -72,12 +58,7 @@ const GarageData = () => {
     }
 
 
-    const rows = [];
-    for (let i = 1; i <= pageNumbers; i++) {
-        rows.push(<li>
-            {i}
-        </li>);
-    }
+
     return (<>
             {
                 loading && <Spinner animation="border" role="status">
