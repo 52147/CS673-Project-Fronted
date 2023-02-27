@@ -58,12 +58,7 @@ const GarageData = () => {
     }
 
 
-    const rows = [];
-    for (let i = 1; i <= pageNumbers; i++) {
-        rows.push(<li>
-            {i}
-        </li>);
-    }
+
     return (<>
             {
                 loading && <Spinner animation="border" role="status">
