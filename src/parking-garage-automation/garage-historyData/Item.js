@@ -17,7 +17,7 @@ const Posts = ({ posts, loading }) => {
                     {post.plate}
                 </td>
                     <td>
-                        {post.entrance}
+                        {post.entrance.substring(0,19)}
                     </td>
                     <td>
                         {post.exit.substring(0,19)}
