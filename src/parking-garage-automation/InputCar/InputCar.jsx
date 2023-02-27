@@ -2,6 +2,8 @@ import React, { useState } from 'react'
 import styles from './inputCar.module.css'
 import {useDispatch, useSelector} from "react-redux";
 import {checkInCarThunk} from "../../services/inputCarThunk";
+import { redirect } from "react-router-dom";
+
 
 export const InputCar = () => {
   //[current state, function is used to update state]
@@ -23,14 +25,18 @@ export const InputCar = () => {
     });
   }
 
-  const submitPlateHandler = ()=>{
+  const submitPlateHandler = async()=>{
     const content = {
       plate: contact
     }
     console.log(content)
 
-    dispatch(checkInCarThunk(content))
-
+    await dispatch(checkInCarThunk(content))
+      .then((req) => { 
+        if(req.payload.msg == "success"){
+          window.location.replace(`/information?id=${contact}`)
+        }
+        console.log(req.payload.msg) }) 
   }
 
   function handleMouseOver() {
@@ -47,7 +53,7 @@ export const InputCar = () => {
           Input Plate License Number 
         </h1>
         {
-          !loading && <p>{responseMsg}</p>
+          // !loading && <p>{responseMsg}</p>
         }
         {
           loading && <p>loading = true</p>

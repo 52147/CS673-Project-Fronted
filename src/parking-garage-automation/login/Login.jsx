@@ -11,35 +11,21 @@ export const Login = () => {
   const {loading, responseMsg, car} = useSelector((state) => state.checkInCars)
   const dispatch = useDispatch()
 
-  const [contact, setContact] = useState({
-    userEmail: "",
-    userPassword: ""
-  });
+  let [username, setUsername] = useState('');
+  let [password, setPassword] = useState('');
 
   const submitUser = ()=>{
-    const content = {
-      email: contact.userEmail,
-      password: contact.userPassword
-    }
-    console.log(content)
 
-    dispatch(loginThunk(content))
+    console.log(username)
+    console.log(password)
+
+    dispatch(loginThunk({username,password}))
 
   }
 
   const [isMouseOver, setMouseOver] = useState(false);
 
-  function handleChange(event) {
-    const { email, value } = event.target;
 
-    setContact((preValue) => {
-      return {
-        // spread operator(...) : allows us to copy existing array/object into another array/object
-        ...preValue,
-        [email]: value
-      };
-    });
-  }
 
   function handleMouseOver() {
     setMouseOver(true);
@@ -52,22 +38,29 @@ export const Login = () => {
     <div>
       <div className={styles.container}>
         {/* useState to update first and last name */}
-        <h1 className="font-medium">Login {contact.email}</h1>
-        <p>{contact.password}</p>
-        <form>
+        <h1 className="font-medium">Login {username}</h1>
+        <p>{password}</p>
+        {
+          // !loading && <p>{responseMsg}</p>
+        }
+        {
+          loading && <p>loading = true</p>
+        }
+        <div>
           <input
             className={styles.inputClass}
-            onChange={handleChange}
+            onChange={(event) => setUsername(event.target.value)}
             name="email"
-            value={contact.email}
+            value={username}
+
             placeholder="Email"
           />
           <input
             className={styles.inputClass}
             // onchange event: event occurs when value of element has been changed
-            onChange={handleChange}
+            onChange={(event) => setPassword(event.target.value)}
             name="password"
-            value={contact.password}
+            value={password}
             placeholder="Password"
           />
 
@@ -82,7 +75,7 @@ export const Login = () => {
           >
             Submit
           </button>
-        </form>
+        </div>
       </div>
     </div>
   );
