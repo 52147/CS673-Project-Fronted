@@ -47,7 +47,7 @@ export const InputCar = () => {
           Input Plate License Number 
         </h1>
         {
-          !loading && <p>{responseMsg}</p>
+          // !loading && <p>{responseMsg}</p>
         }
         {
           loading && <p>loading = true</p>
