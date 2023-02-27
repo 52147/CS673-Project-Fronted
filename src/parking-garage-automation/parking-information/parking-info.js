@@ -39,14 +39,23 @@ const ParkingInformation = (props) => {
     useEffect(() => {
         dispatch(getParkingInfoThunk(parkInfo))
 
-        console.log(parkInfo)//123
     }, []);
 
 
     return (<>
             <div className={styles.backG}>
+                {PlateNumber == null && <>
+                    <div className="row mt-5">
+                        <div className="col text-white">
+                            <h1><div className="col text-white">
+                                <h1>{plates} Dose Not Exit.</h1>
+                            </div></h1>
+                        </div>
+                    </div>
+
+                </>}
                 {
-                    !loading && <div className="container">
+                    PlateNumber != null && !loading && <div className="container">
 
                         <div className="row mt-5">
                             <div className="col text-white">
@@ -107,27 +116,23 @@ const ParkingInformation = (props) => {
                                 <h3>{ParkingFee}</h3>
                             </div>
                         </div>
-
+                        <div className="row mt-3">
+                            <div className={`col-6  ${styles.textRight}`}>
+                                <Button className={`${styles.payButton}`} onClick={payButtonClickHandler}
+                                        variant="warning">Pay</Button>
+                            </div>
+                            <div className={`col-6 text-white ${styles.textLeft}`}>
+                                <Button className={`${styles.payButton}`} onClick={navHome}
+                                        variant="secondary">Back</Button>
+                            </div>
+                        </div>
                     </div>
-
                 }
                 {
-                    loading && <Spinner animation="border" role="status">
+                    PlateNumber != null && loading && <Spinner animation="border" role="status">
                         <span className="visually-hidden mt-5">Loading...</span>
                     </Spinner>
                 }
-
-
-                <div className="row mt-3">
-                    <div className={`col-6  ${styles.textRight}`}>
-                        <Button className={`${styles.payButton}`} onClick={payButtonClickHandler}
-                                variant="warning">Pay</Button>
-                    </div>
-                    <div className={`col-6 text-white ${styles.textLeft}`}>
-                        <Button className={`${styles.payButton}`} onClick={navHome}
-                                variant="secondary">Back</Button>
-                    </div>
-                </div>
 
             </div>
         </>

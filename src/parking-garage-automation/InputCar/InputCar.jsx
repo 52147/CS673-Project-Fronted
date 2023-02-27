@@ -35,7 +35,7 @@ export const InputCar = () => {
     await dispatch(checkInCarThunk(content))
       .then((req) => { 
         if(req.payload.msg == "success"){
-          window.location.replace(`/information?id=${contact}`)
+          window.location.replace(`/information/${contact}`)
         }
         console.log(req.payload.msg) })
   }
