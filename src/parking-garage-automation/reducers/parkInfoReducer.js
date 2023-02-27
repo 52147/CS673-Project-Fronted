@@ -18,7 +18,7 @@ const parkInfoSlice = createSlice({
         [getParkingInfoThunk.pending]:
             (state) => {
                 state.loading = true
-                console.log("pending")
+                // console.log("pending")
             },
         [getParkingInfoThunk.fulfilled]:
             (state, { payload }) => {
@@ -29,7 +29,7 @@ const parkInfoSlice = createSlice({
                 state.TotalParkingTime = payload.content.parkingtime
                 state.ParkingFee = payload.content.parkingFee
                 state.msg = 'success'
-                console.log(payload)
+                // console.log(payload)
             },
         [getParkingInfoThunk.rejected]:
             (state) => {
