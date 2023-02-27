@@ -11,15 +11,15 @@ export const Login = () => {
   const {loading, responseMsg, car} = useSelector((state) => state.checkInCars)
   const dispatch = useDispatch()
 
-  let [Username, setUsername] = useState('');
-  let [Password, setPassword] = useState('');
+  let [username, setUsername] = useState('');
+  let [password, setPassword] = useState('');
 
   const submitUser = ()=>{
 
-    console.log(Username)
-    console.log(Password)
+    console.log(username)
+    console.log(password)
 
-    dispatch(loginThunk({Username,Password}))
+    dispatch(loginThunk({username,password}))
 
   }
 
@@ -38,8 +38,8 @@ export const Login = () => {
     <div>
       <div className={styles.container}>
         {/* useState to update first and last name */}
-        <h1 className="font-medium">Login {Username}</h1>
-        <p>{Password}</p>
+        <h1 className="font-medium">Login {username}</h1>
+        <p>{password}</p>
         {
           // !loading && <p>{responseMsg}</p>
         }
@@ -51,7 +51,7 @@ export const Login = () => {
             className={styles.inputClass}
             onChange={(event) => setUsername(event.target.value)}
             name="email"
-            value={Username}
+            value={username}
             placeholder="Email"
           />
           <input
@@ -59,7 +59,7 @@ export const Login = () => {
             // onchange event: event occurs when value of element has been changed
             onChange={(event) => setPassword(event.target.value)}
             name="password"
-            value={Password}
+            value={password}
             placeholder="Password"
           />
 
