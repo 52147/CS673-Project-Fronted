@@ -23,8 +23,8 @@ const parkInfoSlice = createSlice({
             (state, { payload }) => {
                 state.loading = false
                 state.PlateNumber = payload.plate
-                state.EnterTime = payload.entrance
-                state.DepartureTime = payload.exit
+                if(payload.entrance !=null){state.EnterTime = payload.entrance.substring(0,19)}
+                if(payload.exit !=null){state.DepartureTime = payload.exit.substring(0,19)}
                 state.TotalParkingTime = payload.totalParkingTime
                 state.ParkingFee = payload.parkingFee
 
@@ -33,7 +33,9 @@ const parkInfoSlice = createSlice({
         [getParkingInfoThunk.rejected]:
             (state) => {
                 state.loading = false
+                console.log("reject" )
             }
+
 
 
     },

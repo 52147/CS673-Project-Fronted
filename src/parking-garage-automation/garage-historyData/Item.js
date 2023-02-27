@@ -20,7 +20,7 @@ const Posts = ({ posts, loading }) => {
                         {post.entrance}
                     </td>
                     <td>
-                        {post.exit}
+                        {post.exit.substring(0,19)}
                     </td>
                     <td>
                         {post.cardNum}
