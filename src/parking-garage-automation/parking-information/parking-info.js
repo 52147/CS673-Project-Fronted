@@ -15,12 +15,13 @@ const ParkingInformation = (props) => {
         EnterTime,
         DepartureTime,
         TotalParkingTime,
-        ParkingFee
+        ParkingFee,
+        msg
     } = useSelector((state) => state.parkInfo)
 
     const navigate = useNavigate()
     const payButtonClickHandler = () => {
-        navigate('/payment');
+        window.location.replace(`/payment/${plates}`)
     }
 
     const navHome = () => {
@@ -44,18 +45,18 @@ const ParkingInformation = (props) => {
 
     return (<>
             <div className={styles.backG}>
-                {PlateNumber == null && <>
+                {msg == 'fail' && <>
                     <div className="row mt-5">
                         <div className="col text-white">
                             <h1><div className="col text-white">
-                                <h1>{plates} Dose Not Exit.</h1>
+                                <h1>{plates} Dose Not Exist.</h1>
                             </div></h1>
                         </div>
                     </div>
 
                 </>}
                 {
-                    PlateNumber != null && !loading && <div className="container">
+                    msg == 'success' && !loading && <div className="container">
 
                         <div className="row mt-5">
                             <div className="col text-white">
@@ -113,7 +114,7 @@ const ParkingInformation = (props) => {
                                 <h3>Parking Fee:</h3>
                             </div>
                             <div className={`col-6 text-white ${styles.textLeft}`}>
-                                <h3>{ParkingFee}</h3>
+                                <h3>{ParkingFee} USD</h3>
                             </div>
                         </div>
                         <div className="row mt-3">
@@ -129,7 +130,7 @@ const ParkingInformation = (props) => {
                     </div>
                 }
                 {
-                    PlateNumber != null && loading && <Spinner animation="border" role="status">
+                    msg == 'success' && loading && <Spinner animation="border" role="status">
                         <span className="visually-hidden mt-5">Loading...</span>
                     </Spinner>
                 }
