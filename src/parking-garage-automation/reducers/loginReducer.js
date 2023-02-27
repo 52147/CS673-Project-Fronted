@@ -2,10 +2,10 @@ import {createSlice} from "@reduxjs/toolkit";
 import {loginThunk, findUserByIdThunk, } from "../../services/loginThunk";
 
 const initialState = {
-    users: [],
+    users: "",
+    password: "",
     loading: false,
-    currentUser: null,
-    error:null,
+
 }
 const loginSlice = createSlice({
     name: 'users',
@@ -15,10 +15,13 @@ const loginSlice = createSlice({
         [loginThunk.fulfilled]:
             (state, action) =>{
               state.currentUser = action.payload;
+              console.log("fulfilled")
             },
         [loginThunk.rejected]:
             (state, action) =>{
                 state.error = action.payload
+                console.log(action.type)
+                console.log(state.users)
             },
 
         [findUserByIdThunk.fulfilled]:
@@ -36,7 +39,6 @@ const loginSlice = createSlice({
                 // state.users = state.users
                 //     .filter(p => p._id === action.payload)
             },
-
 
     },
     reducers: {
