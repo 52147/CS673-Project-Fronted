@@ -6,9 +6,10 @@ import React, {useEffect} from "react";
 import {getParkingInfoThunk} from "../../services/parkInfoThunk";
 import {useParams} from "react-router-dom";
 
-const ParkingInformation = (props) => {
-    const {plates} = useParams();
-    //console.log(plates)
+
+const ParkingInformation = () => {
+
+
     const {
         loading,
         PlateNumber,
