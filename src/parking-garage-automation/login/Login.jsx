@@ -52,6 +52,7 @@ export const Login = () => {
             onChange={(event) => setUsername(event.target.value)}
             name="email"
             value={username}
+
             placeholder="Email"
           />
           <input
