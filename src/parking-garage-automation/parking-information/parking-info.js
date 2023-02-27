@@ -7,6 +7,7 @@ import {getParkingInfoThunk} from "../../services/parkInfoThunk";
 import {useParams} from "react-router-dom";
 
 
+
 const ParkingInformation = () => {
 
 
