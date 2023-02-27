@@ -11,19 +11,19 @@ const Posts = ({ posts, loading }) => {
             {posts.map(post => (
                 <tr>
                 <td>
-                    {post.title}
+                    {post.id}
                 </td>
                 <td>
-                    {post.userId}
+                    {post.plate}
                 </td>
                     <td>
-                        {post.id}
+                        {post.entrance}
                     </td>
                     <td>
-                        {post.id}
+                        {post.exit}
                     </td>
                     <td>
-                        {post.body}
+                        {post.cardNum}
                     </td>
                 </tr>
             ))}

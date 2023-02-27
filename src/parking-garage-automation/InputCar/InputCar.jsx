@@ -31,12 +31,13 @@ export const InputCar = () => {
     }
     console.log(content)
 
+
     await dispatch(checkInCarThunk(content))
       .then((req) => { 
         if(req.payload.msg == "success"){
           window.location.replace(`/information?id=${contact}`)
         }
-        console.log(req.payload.msg) }) 
+        console.log(req.payload.msg) })
   }
 
   function handleMouseOver() {
