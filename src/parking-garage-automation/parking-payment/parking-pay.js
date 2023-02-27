@@ -6,12 +6,15 @@ import zelleImg from '../../image/zelleImg.jpeg'
 import {useNavigate} from "react-router";
 import {useParams} from "react-router-dom";
 import {getParkingInfoThunk} from "../../services/parkInfoThunk";
+import {checkOutCarThunk} from "../../services/checkOutCarThunk";
 
 const ParkingPayment = (props) => {
     const {plates} = useParams();
 
     const dispatch = useDispatch();
     const {ParkingFee, loading, msg} = useSelector((state) => state.parkInfo)
+    const {checkOutMsg} = useSelector((state) => state.checkOutCars)
+
 
     const parkInfo = {
         plate: plates
@@ -36,8 +39,15 @@ const ParkingPayment = (props) => {
 
     const [show, setShow] = useState(false);
 
+    const payInfo = {
+        plate: plates
+    }
+
     const payButtonClickHandlerClose = () => setShow(false);
-    const payButtonClickHandlerShow = () => setShow(true);
+    const payButtonClickHandlerShow = () => {
+         dispatch(checkOutCarThunk(payInfo));
+        setShow(true);
+    }
 
     const navigate = useNavigate()
     const navHome = () => {
