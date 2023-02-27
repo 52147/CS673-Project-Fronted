@@ -4,7 +4,7 @@ import * as service from './parkHistoryServices'
 import {getHistoryService} from "./parkHistoryServices";
 
 export const getHistoryThunk = createAsyncThunk(
-    'check/checkIn', async () => {
+    '/index/check/checkIn/checkHistory', async () => {
         const json =  await service.getHistoryService()
         return json;
     }

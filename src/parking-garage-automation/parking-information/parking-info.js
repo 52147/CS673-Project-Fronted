@@ -4,8 +4,11 @@ import {useNavigate} from "react-router";
 import {useDispatch, useSelector} from "react-redux";
 import React, {useEffect} from "react";
 import {getParkingInfoThunk} from "../../services/parkInfoThunk";
+import {useParams} from "react-router-dom";
 
-const ParkingInformation = () => {
+const ParkingInformation = (props) => {
+    const {plates} = useParams();
+    //console.log(plates)
     const {
         loading,
         PlateNumber,
@@ -21,16 +24,22 @@ const ParkingInformation = () => {
     }
 
     const navHome = () => {
-        setTimeout(() => {
-            navigate('/');
-        }, 3000)
+
+        navigate('/');
+
 
     }
 
     const dispatch = useDispatch();
 
+    const parkInfo = {
+        plate: plates
+    }
+
     useEffect(() => {
-        dispatch(getParkingInfoThunk())
+        dispatch(getParkingInfoThunk(parkInfo))
+
+        console.log(parkInfo)//123
     }, []);
 
 
@@ -104,10 +113,9 @@ const ParkingInformation = () => {
                 }
                 {
                     loading && <Spinner animation="border" role="status">
-                        <span className="visually-hidden">Loading...</span>
+                        <span className="visually-hidden mt-5">Loading...</span>
                     </Spinner>
                 }
-
 
 
                 <div className="row mt-3">
