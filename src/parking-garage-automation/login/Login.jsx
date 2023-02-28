@@ -1,31 +1,25 @@
-import React, { useState } from 'react'
-import styles from './login.module.css'
-
-
-import {useDispatch, useSelector} from "react-redux";
-import {loginThunk} from "../../services/loginThunk";
+import React, { useState } from "react";
+import styles from "./login.module.css";
+import { useDispatch, useSelector } from "react-redux";
+import { loginThunk } from "../../services/loginThunk";
 
 export const Login = () => {
-  //[current state, function is used to update state]
-  // useState(initial state to empty string)
-  const {loading, responseMsg, car} = useSelector((state) => state.checkInCars)
-  const dispatch = useDispatch()
+  const { loading, responseMsg, car } = useSelector(
+    (state) => state.checkInCars
+  );
+  const dispatch = useDispatch();
 
-  let [username, setUsername] = useState('');
-  let [password, setPassword] = useState('');
+  let [username, setUsername] = useState("");
+  let [password, setPassword] = useState("");
 
-  const submitUser = ()=>{
+  const submitUser = () => {
+    console.log(username);
+    console.log(password);
 
-    console.log(username)
-    console.log(password)
-
-    dispatch(loginThunk({username,password}))
-
-  }
+    dispatch(loginThunk({ username, password }));
+  };
 
   const [isMouseOver, setMouseOver] = useState(false);
-
-
 
   function handleMouseOver() {
     setMouseOver(true);
@@ -43,16 +37,13 @@ export const Login = () => {
         {
           // !loading && <p>{responseMsg}</p>
         }
-        {
-          loading && <p>loading = true</p>
-        }
+        {loading && <p>loading = true</p>}
         <div>
           <input
             className={styles.inputClass}
             onChange={(event) => setUsername(event.target.value)}
             name="email"
             value={username}
-
             placeholder="Email"
           />
           <input
@@ -79,4 +70,4 @@ export const Login = () => {
       </div>
     </div>
   );
-}
+};
