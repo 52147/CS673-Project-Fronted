@@ -37,4 +37,5 @@ const checkOutCarSlice = createSlice({
 
 });
 
+
 export default checkOutCarSlice.reducer
