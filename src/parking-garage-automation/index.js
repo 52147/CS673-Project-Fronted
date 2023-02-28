@@ -16,7 +16,8 @@ function ParkingGarageAutomation() {
     let dom = (value) => {
         return (
             <Routes>
-                <Route path="information/:contact" element={<ParkingInformationComponent/>}/>
+                <Route path="information/:plates" element={<ParkingInformationComponent />}/>
+                <Route path="information" element={<ParkingInformationComponent />}/>
                 <Route path="payment" element={<ParkingPaymentComponent/>}/>
                 <Route path="payment/:plates" element={<ParkingPaymentComponent/>}/>
                 <Route path="login" element={<LoginComponent/>}/>

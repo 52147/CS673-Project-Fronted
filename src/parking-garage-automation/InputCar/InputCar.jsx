@@ -34,7 +34,7 @@ export const InputCar = () => {
 
     await dispatch(checkInCarThunk(content))
       .then((req) => { 
-        if(req.payload.content.Entrance == "false"){
+        if(req.payload.content.Entrance === "false"){
           window.location.replace(`/information/${contact}`)
         }
         console.log(req.payload.content.Entrance) })
