@@ -9,7 +9,7 @@ import {useParams} from "react-router-dom";
 
 
 const ParkingInformation = () => {
-
+    const {plates} = useParams();
 
     const {
         loading,

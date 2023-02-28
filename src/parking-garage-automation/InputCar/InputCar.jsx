@@ -34,10 +34,10 @@ export const InputCar = () => {
 
     await dispatch(checkInCarThunk(content))
       .then((req) => { 
-        if(req.payload.msg == "success"){
+        if(req.payload.content.Entrance === "false"){
           window.location.replace(`/information/${contact}`)
         }
-        console.log(req.payload.msg) })
+        console.log(req.payload.content.Entrance) })
   }
 
   function handleMouseOver() {

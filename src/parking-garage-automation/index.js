@@ -16,11 +16,8 @@ function ParkingGarageAutomation() {
     let dom = (value) => {
         return (
             <Routes>
-<<<<<<< HEAD
                 <Route path="information/:plates" element={<ParkingInformationComponent />}/>
-=======
-                <Route path="information/:contact" element={<ParkingInformationComponent/>}/>
->>>>>>> refs/remotes/origin/modules
+                <Route path="information" element={<ParkingInformationComponent />}/>
                 <Route path="payment" element={<ParkingPaymentComponent/>}/>
                 <Route path="payment/:plates" element={<ParkingPaymentComponent/>}/>
                 <Route path="login" element={<LoginComponent/>}/>
