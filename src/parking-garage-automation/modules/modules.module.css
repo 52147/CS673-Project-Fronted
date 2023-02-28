@@ -1,6 +1,7 @@
 .block {
-  margin-top: 5%
+  margin-top: 5%;
 }
+
 .group {
   display: flex;
   justify-content: center;
@@ -15,6 +16,7 @@
   width: 30%;
   padding: 50px 20px;
   margin-bottom: 30px;
+  margin-top: 150px;
   border: 0;
 }
 
@@ -27,12 +29,11 @@
 
 .card-info .title {
   margin: 20px 8px;
-
   text-align: center;
-
   font-weight: 700;
   font-size: 20px;
 }
+
 .info {
   min-height: 100px;
 }
@@ -44,20 +45,19 @@
 }
 
 .buttonClass {
-   appearance: none;
-    outline: 0;
-    background-color: white;
-    border: solid 1px #50a3a2;
-    padding: 10px 15px;
-    color: #50a3a2;
-    border-radius: 3px;
-    width: 250px;
-    font-size: 18px;
-    transition-duration: 0.4s;
+  appearance: none;
+  outline: 0;
+  background-color: white;
+  border: solid 1px #50a3a2;
+  padding: 10px 15px;
+  color: #50a3a2;
+  border-radius: 3px;
+  width: 250px;
+  font-size: 18px;
+  transition-duration: 0.4s;
 }
 
-  
 .buttonClass:hover {
-    background-color: black; /* Green */
-    color: white;
+  background-color: black; /* Green */
+  color: white;
 }

@@ -2,6 +2,8 @@ import {useNavigate} from "react-router";
 import styles from "./listBar.module.css"
 import {Row, ListGroup, Col, Tab} from "react-bootstrap";
 import GarageData from "../garage-historyData/garage-data";
+import {Autho} from "../authority-management/Autho"
+import {Fee} from "../fee-management/Fee"
 import React from "react";
 
 
@@ -35,9 +37,10 @@ const ListBar = () => {
                 <Row className={"ms-2"}>
                     <Col sm={2}>
                         <ListGroup>
-                            {/*<ListGroup.Item action href="#Parking Lot">*/}
-                            {/*    Parking Lot Management*/}
-                            {/*</ListGroup.Item>*/}
+                        <ListGroup.Item action href="#fee">
+                        Fee Management
+                            </ListGroup.Item>
+
                             <ListGroup.Item action href="#History Data">
                                 Parking History
                             </ListGroup.Item>
@@ -49,14 +52,17 @@ const ListBar = () => {
                     </Col>
                     <Col sm={10}>
                         <Tab.Content>
-                            {/*<Tab.Pane eventKey="#Parking Lot">*/}
-                            {/*</Tab.Pane>*/}
+                            <Tab.Pane eventKey="#fee">
+                                <Fee/>
+                            </Tab.Pane>
+
                             <Tab.Pane eventKey="#History Data">
                                 <GarageData></GarageData>
                             </Tab.Pane>
                             <Tab.Pane eventKey="#Authority">
-
+                                <Autho/>
                             </Tab.Pane>
+
                         </Tab.Content>
                     </Col>
                 </Row>
