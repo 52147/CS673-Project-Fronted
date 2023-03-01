@@ -1,8 +1,22 @@
 import React from 'react'
 import { Autho } from './Autho';
+import NavBar from "../navBar/navBar";
+import ListBar from "../listBar/listBar";
+import GarageData from "../garage-historyData/garage-data";
 export const AuthoComponent = () => {
   return (
-    <Autho/>
+      <>
+        <div className="row"></div>
+        <div className="row">
+          <div className="col-2">
+            <ListBar></ListBar>
+          </div>
+          <div className="col-10 mt-2">
+            <Autho/>
+          </div>
+        </div>
+      </>
+    // <Autho/>
   )
 }
 export default AuthoComponent;
