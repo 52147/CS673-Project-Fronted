@@ -12,11 +12,16 @@ export const Login = () => {
   let [username, setUsername] = useState("");
   let [password, setPassword] = useState("");
 
-  const submitUser = () => {
+  const submitUser = async () => {
     console.log(username);
     console.log(password);
 
-    dispatch(loginThunk({ username, password }));
+    await dispatch(loginThunk({ username, password })).then((req) => {
+      // console.log(Object.is(req.payload, "fulfilled"));
+      if(req.payload = "fulfilled"){
+        window.location.replace(`/modules`);
+      }
+    });
   };
 
   const [isMouseOver, setMouseOver] = useState(false);
