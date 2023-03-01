@@ -7,7 +7,7 @@ export const Modules = () => {
   const data = [
     {
       id: "1",
-      page: "garageData",
+      page: "fee",
       topic: "Fee Management",
       cover: "hand.png",
     },
@@ -19,7 +19,7 @@ export const Modules = () => {
     },
     {
       id: "3",
-      page: "garageData",
+      page: "autho",
       topic: "Authority Management",
       cover: "policeman.png",
     },
@@ -40,7 +40,7 @@ export const Modules = () => {
                   <div className={styles.block}>
                     <button
                       onClick={() => {
-                        window.location.replace(`/${value.page}`);
+                        window.location.replace(`/modules/${value.page}`);
                       }}
                       className={styles.buttonClass}
                     >

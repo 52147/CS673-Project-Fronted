@@ -10,16 +10,18 @@ import React from "react";
 
 
 const ListBar = () => {
-
-    const alertClicked = () => {
-        alert('You clicked the third ListGroupItem');
-    };
-
     const navigate = useNavigate()
 
-    const navHome = () => {
+    const feeHandler = () => {
+        navigate('/modules/fee');
+    }
 
-        navigate('/');
+    const historyHandler = () => {
+        navigate('/modules/garageData');
+    }
+
+    const authoHandler = () => {
+        navigate('/modules/autho');
     }
 
 
@@ -33,39 +35,39 @@ const ListBar = () => {
         // </>
 
         <div className="container mt-3">
-            <Tab.Container id="list-group-tabs-example" defaultActiveKey="#History Data">
-                <Row className={"ms-2"}>
-                    <Col sm={2}>
+            <Tab.Container id="list-group-tabs-example" >
+                {/*<Row className={"ms-2"}>*/}
+                {/*    <Col sm={2}>*/}
                         <ListGroup>
-                        <ListGroup.Item action href="#fee">
+                        <ListGroup.Item  href="#fee" onClick={feeHandler}>
                         Fee Management
                             </ListGroup.Item>
 
-                            <ListGroup.Item action href="#History Data">
+                            <ListGroup.Item  href="#History Data" onClick={historyHandler}>
                                 Parking History
                             </ListGroup.Item>
-                            <ListGroup.Item action href="#Authority">
+                            <ListGroup.Item  href="#Authority" onClick={authoHandler}>
                                 Authority
                                 Management
                             </ListGroup.Item>
                         </ListGroup>
-                    </Col>
-                    <Col sm={10}>
-                        <Tab.Content>
-                            <Tab.Pane eventKey="#fee">
-                                <Fee/>
-                            </Tab.Pane>
+                    {/*</Col>*/}
+                    {/*<Col sm={10}>*/}
+                    {/*    <Tab.Content>*/}
+                    {/*        <Tab.Pane eventKey="#fee">*/}
+                    {/*            <Fee/>*/}
+                    {/*        </Tab.Pane>*/}
 
-                            <Tab.Pane eventKey="#History Data">
-                                <GarageData></GarageData>
-                            </Tab.Pane>
-                            <Tab.Pane eventKey="#Authority">
-                                <Autho/>
-                            </Tab.Pane>
+                    {/*        <Tab.Pane eventKey="#History Data">*/}
+                    {/*            <GarageData></GarageData>*/}
+                    {/*        </Tab.Pane>*/}
+                    {/*        <Tab.Pane eventKey="#Authority">*/}
+                    {/*            <Autho/>*/}
+                    {/*        </Tab.Pane>*/}
 
-                        </Tab.Content>
-                    </Col>
-                </Row>
+                    {/*    </Tab.Content>*/}
+                    {/*</Col>*/}
+                {/*</Row>*/}
             </Tab.Container>
         </div>
 
