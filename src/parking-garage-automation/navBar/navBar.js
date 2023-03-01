@@ -27,7 +27,7 @@ const NavBar = () =>{
 
                         <Nav className="me-auto" >
                             <Nav.Link onClick={navHome}>Home</Nav.Link>
-                            <Nav.Link onClick={navManagementSystem}>Management System</Nav.Link>
+                            {/* <Nav.Link onClick={navManagementSystem}>Management System</Nav.Link> */}
                         </Nav>
 
                     <Button id="logInButton" onClick={navLogIn} >Log In</Button>
