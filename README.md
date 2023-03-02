@@ -7,5 +7,7 @@ Team Member: Hainan Wang, ShouTzu Han, Mingjia Gong, Shanghua Yang, Xiangyu Hu, 
 
 
 ## Set up
+```
 npm install
 npm start
+```
