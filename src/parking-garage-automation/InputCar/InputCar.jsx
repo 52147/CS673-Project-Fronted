@@ -40,7 +40,7 @@ export const InputCar = () => {
   return (
     <div className={styles.body}>
       <div className={styles.container}>
-        <h1>Input Plate License Number</h1>
+        <h1>Input License Plate Number</h1>
         {
           // !loading && <p>{responseMsg}</p>
         }

@@ -17,11 +17,17 @@ const ListBar = () => {
 
     const navigate = useNavigate()
 
-    const navHome = () => {
-
-        navigate('/');
+    const feeHandle = () => {
+        navigate('/fee');
     }
 
+    const historyHandle = () => {
+        navigate('/garageData');
+    }
+
+    const authoHandle = () => {
+        navigate('/garageData');
+    }
 
     return (
         // <>
@@ -35,21 +41,21 @@ const ListBar = () => {
         <div className="container mt-3">
             <Tab.Container id="list-group-tabs-example" defaultActiveKey="#History Data">
                 <Row className={"ms-2"}>
-                    <Col sm={2}>
+                    {/* <Col sm={2}> */}
                         <ListGroup>
-                        <ListGroup.Item action href="#fee">
+                        <ListGroup.Item action href="#fee" onClick={feeHandle}>
                         Fee Management
                             </ListGroup.Item>
 
-                            <ListGroup.Item action href="#History Data">
+                            <ListGroup.Item action href="#History Data" onClick={historyHandle}>
                                 Parking History
                             </ListGroup.Item>
-                            <ListGroup.Item action href="#Authority">
+                            <ListGroup.Item action href="#Authority" onClick={authoHandle}>
                                 Authority
                                 Management
                             </ListGroup.Item>
                         </ListGroup>
-                    </Col>
+                    {/* </Col>
                     <Col sm={10}>
                         <Tab.Content>
                             <Tab.Pane eventKey="#fee">
@@ -64,7 +70,7 @@ const ListBar = () => {
                             </Tab.Pane>
 
                         </Tab.Content>
-                    </Col>
+                    </Col> */}
                 </Row>
             </Tab.Container>
         </div>

@@ -23,7 +23,7 @@ function ParkingGarageAutomation() {
                 <Route path="payment/:plates" element={<ParkingPaymentComponent/>}/>
                 <Route path="login" element={<LoginComponent/>}/>
                 <Route path='/' exact element={<InputCarComponent/>}/>
-                <Route path='/garageData' exact element={<ListBarComponent/>}/>
+                <Route path='/garageData' exact element={<GarageDataComponent/>}/>
                 <Route path="/modules" exact element={<ModulesComponent/>}/>
                 <Route path="/autho" exact element={<AuthoComponent/>}/>
                 <Route path="/fee" exact element={<FeeComponent/>}/>
