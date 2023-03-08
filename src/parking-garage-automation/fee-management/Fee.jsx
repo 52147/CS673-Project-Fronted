@@ -5,6 +5,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 export const Fee = () => {
   const [name, setName] = useState("");
+
+
   return (
     <>
       <div class="input-group">

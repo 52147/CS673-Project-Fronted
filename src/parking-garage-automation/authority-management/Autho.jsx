@@ -1,15 +1,25 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Button, Table, Pagination, Spinner } from "react-bootstrap";
 import { faSearch, faLocation } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { AuthorityThunk } from "../../services/authorityThunk";
+import { useDispatch, useSelector } from "react-redux";
 
 export const Autho = () => {
   const [name, setName] = useState("");
+  const dispatch = useDispatch();
+  const [posts, setPosts] = useState([]);
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    alert(`The name you entered was: ${name}`);
-  };
+  const { loading, history } = useSelector((state) => state.parkHistory);
+
+  useEffect(() => {
+    dispatch(AuthorityThunk());
+
+    const tempArr = [];
+    tempArr.push(history);
+
+    setPosts(tempArr);
+  }, []);
 
   return (
     <>
@@ -42,41 +52,14 @@ export const Autho = () => {
             </thead>
 
             <tbody>
-              <tr>
-                <td>1</td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-              </tr>
-              <tr>
-                <td>2</td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-              </tr>
-              <tr>
-                <td>3</td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-              </tr>
-              <tr>
-                <td>4</td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-              </tr>
-              <tr>
-                <td>5</td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-              </tr>
+              {posts.map((item) => (
+                <tr key={item.id}>
+                  <td>{item.id}</td>
+                  <td>{item.username}</td>
+                  <td>{item.password}</td>
+                  <td>{item.role}</td>
+                </tr>
+              ))}
             </tbody>
           </Table>
         </div>
