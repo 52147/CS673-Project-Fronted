@@ -4,75 +4,56 @@ import { useDispatch, useSelector } from "react-redux";
 import { loginThunk } from "../../services/loginThunk";
 
 export const Login = () => {
-  const { loading, users } = useSelector(
-    (state) => state.submitUser
-  );
   const dispatch = useDispatch();
+  const { loading, users } = useSelector((state) => state.submitUser);
 
-  let [username, setUsername] = useState("");
-  let [password, setPassword] = useState("");
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
 
-  const submitUser = async () => {
-    console.log(username);
-    console.log(password);
-
-    await dispatch(loginThunk({ username, password })).then((req) => {
-      // console.log(Object.is(req.payload, "fulfilled"));
-      if(users === "fulfilled"){
-        window.location.replace(`/modules`);
-      }
-    });
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    await dispatch(loginThunk({ username, password }));
   };
 
-  const [isMouseOver, setMouseOver] = useState(false);
 
-  function handleMouseOver() {
-    setMouseOver(true);
-  }
-  function handleMouseOut() {
-    setMouseOver(false);
-  }
 
   return (
-    <div>
+    <>
       <div className={styles.container}>
-        {/* useState to update first and last name */}
-        <h1 className="font-medium">Login {username}</h1>
-        <p>{password}</p>
-        {
-          // !loading && <p>{responseMsg}</p>
-        }
-        {loading && <p>loading = true</p>}
-        <div>
-          <input
-            className={styles.inputClass}
-            onChange={(event) => setUsername(event.target.value)}
-            name="email"
-            value={username}
-            placeholder="Email"
-          />
-          <input
-            className={styles.inputClass}
-            // onchange event: event occurs when value of element has been changed
-            onChange={(event) => setPassword(event.target.value)}
-            name="password"
-            value={password}
-            placeholder="Password"
-          />
-
+        <div className = "mt-12">
+        <form onSubmit={handleSubmit}>
+          <h1>Login</h1>
+          <div>
+            <input
+              className={styles.inputClass}
+              type="text"
+              id="username"
+              name="username"
+              value={username}
+              onChange={(event) => setUsername(event.target.value)}
+            />
+          </div>
+          <div>
+            <input
+              className={styles.inputClass}
+              type="password"
+              id="password"
+              name="password"
+              value={password}
+              onChange={(event) => setPassword(event.target.value)}
+            />
+          </div>
           <button
             className={styles.buttonClass}
-            style={{ background: isMouseOver ? "black" : "white" }}
-            // html dom event: onMouseOver, onMouseOut
-            // event handling: allows javascript handle html event
-            onMouseOver={handleMouseOver} // handleMouseOver function will be executed when Mouse over
-            onMouseOut={handleMouseOut}
-            onClick={submitUser}
+            type="submit"
+            disabled={loading}
           >
-            Submit
+            {loading ? "Loading..." : "Submit"}
           </button>
+        </form>
         </div>
+        {users === "fulfilled" && window.location.replace(`/modules`)}
       </div>
-    </div>
+    </>
   );
 };

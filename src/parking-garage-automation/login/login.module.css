@@ -9,7 +9,7 @@
 
 .container {
   color: white;
-  margin-top: 100px;
+  margin-top: 200px;
   padding: 0 0;
   text-align: center;
 }
@@ -42,6 +42,17 @@
   outline: 0;
   background-color: white;
   border-style: solid;
+  padding: 10px 15px;
+  color: #50a3a2;
+  border-radius: 3px;
+  width: 250px;
+  font-size: 18px;
+}
+.buttonClass:hover{
+  appearance: none;
+  outline: 0;
+  background-color: black;
+  border: 0;
   padding: 10px 15px;
   color: #50a3a2;
   border-radius: 3px;
