@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import styles from "./inputCar.module.css";
 import { useDispatch, useSelector } from "react-redux";
-import { checkInCarThunk } from "../../services/inputCarThunk";
+import { checkInCarThunk, createUserThunk} from "../../services/inputCarThunk";
 import { Button, Modal } from "react-bootstrap";
 
 export const InputCar = () => {
@@ -36,6 +36,12 @@ export const InputCar = () => {
   function handleMouseOut() {
     setMouseOver(false);
   }
+  // send a random id to backend
+  const handleCreateUser = () => {
+    const id = Math.floor(Math.random() * 100);
+    console.log(id)
+    dispatch(createUserThunk({ id }));
+  };
 
   return (
     <div className={styles.body}>
@@ -66,6 +72,10 @@ export const InputCar = () => {
         >
           Submit
         </button>
+        <br />
+        <br />
+        <button className={styles.buttonClass} onClick={handleCreateUser}>Create ID for Bicycle User</button>
+
         <Modal show={show} onHide={handleClose}>
           <Modal.Header closeButton>
             <Modal.Title>Welcome Car {contact}</Modal.Title>
