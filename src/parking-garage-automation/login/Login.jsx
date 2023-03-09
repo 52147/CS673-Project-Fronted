@@ -4,8 +4,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { loginThunk } from "../../services/loginThunk";
 
 export const Login = () => {
-  const { loading, responseMsg, car } = useSelector(
-    (state) => state.checkInCars
+  const { loading, users } = useSelector(
+    (state) => state.submitUser
   );
   const dispatch = useDispatch();
 
@@ -18,7 +18,7 @@ export const Login = () => {
 
     await dispatch(loginThunk({ username, password })).then((req) => {
       // console.log(Object.is(req.payload, "fulfilled"));
-      if(req.payload = "fulfilled"){
+      if(users === "fulfilled"){
         window.location.replace(`/modules`);
       }
     });

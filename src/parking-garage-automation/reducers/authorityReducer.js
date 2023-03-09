@@ -1,5 +1,5 @@
 import {createSlice} from "@reduxjs/toolkit";
-import {getAuthorityThunk} from "../../services/authorityThunk";
+import {AuthorityThunk} from "../../services/authorityThunk";
 
 const initialState = {
     loading: false,
@@ -10,16 +10,16 @@ const authoritySlice = createSlice({
     name: 'parkHistory',
     initialState,
     extraReducers: {
-        [getAuthorityThunk.pending]:
+        [AuthorityThunk.pending]:
             (state) => {
                 state.loading = true
             },
-        [getAuthorityThunk.fulfilled]:
+        [AuthorityThunk.fulfilled]:
             (state, { payload }) => {
                 state.loading = false
                 state.history = payload
             },
-        [getAuthorityThunk.rejected]:
+        [AuthorityThunk.rejected]:
             (state) => {
                 state.loading = false
             }

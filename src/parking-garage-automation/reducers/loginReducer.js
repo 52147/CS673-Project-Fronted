@@ -14,12 +14,12 @@ const loginSlice = createSlice({
  
         [loginThunk.fulfilled]:
             (state, action) =>{
-              state.currentUser = action.payload;
+              state.users = "fulfilled";
               console.log("fulfilled")
             },
         [loginThunk.rejected]:
             (state, action) =>{
-                state.error = action.payload
+                state.users = "reject"
                 console.log(action.type)
                 console.log(state.users)
             },
