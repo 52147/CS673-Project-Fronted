@@ -9,14 +9,13 @@ export const AuthoComponent = () => {
         <div className="row"></div>
         <div className="row">
           <div className="col-2">
-            <ListBar></ListBar>
+            <ListBar active = "#Authority"></ListBar>
           </div>
           <div className="col-10 mt-2">
             <Autho/>
           </div>
         </div>
       </>
-    // <Autho/>
   )
 }
 export default AuthoComponent;

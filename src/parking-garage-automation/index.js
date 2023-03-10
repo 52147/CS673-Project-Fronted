@@ -9,9 +9,8 @@ import {useState} from "react";
 import FooterComponent from "./footer";
 import NavBarComponent from "./navBar";
 import ModulesComponent from "./modules";
-import ListBarComponent from "./listBar";
 import AuthoComponent from "./authority-management";
-import FeeComponent from "./fee-management";
+import FeeComponent from "./garage-fee";
 function ParkingGarageAutomation() {
     const [value, setValue] = useState('')
     let dom = (value) => {

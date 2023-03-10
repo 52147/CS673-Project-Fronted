@@ -9,3 +9,10 @@ export const getHistoryThunk = createAsyncThunk(
         return json;
     }
 )
+
+export const getSelectedHistoryThunk = createAsyncThunk(
+    '/index/check/checkIn/checkHistory', async (date) => {
+        const json =  await service.getSelectedHistoryService(date)
+        return json;
+    }
+)

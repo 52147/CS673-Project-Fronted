@@ -2,52 +2,50 @@ import {Button, Table, Pagination, Spinner} from "react-bootstrap";
 import React, {useEffect, useState} from "react";
 import styles from './garage-data.module.css'
 import {useDispatch, useSelector} from "react-redux";
-import {getHistoryThunk} from "../../services/parkHistoryThunk";
+import {getHistoryThunk, getSelectedHistoryThunk} from "../../services/parkHistoryThunk";
 import Posts from "./Item";
 import "react-datepicker/dist/react-datepicker.css";
 import DatePicker from "react-datepicker";
 
 
 const GarageData = () => {
-    const dispatch = useDispatch();
+    //const {currentUser} = useSelector((state) => state.submitUser)
     const [posts, setPosts] = useState([]);
     let [startDate, setStartDate] = useState(new Date());
     let [endDate, setEndDate] = useState(new Date());
-
-    const searchClickHandler = () => {
-
-    }
 
     const {
         loading,
         history,
     } = useSelector((state) => state.parkHistory)
 
-    useEffect(() => {
-        dispatch(getHistoryThunk())
-    }, []);
 
-    useEffect(() => {
-        if (!loading) {
-            paginationClickHandler(1)
-        }
-    }, [loading])
 
-    let tempArr = []
-    const paginationClickHandler = (number) => {
-        tempArr = []
+    const date = {
+        startDate: startDate,
+        endDate: endDate
+    };
+
+    const dispatch = useDispatch();
+    const searchClickHandler = () => {
+        console.log(date)
+        dispatch(getSelectedHistoryThunk(date))
+    }
+
+
+    const paginationClickHandler =   React.useCallback((number) => {
+        let tempArr = []
+        setActive(number)
         for (let i = number * 10 - 10; i <= number * 10 - 1; i++) {
             if (i < history.length) {
                 tempArr.push(history[i]);
             }
         }
         setPosts(tempArr)
-
-    }
-
+    },[history]);
 
     const pageNumbers = Math.ceil(history.length / 10)
-    let active = 1;
+    const [active, setActive] = useState(1);
     let items = [];
     for (let number = 1; number <= pageNumbers; number++) {
         items.push(
@@ -57,9 +55,28 @@ const GarageData = () => {
         );
     }
 
+    useEffect(() => {
+        dispatch(getHistoryThunk())
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
 
+    useEffect(() => {
+        if (!loading) {
+            paginationClickHandler(1)
+        }
+    }, [loading,paginationClickHandler])
 
     return (<>
+        <div className="row text-white mt-3 mb-3">
+            <h1>PARKING HISTORY </h1>
+        </div>
+            {/*{*/}
+            {/*    currentUser == null &&*/}
+            {/*    <div className="row text-white mt-5 mb-3">*/}
+            {/*    <h1>Please Log In </h1>*/}
+            {/*    </div>*/}
+            {/*}*/}
+            {/*}*/}
             {
                 loading && <Spinner animation="border" role="status">
                     <span className="visually-hidden mt-5">Loading...</span>
@@ -68,27 +85,29 @@ const GarageData = () => {
             !loading && <>
 
                 <div className="row">
+
+
                     <div className={`col-1 text-white ${styles.textRight}`}>
                         <h3>From: </h3>
                     </div>
-                    <div className="col-2 mt-2">
+                    <div className={`col-2 mt-2 ${styles.textLeft}`}>
                         <DatePicker selected={startDate} onChange={(date: Date) => setStartDate(date)}/>
                     </div>
                     <div className={`col-1 text-white ${styles.textRight}`}>
                         <h3>To: </h3>
                     </div>
-                    <div className="col-2 mt-2">
+                    <div className={`col-2 mt-2 ${styles.textLeft}`}>
                         <DatePicker selected={endDate} onChange={(date: Date) => setEndDate(date)}/>
                     </div>
-                    <div className="col-2 ">
+                    <div className={`col-2 ${styles.textLeft}`}>
                         <Button onClick={searchClickHandler} variant="warning">Search</Button>
                     </div>
 
 
                 </div>
                 <div className="row me-4">
-                    <div className="col-12 mt-3">
-                        <Table striped bordered hover className={`mt-2`}>
+                    <div className="col-12">
+                        <Table striped bordered hover className={`mt-1`} variant="light">
                             <thead>
                             <tr>
                                 <th>#</th>
