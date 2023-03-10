@@ -1,26 +1,21 @@
 import React from 'react';
 
-const Posts = ({ posts, loading }) => {
-    if (loading) {
-        return <h2>Loading...</h2>;
-    }
-
-
+const Posts = ({posts}) => {
     return (
         <>
             {posts.map(post => (
                 <tr>
-                <td>
-                    {post.id}
-                </td>
-                <td>
-                    {post.plate}
-                </td>
                     <td>
-                        {post.entrance.substring(0,19)}
+                        {post.id}
                     </td>
                     <td>
-                        {post.exit.substring(0,19)}
+                        {post.plate}
+                    </td>
+                    <td>
+                        {post.entrance.substring(0, 19)}
+                    </td>
+                    <td>
+                        {post.exit.substring(0, 19)}
                     </td>
                     <td>
                         {post.cardNum}

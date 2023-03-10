@@ -1,15 +1,9 @@
 import {useNavigate} from "react-router";
-import styles from "./listBar.module.css"
-import {Row, ListGroup, Col, Tab} from "react-bootstrap";
-import GarageData from "../garage-historyData/garage-data";
-import {Autho} from "../authority-management/Autho"
-import {Fee} from "../fee-management/Fee"
+import {ListGroup, Tab} from "react-bootstrap";
 import React from "react";
 
 
-
-
-const ListBar = () => {
+const ListBar = ({active}) => {
     const navigate = useNavigate()
 
     const feeHandler = () => {
@@ -26,49 +20,43 @@ const ListBar = () => {
 
 
     return (
-        // <>
-        //     <ul>
-        //         <li><a className="active" href="#home">Home</a></li>
-        //         <li><a href="#news">Info</a></li>
-        //         <li><a href="#contact">Pay</a></li>
-        //     </ul>
-        // </>
+        <div className="container mt-3 ms-1">
 
-        <div className="container mt-3">
-            <Tab.Container id="list-group-tabs-example" >
                 {/*<Row className={"ms-2"}>*/}
                 {/*    <Col sm={2}>*/}
-                        <ListGroup>
-                        <ListGroup.Item  href="#fee" onClick={feeHandler}>
+                <ListGroup defaultActiveKey={active}>
+                    <ListGroup.Item onClick={feeHandler} action href="#fee">
                         Fee Management
-                            </ListGroup.Item>
+                    </ListGroup.Item>
 
-                            <ListGroup.Item  href="#History Data" onClick={historyHandler}>
-                                Parking History
-                            </ListGroup.Item>
-                            <ListGroup.Item  href="#Authority" onClick={authoHandler}>
-                                Authority
-                                Management
-                            </ListGroup.Item>
-                        </ListGroup>
-                    {/*</Col>*/}
-                    {/*<Col sm={10}>*/}
-                    {/*    <Tab.Content>*/}
-                    {/*        <Tab.Pane eventKey="#fee">*/}
-                    {/*            <Fee/>*/}
-                    {/*        </Tab.Pane>*/}
+                    <ListGroup.Item onClick={historyHandler} action href="#History Data">
+                        Parking History
+                    </ListGroup.Item>
 
-                    {/*        <Tab.Pane eventKey="#History Data">*/}
-                    {/*            <GarageData></GarageData>*/}
-                    {/*        </Tab.Pane>*/}
-                    {/*        <Tab.Pane eventKey="#Authority">*/}
-                    {/*            <Autho/>*/}
-                    {/*        </Tab.Pane>*/}
+                    <ListGroup.Item onClick={authoHandler} action href="#Authority">
+                        Authority
+                        Management
+                    </ListGroup.Item>
 
-                    {/*    </Tab.Content>*/}
-                    {/*</Col>*/}
+                </ListGroup>
+                {/*</Col>*/}
+                {/*<Col sm={10}>*/}
+                {/*    <Tab.Content>*/}
+                {/*        <Tab.Pane eventKey="#fee">*/}
+                {/*            <ParkingFee/>*/}
+                {/*        </Tab.Pane>*/}
+
+                {/*        <Tab.Pane eventKey="#History Data">*/}
+                {/*            <GarageData></GarageData>*/}
+                {/*        </Tab.Pane>*/}
+                {/*        <Tab.Pane eventKey="#Authority">*/}
+                {/*            <Autho/>*/}
+                {/*        </Tab.Pane>*/}
+
+                {/*    </Tab.Content>*/}
+                {/*</Col>*/}
                 {/*</Row>*/}
-            </Tab.Container>
+
         </div>
 
     );

@@ -1,0 +1,26 @@
+.pageButton{
+    text-align: right;
+}
+
+.textLeft{
+    text-align: left;
+}
+
+.textRight{
+    text-align: right;
+}
+
+.tableSize{
+    width : 70% !important;
+    text-align: center;
+    margin-left: auto!important;
+    margin-right: auto!important;
+}
+
+.dropdownButton{
+    width : 130px !important;
+}
+
+.resetButton{
+    width : 100px !important;
+}
