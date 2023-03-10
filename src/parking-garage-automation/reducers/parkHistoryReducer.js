@@ -1,5 +1,5 @@
 import {createSlice} from "@reduxjs/toolkit";
-import {getHistoryThunk} from "../../services/parkHistoryThunk";
+import {getHistoryThunk, getSelectedHistoryThunk} from "../../services/parkHistoryThunk";
 
 const initialState = {
     loading: false,
@@ -20,6 +20,20 @@ const parkHistorySlice = createSlice({
                 state.history = payload
             },
         [getHistoryThunk.rejected]:
+            (state) => {
+                state.loading = false
+            },
+
+        [getSelectedHistoryThunk.pending]:
+            (state) => {
+                state.loading = true
+            },
+        [getSelectedHistoryThunk.fulfilled]:
+            (state, { payload }) => {
+                state.loading = false
+                state.history = payload
+            },
+        [getSelectedHistoryThunk.rejected]:
             (state) => {
                 state.loading = false
             }
