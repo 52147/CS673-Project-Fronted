@@ -1,0 +1,82 @@
+import {useNavigate} from "react-router";
+import styles from "./listBar.module.css"
+import {Row, ListGroup, Col, Tab} from "react-bootstrap";
+import GarageData from "../garage-historyData/garage-data";
+import {Autho} from "../authority-management/Autho"
+import {Fee} from "../fee-management/Fee"
+import React from "react";
+
+
+
+
+const ListBar = () => {
+
+    const alertClicked = () => {
+        alert('You clicked the third ListGroupItem');
+    };
+
+    const navigate = useNavigate()
+
+    const feeHandle = () => {
+        navigate('/fee');
+    }
+
+    const historyHandle = () => {
+        navigate('/garageData');
+    }
+
+    const authoHandle = () => {
+        navigate('/garageData');
+    }
+
+    return (
+        // <>
+        //     <ul>
+        //         <li><a className="active" href="#home">Home</a></li>
+        //         <li><a href="#news">Info</a></li>
+        //         <li><a href="#contact">Pay</a></li>
+        //     </ul>
+        // </>
+
+        <div className="container mt-3">
+            <Tab.Container id="list-group-tabs-example" defaultActiveKey="#History Data">
+                <Row className={"ms-2"}>
+                    {/* <Col sm={2}> */}
+                        <ListGroup>
+                        <ListGroup.Item action href="#fee" onClick={feeHandle}>
+                        Fee Management
+                            </ListGroup.Item>
+
+                            <ListGroup.Item action href="#History Data" onClick={historyHandle}>
+                                Parking History
+                            </ListGroup.Item>
+                            <ListGroup.Item action href="#Authority" onClick={authoHandle}>
+                                Authority
+                                Management
+                            </ListGroup.Item>
+                        </ListGroup>
+                    {/* </Col>
+                    <Col sm={10}>
+                        <Tab.Content>
+                            <Tab.Pane eventKey="#fee">
+                                <Fee/>
+                            </Tab.Pane>
+
+                            <Tab.Pane eventKey="#History Data">
+                                <GarageData></GarageData>
+                            </Tab.Pane>
+                            <Tab.Pane eventKey="#Authority">
+                                <Autho/>
+                            </Tab.Pane>
+
+                        </Tab.Content>
+                    </Col> */}
+                </Row>
+            </Tab.Container>
+        </div>
+
+    );
+
+
+}
+export default ListBar;

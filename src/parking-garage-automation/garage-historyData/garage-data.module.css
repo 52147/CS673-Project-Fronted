@@ -1,0 +1,16 @@
+.pageButton{
+    text-align: right;
+}
+
+.textLeft{
+    text-align: left;
+}
+
+.textRight{
+    text-align: right !important;
+}
+
+.horizontalUL{
+    flex-direction: row;
+    display: flex;
+}
