@@ -36,7 +36,7 @@ const ParkingInformation = () => {
     const dispatch = useDispatch();
     useEffect(() => {
         dispatch(getParkingInfoThunk(parkInfo))
-
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
 

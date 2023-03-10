@@ -1,8 +1,6 @@
 import React from 'react'
 import { Autho } from './Autho';
-import NavBar from "../navBar/navBar";
 import ListBar from "../listBar/listBar";
-import GarageData from "../garage-historyData/garage-data";
 export const AuthoComponent = () => {
   return (
       <>
