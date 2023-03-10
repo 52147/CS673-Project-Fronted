@@ -9,3 +9,16 @@ export const AuthorityThunk = createAsyncThunk(
         return json;
     }
 )
+export const updateAuthorityThunk = createAsyncThunk(
+    '/user/update', async (data) => {
+      const json = await service.updateAuthorityService(data)
+      return json;
+    }
+  )
+  
+  export const deleteAuthorityThunk = createAsyncThunk(
+    '/user/delete', async (ids) => {
+      const json = await service.deleteAuthorityService(ids)
+      return json;
+    }
+  )
