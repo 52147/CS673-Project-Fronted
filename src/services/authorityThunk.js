@@ -22,3 +22,18 @@ export const updateAuthorityThunk = createAsyncThunk(
       return json;
     }
   )
+  
+
+  export const importAuthorityThunk = createAsyncThunk(
+    '/user/import', async (file) => {
+      const json = await service.importAuthorityService(file)
+      return json;
+    }
+  )
+
+  export const exportAuthorityThunk = createAsyncThunk(
+    '/user/export', async (ids) => {
+      const json = await service.exportAuthorityService(ids)
+      return json;
+    }
+  )

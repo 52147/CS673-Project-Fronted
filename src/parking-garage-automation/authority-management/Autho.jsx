@@ -1,59 +1,64 @@
 import React, { useState, useEffect } from "react";
+import { saveAs } from "file-saver";
+import axios from "axios";
+
 import { Button, Table, Spinner, Pagination } from "react-bootstrap";
 import {
   faSearch,
   faEdit,
   faTrash,
   faPlus,
+  faUpload,
+  faDownload,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   AuthorityThunk,
   updateAuthorityThunk,
   deleteAuthorityThunk,
+  importAuthorityThunk,
+  exportAuthorityThunk,
 } from "../../services/authorityThunk";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from 'react-router-dom';
 
 export const Autho = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [posts, setPosts] = useState([]);
   const dispatch = useDispatch();
-  const { loading, history } = useSelector((state) => state.history);
+  const { loading, history, fil } = useSelector((state) => state.history);
   const [editingPost, setEditingPost] = useState(null);
   const [newUsername, setNewUsername] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [newRole, setNewRole] = useState("");
+  const [file, setFile] = useState(null);
+  const [exporting, setExporting] = useState(false);
 
   const [activePage, setActivePage] = useState(1);
 
   const handlePageChange = (pageNumber) => {
     setActivePage(pageNumber);
   };
-  const postsPerPage = 10;
-// Get current posts
-const indexOfLastPost = activePage * postsPerPage;
-const indexOfFirstPost = indexOfLastPost - postsPerPage;
-const currentPosts = posts.slice(indexOfFirstPost, indexOfLastPost);
+  const postsPerPage = 8;
+  // Get current posts
+  const indexOfLastPost = activePage * postsPerPage;
+  const indexOfFirstPost = indexOfLastPost - postsPerPage;
+  const currentPosts = posts.slice(indexOfFirstPost, indexOfLastPost);
 
-const pageCount = Math.ceil(posts.length / postsPerPage);
-const pageItems = [];
+  const pageCount = Math.ceil(posts.length / postsPerPage);
+  const pageItems = [];
 
-for (let i = 1; i <= pageCount; i++) {
-  pageItems.push(
-    <Pagination.Item
-      key={i}
-      active={i === activePage}
-      onClick={() => handlePageChange(i)}
-    >
-      {i}
-    </Pagination.Item>
-  );
-}
+  for (let i = 1; i <= pageCount; i++) {
+    pageItems.push(
+      <Pagination.Item
+        key={i}
+        active={i === activePage}
+        onClick={() => handlePageChange(i)}
+      >
+        {i}
+      </Pagination.Item>
+    );
+  }
 
-
-
-  const navigate = useNavigate();
   useEffect(() => {
     console.log("Fetching history...");
     dispatch(AuthorityThunk());
@@ -64,9 +69,36 @@ for (let i = 1; i <= pageCount; i++) {
 
     console.log(loading);
     if (Array.isArray(history)) {
-      setPosts(history);
     }
+    setPosts(history);
   }, [history]);
+
+  const handleFileChange = (event) => {
+    setFile(event.target.files[0]);
+  };
+
+  const handleImport = async (event) => {
+    const formData = new FormData();
+    formData.append("file", file);
+
+    dispatch(importAuthorityThunk(formData));
+    console.log(formData);
+  };
+
+  const handleExport = async () => {
+    dispatch(exportAuthorityThunk()).then((res) => {
+      // console.log(file.history);
+      console.log(res);
+      console.log(res.payload);
+      // const type = res.headers['content-type']
+      const blob = new Blob([res.payload], { type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" });
+      const downloadLink = document.createElement("a");
+      downloadLink.href = URL.createObjectURL(blob);
+      downloadLink.download = "123.xlsx";
+      downloadLink.click();
+    });
+    setExporting(true);
+  };
 
   const handleSearch = () => {
     const filteredPosts = history.filter((post) =>
@@ -77,13 +109,7 @@ for (let i = 1; i <= pageCount; i++) {
 
   const handleEdit = (post) => {
     setEditingPost(post);
-
   };
-
-  useEffect(() => {
-    // Force re-render when navigating to the same page
-    dispatch(AuthorityThunk());
-  }, [navigate]);
 
   const handleDelete = (id) => {
     console.log("123");
@@ -91,13 +117,11 @@ for (let i = 1; i <= pageCount; i++) {
     // handle delete user logic
     dispatch(deleteAuthorityThunk(id));
     window.location.reload();
-
   };
   const handleUpdate = (post) => {
     dispatch(updateAuthorityThunk(post));
     setEditingPost(null);
     window.location.reload();
-
   };
   const handleCreateUser = () => {
     dispatch(
@@ -111,9 +135,7 @@ for (let i = 1; i <= pageCount; i++) {
     setNewPassword("");
     setNewRole("");
     window.location.reload();
-
   };
-
 
   return (
     <>
@@ -135,39 +157,59 @@ for (let i = 1; i <= pageCount; i++) {
           </Button>
         </div>
       </div>
-
+      <div>
+        <input type="file" onChange={handleFileChange} />
+        <Button
+          className="ml-4"
+          variant="outline-primary"
+          onClick={handleImport}
+        >
+          <FontAwesomeIcon icon={faUpload} />
+        </Button>
+        <Button
+          className="ml-4"
+          variant="outline-primary"
+          onClick={handleExport}
+        >
+    {exporting ? (
+      <span>Exporting...</span>
+    ) : (
+      <span>Export Data</span>
+    )}
+          <FontAwesomeIcon icon={faDownload} />
+        </Button>
+      </div>
       <div className="row me-4">
         <div className="col-12 mt-3 text-black">
-            <form
-              onSubmit={(e) => {
-                e.preventDefault();
-                handleCreateUser();
-              }}
-            >
-              <input
-                type="text"
-                placeholder="Username"
-                value={newUsername}
-                onChange={(e) => setNewUsername(e.target.value)}
-              />
-              <input
-                type="text"
-                placeholder="Password"
-                value={newPassword}
-                onChange={(e) => setNewPassword(e.target.value)}
-              />
-              <input
-                type="text"
-                placeholder="Role"
-                value={newRole}
-                onChange={(e) => setNewRole(e.target.value)}
-              />
-              <Button variant="primary" type="submit">
-                <FontAwesomeIcon icon={faPlus} />
-                Create User
-              </Button>
-            </form>
-          
+          <form
+            onSubmit={(e) => {
+              e.preventDefault();
+              handleCreateUser();
+            }}
+          >
+            <input
+              type="text"
+              placeholder="Username"
+              value={newUsername}
+              onChange={(e) => setNewUsername(e.target.value)}
+            />
+            <input
+              type="text"
+              placeholder="Password"
+              value={newPassword}
+              onChange={(e) => setNewPassword(e.target.value)}
+            />
+            <input
+              type="text"
+              placeholder="Role"
+              value={newRole}
+              onChange={(e) => setNewRole(e.target.value)}
+            />
+            <Button variant="primary" type="submit">
+              <FontAwesomeIcon icon={faPlus} />
+              Create User
+            </Button>
+          </form>
 
           {loading ? (
             <Spinner animation="border" />
@@ -289,11 +331,10 @@ for (let i = 1; i <= pageCount; i++) {
                 ))}
               </tbody>
             </Table>
-            
           )}
-              <div className="mt-2 d-flex justify-content-center">
-      <Pagination>{pageItems}</Pagination>
-    </div>
+          <div className="mt-2 d-flex justify-content-center">
+            <Pagination>{pageItems}</Pagination>
+          </div>
         </div>
       </div>
     </>

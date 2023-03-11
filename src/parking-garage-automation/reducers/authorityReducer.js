@@ -3,11 +3,14 @@ import {
   AuthorityThunk,
   updateAuthorityThunk,
   deleteAuthorityThunk,
+  importAuthorityThunk,
+  exportAuthorityThunk,
 } from "../../services/authorityThunk";
 
 const initialState = {
   loading: false,
   history: [],
+  fil: null
 };
 
 const authoritySlice = createSlice({
@@ -42,6 +45,27 @@ const authoritySlice = createSlice({
       state.history = payload;
     },
     [deleteAuthorityThunk.rejected]: (state) => {
+      state.loading = false;
+    },
+    [importAuthorityThunk.pending]: (state) => {
+      state.loading = true;
+    },
+    [importAuthorityThunk.fulfilled]: (state, { payload }) => {
+      state.loading = false;
+      state.history = payload;
+    },
+    [importAuthorityThunk.rejected]: (state) => {
+      state.loading = false;
+    },
+    [exportAuthorityThunk.pending]: (state) => {
+      state.loading = true;
+    },
+    [exportAuthorityThunk.fulfilled]: (state, { payload }, f) => {
+      state.loading = false;
+      state.history = payload;
+      state.file = f;
+    },
+    [exportAuthorityThunk.rejected]: (state) => {
       state.loading = false;
     },
   },
