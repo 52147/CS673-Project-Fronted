@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { saveAs } from "file-saver";
 import axios from "axios";
+import { Post } from "./Post";
+import { utils, writeFile } from 'xlsx';
 
 import { Button, Table, Spinner, Pagination } from "react-bootstrap";
 import {
@@ -23,38 +25,46 @@ import { useDispatch, useSelector } from "react-redux";
 
 export const Autho = () => {
   const [searchQuery, setSearchQuery] = useState("");
-  const [posts, setPosts] = useState([]);
+
   const dispatch = useDispatch();
   const { loading, history, fil } = useSelector((state) => state.history);
-  const [editingPost, setEditingPost] = useState(null);
   const [newUsername, setNewUsername] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [newRole, setNewRole] = useState("");
   const [file, setFile] = useState(null);
   const [exporting, setExporting] = useState(false);
+  const [posts, setPosts] = useState([]);
+  const [active, setActivePage] = useState(1); 
 
-  const [activePage, setActivePage] = useState(1);
+  useEffect(() => {
+    if (!loading) {
+      paginationClickHandler(1);
+    }
+  }, [loading]);
 
-  const handlePageChange = (pageNumber) => {
-    setActivePage(pageNumber);
+  let tempArr = [];
+  const paginationClickHandler = (number) => {
+    tempArr = [];
+    for (let i = number * 10 - 10; i <= number * 10 - 1; i++) {
+      if (i < history.length) {
+        tempArr.push(history[i]);
+      }
+    }
+    setActivePage(number);
+    setPosts(tempArr);
   };
-  const postsPerPage = 8;
-  // Get current posts
-  const indexOfLastPost = activePage * postsPerPage;
-  const indexOfFirstPost = indexOfLastPost - postsPerPage;
-  const currentPosts = posts.slice(indexOfFirstPost, indexOfLastPost);
 
-  const pageCount = Math.ceil(posts.length / postsPerPage);
-  const pageItems = [];
-
-  for (let i = 1; i <= pageCount; i++) {
-    pageItems.push(
+  const pageNumbers = Math.ceil(history.length / 10);
+  // let active = 1;
+  let items = [];
+  for (let number = 1; number <= pageNumbers; number++) {
+    items.push(
       <Pagination.Item
-        key={i}
-        active={i === activePage}
-        onClick={() => handlePageChange(i)}
+        onClick={() => paginationClickHandler(number)}
+        key={number}
+        active={number === active}
       >
-        {i}
+        {number}
       </Pagination.Item>
     );
   }
@@ -63,15 +73,6 @@ export const Autho = () => {
     console.log("Fetching history...");
     dispatch(AuthorityThunk());
   }, [dispatch]);
-
-  useEffect(() => {
-    console.log(history);
-
-    console.log(loading);
-    if (Array.isArray(history)) {
-    }
-    setPosts(history);
-  }, [history]);
 
   const handleFileChange = (event) => {
     setFile(event.target.files[0]);
@@ -83,21 +84,95 @@ export const Autho = () => {
 
     dispatch(importAuthorityThunk(formData));
     console.log(formData);
+    window.location.reload();
   };
 
-  const handleExport = async () => {
-    dispatch(exportAuthorityThunk()).then((res) => {
-      // console.log(file.history);
-      console.log(res);
-      console.log(res.payload);
-      // const type = res.headers['content-type']
-      const blob = new Blob([res.payload], { type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" });
-      const downloadLink = document.createElement("a");
-      downloadLink.href = URL.createObjectURL(blob);
-      downloadLink.download = "123.xlsx";
-      downloadLink.click();
+  // https://jsfiddle.net/jossef/m3rrLzk0/
+  const exportToCsv = (filename, rows) => {
+    let processRow = function (row) {
+      let finalVal = '';
+      for (let j = 0; j < row.length; j++) {
+        let innerValue = row[j] === null ? '' : row[j].toString();
+        if (row[j] instanceof Date) {
+          innerValue = row[j].toLocaleString();
+        };
+        let result = innerValue.replace(/"/g, '""');
+        if (result.search(/("|,|\n)/g) >= 0) {
+          result = '"' + result + '"';
+        }
+        if (j > 0) {
+          finalVal += ',';
+        }
+        finalVal += result;
+      }
+      return finalVal + '\n';
+    };
+
+    let csvFile = '';
+    for (let i = 0; i < rows.length; i++) {
+      csvFile += processRow(rows[i]);
+    }
+
+    let blob = new Blob([csvFile], { type: 'text/csv;charset=utf-8;' });
+    if (navigator.msSaveBlob) { // IE 10+
+      navigator.msSaveBlob(blob, filename);
+    } else {
+      let link = document.createElement("a");
+      if (link.download !== undefined) { // feature detection
+        // Browsers that support HTML5 download attribute
+        let url = URL.createObjectURL(blob);
+        link.setAttribute("href", url);
+        link.setAttribute("download", filename);
+        link.style.visibility = 'hidden';
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+      }
+    }
+  }
+
+  const handleExportXLS = () =>{
+    let rowData = [['id', 'username', 'password', 'role']];
+    history.forEach(data => {
+      rowData.push([
+        data.id,
+        data.username,
+        data.password,
+        data.role
+      ])
     });
-    setExporting(true);
+    const wb = utils.book_new();
+    const ws = utils.aoa_to_sheet(rowData);
+    utils.book_append_sheet(wb, ws, 'Sheet1');
+    writeFile(wb, 'data.xlsx');
+  }
+
+  const handleExport = async () => {
+    let rowData = [['id', 'username', 'password', 'role']];
+    history.forEach(data => {
+      rowData.push([
+        data.id,
+        data.username,
+        data.password,
+        data.role
+      ])
+    });
+    exportToCsv('export.csv', rowData);
+
+    // dispatch(exportAuthorityThunk()).then((res) => {
+    //   // console.log(file.history);
+    //   console.log(res);
+    //   console.log(res.payload);
+    //   // const type = res.headers['content-type']
+    //   const blob = new Blob([res.payload], {
+    //     type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+    //   });
+    //   const downloadLink = document.createElement("a");
+    //   downloadLink.href = URL.createObjectURL(blob);
+    //   downloadLink.download = "123.xls";
+    //   downloadLink.click();
+    // });
+    // setExporting(true);
   };
 
   const handleSearch = () => {
@@ -107,22 +182,6 @@ export const Autho = () => {
     setPosts(filteredPosts);
   };
 
-  const handleEdit = (post) => {
-    setEditingPost(post);
-  };
-
-  const handleDelete = (id) => {
-    console.log("123");
-    console.log(id);
-    // handle delete user logic
-    dispatch(deleteAuthorityThunk(id));
-    window.location.reload();
-  };
-  const handleUpdate = (post) => {
-    dispatch(updateAuthorityThunk(post));
-    setEditingPost(null);
-    window.location.reload();
-  };
   const handleCreateUser = () => {
     dispatch(
       updateAuthorityThunk({
@@ -170,13 +229,9 @@ export const Autho = () => {
         <Button
           className="ml-4"
           variant="outline-primary"
-          onClick={handleExport}
+          onClick={handleExportXLS}
         >
-    {exporting ? (
-      <span>Exporting...</span>
-    ) : (
-      <span>Export File</span>
-    )}
+          {exporting ? <span>Exporting...</span> : <span>Export File</span>}
           <FontAwesomeIcon icon={faDownload} />
         </Button>
       </div>
@@ -211,14 +266,13 @@ export const Autho = () => {
               Create User
             </Button>
           </form>
-
+          <p>Total Data: {history.length} data</p>
           {loading ? (
             <Spinner animation="border" />
           ) : (
             <Table striped bordered hover className="mt-2">
               <thead>
                 <tr>
-                  <th>#</th>
                   <th>ID</th>
                   <th>Username</th>
                   <th>Password</th>
@@ -226,115 +280,14 @@ export const Autho = () => {
                 </tr>
               </thead>
               <tbody>
-                {posts.map((post, index) => (
-                  <tr key={post.id}>
-                    <td>{index + 1}</td>
-                    <td>
-                      {editingPost && editingPost.id === post.id ? (
-                        <input
-                          type="text"
-                          value={editingPost.id}
-                          onChange={(e) =>
-                            setEditingPost({
-                              ...editingPost,
-                              id: e.target.value,
-                            })
-                          }
-                        />
-                      ) : (
-                        post.id
-                      )}
-                    </td>
-                    <td>
-                      {editingPost && editingPost.id === post.id ? (
-                        <input
-                          type="text"
-                          value={editingPost.username}
-                          onChange={(e) =>
-                            setEditingPost({
-                              ...editingPost,
-                              username: e.target.value,
-                            })
-                          }
-                        />
-                      ) : (
-                        post.username
-                      )}
-                    </td>
-                    <td>
-                      {editingPost && editingPost.id === post.id ? (
-                        <input
-                          type="text"
-                          value={editingPost.password}
-                          onChange={(e) =>
-                            setEditingPost({
-                              ...editingPost,
-                              password: e.target.value,
-                            })
-                          }
-                        />
-                      ) : (
-                        post.password
-                      )}
-                    </td>
-                    <td>
-                      {editingPost && editingPost.id === post.id ? (
-                        <input
-                          type="text"
-                          value={editingPost.role}
-                          onChange={(e) =>
-                            setEditingPost({
-                              ...editingPost,
-                              role: e.target.value,
-                            })
-                          }
-                        />
-                      ) : (
-                        post.role
-                      )}
-                    </td>
-                    <td>
-                      {editingPost && editingPost.id === post.id ? (
-                        <>
-                          <Button
-                            className="me-2"
-                            variant="outline-success"
-                            onClick={() => handleUpdate(editingPost)}
-                          >
-                            Save
-                          </Button>
-                          <Button
-                            variant="outline-secondary"
-                            onClick={() => setEditingPost(null)}
-                          >
-                            Cancel
-                          </Button>
-                        </>
-                      ) : (
-                        <>
-                          <Button
-                            className="me-2"
-                            variant="outline-secondary"
-                            onClick={() => handleEdit(post)}
-                          >
-                            <FontAwesomeIcon icon={faEdit} />
-                          </Button>
-                          <Button
-                            variant="outline-danger"
-                            onClick={() => handleDelete(post.id)}
-                          >
-                            <FontAwesomeIcon icon={faTrash} />
-                          </Button>
-                        </>
-                      )}
-                    </td>
-                  </tr>
-                ))}
+                <Post posts={posts}></Post>
               </tbody>
             </Table>
           )}
           <div className="mt-2 d-flex justify-content-center">
-            <Pagination>{pageItems}</Pagination>
+            <Pagination className="justify-content-end me-5">
+              {items}
+            </Pagination>
           </div>
         </div>
       </div>
