@@ -13,6 +13,7 @@ const GarageData = () => {
     const [posts, setPosts] = useState([]);
     let [startDate, setStartDate] = useState(new Date());
     let [endDate, setEndDate] = useState(new Date());
+    const [active, setActivePage] = useState(1); 
 
     const {
         loading,
@@ -41,11 +42,12 @@ const GarageData = () => {
                 tempArr.push(history[i]);
             }
         }
+        setActivePage(number);
         setPosts(tempArr)
     },[history]);
 
     const pageNumbers = Math.ceil(history.length / 10)
-    const [active, setActive] = useState(1);
+
     let items = [];
     for (let number = 1; number <= pageNumbers; number++) {
         items.push(
