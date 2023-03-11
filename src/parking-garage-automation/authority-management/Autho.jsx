@@ -164,6 +164,7 @@ export const Autho = () => {
           variant="outline-primary"
           onClick={handleImport}
         >
+          Upload File
           <FontAwesomeIcon icon={faUpload} />
         </Button>
         <Button
@@ -174,7 +175,7 @@ export const Autho = () => {
     {exporting ? (
       <span>Exporting...</span>
     ) : (
-      <span>Export Data</span>
+      <span>Export File</span>
     )}
           <FontAwesomeIcon icon={faDownload} />
         </Button>
