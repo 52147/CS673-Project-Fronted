@@ -7,7 +7,6 @@ import {getParkingInfoThunk} from "../../services/parkInfoThunk";
 import {useParams} from "react-router-dom";
 
 
-
 const ParkingInformation = () => {
     const {plates} = useParams();
 
@@ -21,24 +20,20 @@ const ParkingInformation = () => {
         msg
     } = useSelector((state) => state.parkInfo)
 
-    const navigate = useNavigate()
-    const payButtonClickHandler = () => {
-        window.location.replace(`/payment/${plates}`)
-    }
-
-    const navHome = () => {
-
-        navigate('/');
-
-
-    }
-
-    const dispatch = useDispatch();
-
     const parkInfo = {
         plate: plates
     }
 
+    const payButtonClickHandler = () => {
+        window.location.replace(`/payment/${plates}`)
+    }
+
+    const navigate = useNavigate()
+    const navHome = () => {
+        navigate('/');
+    }
+
+    const dispatch = useDispatch();
     useEffect(() => {
         dispatch(getParkingInfoThunk(parkInfo))
 
@@ -47,18 +42,18 @@ const ParkingInformation = () => {
 
     return (<>
             <div className={styles.backG}>
-                {msg == 'fail' && <>
-                    <div className="row mt-5">
-                        <div className="col text-white">
-                            <h1><div className="col text-white">
-                                <h1>{plates} Dose Not Exist.</h1>
-                            </div></h1>
-                        </div>
+                {msg === 'fail' &&
+                    <div className="row mt-5 text-white">
+                        <h1>{plates} Dose Not Exist.</h1>
                     </div>
-
-                </>}
+                }
                 {
-                    msg == 'success' && !loading && <div className="container">
+                    msg === 'success' && loading && <Spinner animation="border" role="status">
+                        <span className="visually-hidden mt-5">Loading...</span>
+                    </Spinner>
+                }
+                {
+                    msg === 'success' && !loading && <div className="container">
 
                         <div className="row mt-5">
                             <div className="col text-white">
@@ -119,6 +114,7 @@ const ParkingInformation = () => {
                                 <h3>{ParkingFee} USD</h3>
                             </div>
                         </div>
+
                         <div className="row mt-3">
                             <div className={`col-6  ${styles.textRight}`}>
                                 <Button className={`${styles.payButton}`} onClick={payButtonClickHandler}
@@ -130,11 +126,6 @@ const ParkingInformation = () => {
                             </div>
                         </div>
                     </div>
-                }
-                {
-                    msg == 'success' && loading && <Spinner animation="border" role="status">
-                        <span className="visually-hidden mt-5">Loading...</span>
-                    </Spinner>
                 }
 
             </div>

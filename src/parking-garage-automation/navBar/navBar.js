@@ -1,4 +1,4 @@
-import {Container, Navbar, Nav, Button} from "react-bootstrap";
+import {Container, Navbar, Nav, Button, NavDropdown} from "react-bootstrap";
 import styles from './navBar.module.css'
 import {useNavigate} from "react-router";
 
@@ -27,8 +27,16 @@ const NavBar = () =>{
 
                         <Nav className="me-auto" >
                             <Nav.Link onClick={navHome}>Home</Nav.Link>
-                            {/* <Nav.Link onClick={navManagementSystem}>Management System</Nav.Link> */}
+                             <Nav.Link onClick={navManagementSystem}>Management System</Nav.Link>
+                            {/*<NavDropdown title="Management System" id="nav-dropdown">*/}
+                            {/*    <NavDropdown.Item eventKey="4.1">ParkingFee Management</NavDropdown.Item>*/}
+                            {/*    <NavDropdown.Item eventKey="4.2">Parking History</NavDropdown.Item>*/}
+                            {/*    <NavDropdown.Item eventKey="4.3">Authority Management</NavDropdown.Item>*/}
+
+                            {/*</NavDropdown>*/}
                         </Nav>
+
+
 
                     <Button id="logInButton" onClick={navLogIn} >Log In</Button>
 

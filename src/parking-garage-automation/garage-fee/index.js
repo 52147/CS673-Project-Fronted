@@ -1,8 +1,6 @@
 import React from 'react'
-import { Fee } from './Fee';
-import NavBar from "../navBar/navBar";
 import ListBar from "../listBar/listBar";
-import GarageData from "../garage-historyData/garage-data";
+import ParkingFee from "./parkingFee";
 
 export const FeeComponent = () => {
   return (
@@ -10,16 +8,15 @@ export const FeeComponent = () => {
         <div className="row"></div>
         <div className="row">
           <div className="col-2">
-            <ListBar></ListBar>
+            <ListBar active = "#fee"></ListBar>
           </div>
           <div className="col-10 mt-2">
-            <Fee/>
+            <ParkingFee></ParkingFee>
           </div>
         </div>
 
       </>
 
-    // <Fee/>
   )
 }
 export default FeeComponent;
