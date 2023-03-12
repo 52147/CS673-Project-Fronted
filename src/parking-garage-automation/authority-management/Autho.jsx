@@ -1,14 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { saveAs } from "file-saver";
-import axios from "axios";
 import { Post } from "./Post";
 import { utils, writeFile } from 'xlsx';
 
 import { Button, Table, Spinner, Pagination } from "react-bootstrap";
 import {
   faSearch,
-  faEdit,
-  faTrash,
   faPlus,
   faUpload,
   faDownload,
@@ -17,9 +13,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   AuthorityThunk,
   updateAuthorityThunk,
-  deleteAuthorityThunk,
   importAuthorityThunk,
-  exportAuthorityThunk,
 } from "../../services/authorityThunk";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -27,7 +21,7 @@ export const Autho = () => {
   const [searchQuery, setSearchQuery] = useState("");
 
   const dispatch = useDispatch();
-  const { loading, history, fil } = useSelector((state) => state.history);
+  const { loading, history} = useSelector((state) => state.history);
   const [newUsername, setNewUsername] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [newRole, setNewRole] = useState("");
@@ -38,7 +32,7 @@ export const Autho = () => {
 
   useEffect(() => {
     if (!loading) {
-      paginationClickHandler(1);
+      paginationClickHandler(1); // 當進入頁面時，paginationClickHandler設定為 1
     }
   }, [loading]);
 
@@ -47,22 +41,22 @@ export const Autho = () => {
     tempArr = [];
     for (let i = number * 10 - 10; i <= number * 10 - 1; i++) {
       if (i < history.length) {
-        tempArr.push(history[i]);
+        tempArr.push(history[i]); // temArr用來更新 post，將data推入 temArr，每次推入10筆資料
       }
     }
-    setActivePage(number);
-    setPosts(tempArr);
+    setActivePage(number); // 設定pagination的數字標示為active
+    setPosts(tempArr); // 更新 post 為 temArr
   };
 
-  const pageNumbers = Math.ceil(history.length / 10);
+  const pageNumbers = Math.ceil(history.length / 10); // 資料數量／１０為Pagination 圖標數量
   // let active = 1;
   let items = [];
   for (let number = 1; number <= pageNumbers; number++) {
     items.push(
       <Pagination.Item
-        onClick={() => paginationClickHandler(number)}
+        onClick={() => paginationClickHandler(number)} // 點擊 Pagination 圖標，推１０比資料到temArr
         key={number}
-        active={number === active}
+        active={number === active} // 當pagination圖標的數字 等於我們點擊的圖標，設圖標為active
       >
         {number}
       </Pagination.Item>
@@ -158,21 +152,6 @@ export const Autho = () => {
       ])
     });
     exportToCsv('export.csv', rowData);
-
-    // dispatch(exportAuthorityThunk()).then((res) => {
-    //   // console.log(file.history);
-    //   console.log(res);
-    //   console.log(res.payload);
-    //   // const type = res.headers['content-type']
-    //   const blob = new Blob([res.payload], {
-    //     type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
-    //   });
-    //   const downloadLink = document.createElement("a");
-    //   downloadLink.href = URL.createObjectURL(blob);
-    //   downloadLink.download = "123.xls";
-    //   downloadLink.click();
-    // });
-    // setExporting(true);
   };
 
   const handleSearch = () => {
