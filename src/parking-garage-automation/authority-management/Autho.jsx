@@ -44,7 +44,7 @@ export const Autho = () => {
         tempArr.push(history[i]); // temArr用來更新 post，將data推入 temArr，每次推入10筆資料
       }
     }
-    setActivePage(number); // 設定pagination的數字標示為active
+    setActivePage(number); // 展示完頁面後，設定pagination的數字標示為active
     setPosts(tempArr); // 更新 post 為 temArr
   };
 
@@ -126,8 +126,8 @@ export const Autho = () => {
   }
 
   const handleExportXLS = () =>{
-    let rowData = [['id', 'username', 'password', 'role']];
-    history.forEach(data => {
+    let rowData = [['id', 'username', 'password', 'role']]; // 設置column名
+    history.forEach(data => { // 製造一個新的array，加上資料和column
       rowData.push([
         data.id,
         data.username,
@@ -135,10 +135,10 @@ export const Autho = () => {
         data.role
       ])
     });
-    const wb = utils.book_new();
-    const ws = utils.aoa_to_sheet(rowData);
-    utils.book_append_sheet(wb, ws, 'Sheet1');
-    writeFile(wb, 'data.xlsx');
+    const wb = utils.book_new(); // 製造一個excel work book(workbook裡可以有很多worksheet，work sheet 為 excel file裡面的一個表)
+    const ws = utils.aoa_to_sheet(rowData); // 用aoa_to_sheet 轉換 rowData 裡的資料成excel worksheet object
+    utils.book_append_sheet(wb, ws, 'Sheet1');  // 使用 book_append_sheet 將work sheet 加到work book
+    writeFile(wb, 'data.xlsx'); // 使用writeFile 將work book 寫入 excel file
   }
 
   const handleExport = async () => {
