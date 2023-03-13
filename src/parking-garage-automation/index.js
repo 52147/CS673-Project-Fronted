@@ -11,7 +11,7 @@ import NavBarComponent from "./navBar";
 import ModulesComponent from "./modules";
 import AuthoComponent from "./authority-management";
 import FeeComponent from "./garage-fee";
-import GarageDataManagementComponent from "./garageDataManagement";
+import GarageDataManagementComponent from "./garage-data-management";
 function ParkingGarageAutomation() {
     const [value, setValue] = useState('')
     let dom = (value) => {

@@ -39,7 +39,7 @@ export const Autho = () => {
   let tempArr = [];
   const paginationClickHandler = (number) => {
     tempArr = [];
-    for (let i = number * 10 - 10; i <= number * 10 - 1; i++) {
+    for (let i = number * 6 - 6; i <= number * 6 - 1; i++) {
       if (i < history.length) {
         tempArr.push(history[i]); // temArr用來更新 post，將data推入 temArr，每次推入10筆資料
       }
@@ -48,7 +48,7 @@ export const Autho = () => {
     setPosts(tempArr); // 更新 post 為 temArr
   };
 
-  const pageNumbers = Math.ceil(history.length / 10); // 資料數量／１０為Pagination 圖標數量
+  const pageNumbers = Math.ceil(history.length / 6); // 資料數量／１０為Pagination 圖標數量
   // let active = 1;
   let items = [];
   for (let number = 1; number <= pageNumbers; number++) {

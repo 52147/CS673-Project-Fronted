@@ -66,30 +66,16 @@ export const GarageDataManagement = () => {
 
                     <thead>
                       <tr>
-                        <th>
+                        <th colspan="7">
+                        Remaining Parking Spaces
+                        </th>
 
-                        (Remaining Parking Spaces)
-
-                        </th>
-                        <th>
-                        </th>
-                        <th>
-                        </th>
-                        <th>
-                        </th>
-                        <th>
-                        </th>
-                        <th>
-                        </th>
-                        <th>
-                        
-                        </th>
                       </tr>
 
                     <tr>
                         <th>Parking Section</th>
                         <th>Bicycle</th>
-                        <th>Normal Car</th>
+                        <th>Average Vehicle</th>
                         <th>Motorcycle</th>
                         <th>Electric Vehicle</th>
                         <th>Bus</th>
