@@ -67,7 +67,9 @@ export const GarageDataManagement = () => {
                     <thead>
                       <tr>
                         <th>
-                        (Remaining Parking Spaces)123
+
+                        (Remaining Parking Spaces)
+
                         </th>
                         <th>
                         </th>
