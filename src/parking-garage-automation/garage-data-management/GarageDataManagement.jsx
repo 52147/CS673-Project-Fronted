@@ -66,7 +66,7 @@ export const GarageDataManagement = () => {
 
                     <thead>
                       <tr>
-                        <th colspan="7">
+                        <th colspan="7"> 
                         Remaining Parking Spaces
                         </th>
 
@@ -123,7 +123,7 @@ export const GarageDataManagement = () => {
                         <td>10</td>
                       </tr>
 
-                    {/* <Data posts={posts}></Data> */}
+                    <Data posts={posts}></Data>
                     </tbody>
 
                 </Table>

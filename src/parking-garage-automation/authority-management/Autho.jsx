@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { Post } from "./Post";
-import { utils, writeFile } from 'xlsx';
+import { utils, writeFile } from "xlsx";
+import styles from  "./autho.module.css";
 
-import { Button, Table, Spinner, Pagination } from "react-bootstrap";
+import { Button, Table, Spinner, Pagination, Form } from "react-bootstrap";
 import {
   faSearch,
   faPlus,
@@ -21,14 +22,14 @@ export const Autho = () => {
   const [searchQuery, setSearchQuery] = useState("");
 
   const dispatch = useDispatch();
-  const { loading, history} = useSelector((state) => state.history);
+  const { loading, history } = useSelector((state) => state.history);
   const [newUsername, setNewUsername] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [newRole, setNewRole] = useState("");
   const [file, setFile] = useState(null);
   const [exporting, setExporting] = useState(false);
   const [posts, setPosts] = useState([]);
-  const [active, setActivePage] = useState(1); 
+  const [active, setActivePage] = useState(1);
 
   useEffect(() => {
     if (!loading) {
@@ -39,7 +40,7 @@ export const Autho = () => {
   let tempArr = [];
   const paginationClickHandler = (number) => {
     tempArr = [];
-    for (let i = number * 6 - 6; i <= number * 6 - 1; i++) {
+    for (let i = number * 5 - 5; i <= number * 5 - 1; i++) {
       if (i < history.length) {
         tempArr.push(history[i]); // temArr用來更新 post，將data推入 temArr，每次推入10筆資料
       }
@@ -48,7 +49,7 @@ export const Autho = () => {
     setPosts(tempArr); // 更新 post 為 temArr
   };
 
-  const pageNumbers = Math.ceil(history.length / 6); // 資料數量／１０為Pagination 圖標數量
+  const pageNumbers = Math.ceil(history.length / 5); // 資料數量／１０為Pagination 圖標數量
   // let active = 1;
   let items = [];
   for (let number = 1; number <= pageNumbers; number++) {
@@ -84,74 +85,67 @@ export const Autho = () => {
   // https://jsfiddle.net/jossef/m3rrLzk0/
   const exportToCsv = (filename, rows) => {
     let processRow = function (row) {
-      let finalVal = '';
+      let finalVal = "";
       for (let j = 0; j < row.length; j++) {
-        let innerValue = row[j] === null ? '' : row[j].toString();
+        let innerValue = row[j] === null ? "" : row[j].toString();
         if (row[j] instanceof Date) {
           innerValue = row[j].toLocaleString();
-        };
+        }
         let result = innerValue.replace(/"/g, '""');
         if (result.search(/("|,|\n)/g) >= 0) {
           result = '"' + result + '"';
         }
         if (j > 0) {
-          finalVal += ',';
+          finalVal += ",";
         }
         finalVal += result;
       }
-      return finalVal + '\n';
+      return finalVal + "\n";
     };
 
-    let csvFile = '';
+    let csvFile = "";
     for (let i = 0; i < rows.length; i++) {
       csvFile += processRow(rows[i]);
     }
 
-    let blob = new Blob([csvFile], { type: 'text/csv;charset=utf-8;' });
-    if (navigator.msSaveBlob) { // IE 10+
+    let blob = new Blob([csvFile], { type: "text/csv;charset=utf-8;" });
+    if (navigator.msSaveBlob) {
+      // IE 10+
       navigator.msSaveBlob(blob, filename);
     } else {
       let link = document.createElement("a");
-      if (link.download !== undefined) { // feature detection
+      if (link.download !== undefined) {
+        // feature detection
         // Browsers that support HTML5 download attribute
         let url = URL.createObjectURL(blob);
         link.setAttribute("href", url);
         link.setAttribute("download", filename);
-        link.style.visibility = 'hidden';
+        link.style.visibility = "hidden";
         document.body.appendChild(link);
         link.click();
         document.body.removeChild(link);
       }
     }
-  }
+  };
 
-  const handleExportXLS = () =>{
-    let rowData = [['id', 'username', 'password', 'role']]; // 設置column名
-    history.forEach(data => { // 製造一個新的array，加上資料和column
-      rowData.push([
-        data.id,
-        data.username,
-        data.password,
-        data.role
-      ])
+  const handleExportXLS = () => {
+    let rowData = [["id", "username", "password", "role"]]; // 設置column名
+    history.forEach((data) => {
+      // 製造一個新的array，加上資料和column
+      rowData.push([data.id, data.username, data.password, data.role]);
     });
     const wb = utils.book_new(); // 製造一個excel work book(workbook裡可以有很多worksheet，work sheet 為 excel file裡面的一個表)
     const ws = utils.aoa_to_sheet(rowData); // 用aoa_to_sheet 轉換 rowData 裡的資料成excel worksheet object
-    utils.book_append_sheet(wb, ws, 'Sheet1');  // 使用 book_append_sheet 將work sheet 加到work book
-    writeFile(wb, 'data.xlsx'); // 使用writeFile 將work book 寫入 excel file
-  }
+    utils.book_append_sheet(wb, ws, "Sheet1"); // 使用 book_append_sheet 將work sheet 加到work book
+    writeFile(wb, "data.xlsx"); // 使用writeFile 將work book 寫入 excel file
+  };
 
   const handleExport = async () => {
-    let rowData = [['id', 'username', 'password', 'role']];
-    history.forEach(data => {
-      rowData.push([
-        data.id,
-        data.username,
-        data.password,
-        data.role
-      ])
+    let rowData = [["id", "username", "password", "role"]];
+    history.forEach((data) => {
+      rowData.push([data.id, data.username, data.password, data.role]);
     });
-    exportToCsv('export.csv', rowData);
+    exportToCsv("export.csv", rowData);
   };
 
   const handleSearch = () => {
@@ -177,6 +171,10 @@ export const Autho = () => {
 
   return (
     <>
+      <div className="row text-white mt-3 mb-3">
+        <h1>GARAGE DATA MANAGEMENT</h1>
+      </div>
+
       <div className="input-group">
         <input
           className="pl-3.5"
@@ -186,89 +184,87 @@ export const Autho = () => {
           onChange={(e) => setSearchQuery(e.target.value)}
         />
         <div className="mr-5 input-group-append">
-          <Button
-            className="ml-4"
-            variant="outline-primary"
-            onClick={handleSearch}
-          >
+          <Button className="ml-4" variant="primary" onClick={handleSearch}>
             <FontAwesomeIcon icon={faSearch} />
           </Button>
         </div>
       </div>
-      <div>
-        <input type="file" onChange={handleFileChange} />
-        <Button
-          className="ml-4"
-          variant="outline-primary"
-          onClick={handleImport}
-        >
+      <div className={`container flex justify-center mt-4 ${styles.marginLeft}`}>
+        {/* <input
+          type="file"
+          onChange={handleFileChange}
+          className="outline-primary"
+        /> */}
+        <Form.Group controlId="formFileSm" className="ml-0 mb-3">
+          <Form.Control type="file" size="sm" onChange={handleFileChange} />
+        </Form.Group>
+        <Button className="ml-4" variant="primary" onClick={handleImport}>
           Upload File
           <FontAwesomeIcon icon={faUpload} />
         </Button>
         <Button
-          className="ml-4"
-          variant="outline-primary"
+          className="ml-4 mr-2"
+          variant="primary"
           onClick={handleExportXLS}
         >
           {exporting ? <span>Exporting...</span> : <span>Export File</span>}
           <FontAwesomeIcon icon={faDownload} />
         </Button>
+
+        <form
+          onSubmit={(e) => {
+            e.preventDefault();
+            handleCreateUser();
+          }}
+        >
+          <input
+            type="text"
+            placeholder="Username"
+            value={newUsername}
+            onChange={(e) => setNewUsername(e.target.value)}
+            className="mr-4"
+          />
+          <input
+            type="text"
+            placeholder="Password"
+            value={newPassword}
+            onChange={(e) => setNewPassword(e.target.value)}
+            className="mr-4"
+          />
+          <input
+            type="text"
+            placeholder="Role"
+            value={newRole}
+            onChange={(e) => setNewRole(e.target.value)}
+            className="mr-4"
+          />
+          <Button variant="primary" type="submit">
+            <FontAwesomeIcon icon={faPlus} />
+            Create User
+          </Button>
+        </form>
       </div>
-      <div className="row me-4">
-        <div className="col-12 mt-3 text-black">
-          <form
-            onSubmit={(e) => {
-              e.preventDefault();
-              handleCreateUser();
-            }}
-          >
-            <input
-              type="text"
-              placeholder="Username"
-              value={newUsername}
-              onChange={(e) => setNewUsername(e.target.value)}
-            />
-            <input
-              type="text"
-              placeholder="Password"
-              value={newPassword}
-              onChange={(e) => setNewPassword(e.target.value)}
-            />
-            <input
-              type="text"
-              placeholder="Role"
-              value={newRole}
-              onChange={(e) => setNewRole(e.target.value)}
-            />
-            <Button variant="primary" type="submit">
-              <FontAwesomeIcon icon={faPlus} />
-              Create User
-            </Button>
-          </form>
-          <p>Total Data: {history.length} data</p>
-          {loading ? (
-            <Spinner animation="border" />
-          ) : (
-            <Table striped bordered hover className="mt-2">
-              <thead>
-                <tr>
-                  <th>ID</th>
-                  <th>Username</th>
-                  <th>Password</th>
-                  <th>Role</th>
-                </tr>
-              </thead>
-              <tbody>
-                <Post posts={posts}></Post>
-              </tbody>
-            </Table>
-          )}
-          <div className="mt-2 d-flex justify-content-center">
-            <Pagination className="justify-content-end me-5">
-              {items}
-            </Pagination>
-          </div>
-        </div>
+      <p className="text-white">Total Data: {history.length} data</p>
+      {loading ? (
+        <Spinner animation="border" />
+      ) : (
+        <Table striped bordered hover className={`mt-1`} variant="light">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Username</th>
+              <th>Password</th>
+              <th>Role</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <Post posts={posts}></Post>
+          </tbody>
+        </Table>
+      )}
+      <div className="mt-2 d-flex justify-content-center">
+        <Pagination className="justify-content-end me-5">{items}</Pagination>
       </div>
     </>
   );
