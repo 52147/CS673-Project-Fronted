@@ -14,6 +14,7 @@
     "bootstrap": "^5.2.3",
     "exceljs": "^4.3.0",
     "file-saver": "^2.0.5",
+    "firebase": "^9.17.2",
     "react": "^18.2.0",
     "react-bootstrap": "^2.7.2",
     "react-datepicker": "^4.10.0",
