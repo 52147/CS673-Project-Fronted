@@ -58,7 +58,7 @@ export const GarageDataManagement = () => {
   return (
   <>
     <div className="row text-white mt-3 mb-3">
-    <h1>GARAGE DATA MANAGEMENT</h1>
+    <h1>PARKING SPACE MANAGEMENT</h1>
     </div>
         <div className="row me-4">
             <div className="col-12">

@@ -43,7 +43,7 @@ const ListBar = ({active}) => {
                     </ListGroup.Item>
 
                     <ListGroup.Item onClick={garageHandler} action href="#Garage Data">
-                        Garage Data
+                        Parking Space
                         Management
                     </ListGroup.Item>
 

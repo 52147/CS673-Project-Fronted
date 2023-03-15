@@ -172,7 +172,7 @@ export const Autho = () => {
   return (
     <>
       <div className="row text-white mt-3 mb-3">
-        <h1>GARAGE DATA MANAGEMENT</h1>
+        <h1>AUTHORITY MANAGEMENT</h1>
       </div>
 
       <div className="input-group">
