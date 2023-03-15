@@ -36,7 +36,6 @@ const GarageData = () => {
 
     const paginationClickHandler =   React.useCallback((number) => {
         let tempArr = []
-        setActive(number)
         for (let i = number * 10 - 10; i <= number * 10 - 1; i++) {
             if (i < history.length) {
                 tempArr.push(history[i]);

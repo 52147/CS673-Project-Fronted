@@ -11,6 +11,7 @@ import NavBarComponent from "./navBar";
 import ModulesComponent from "./modules";
 import AuthoComponent from "./authority-management";
 import FeeComponent from "./garage-fee";
+import GarageDataManagementComponent from "./garage-data-management";
 function ParkingGarageAutomation() {
     const [value, setValue] = useState('')
     let dom = (value) => {
@@ -26,6 +27,7 @@ function ParkingGarageAutomation() {
                 <Route path="/modules" exact element={<ModulesComponent/>}/>
                 <Route path="/modules/autho" exact element={<AuthoComponent/>}/>
                 <Route path="/modules/fee" exact element={<FeeComponent/>}/>
+                <Route path="/modules/garageDataManagement" exact element={<GarageDataManagementComponent/>}/>
             </Routes>
         )
 
