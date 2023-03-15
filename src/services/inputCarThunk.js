@@ -19,7 +19,7 @@ export const getThunk = createAsyncThunk(
 // create an id for bicycle user
 export const createUserThunk = createAsyncThunk(
     'check/checkIn', async () => {
-        const json =  await service.getService()
+        const json =  await service.createUserService()
         return json;
     }
 )
