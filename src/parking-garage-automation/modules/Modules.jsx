@@ -23,6 +23,12 @@ export const Modules = () => {
       topic: "Authority Management",
       cover: "policeman.png",
     },
+    {
+      id: "4",
+      page: "garageDataManagement",
+      topic: "Parking Space Management",
+      cover: "parking (1).png",
+    },
   ];
 
   return (
@@ -32,7 +38,7 @@ export const Modules = () => {
           {data.map((value) => {
             return (
               <>
-                <div className={`col-4 ${styles.card}`}>
+                <div className={`col-3 ${styles.card}`}>
                   <img className={styles.image} src={value.cover} alt="" />
                   <div className={styles.info}>
                     <h2 className={styles.title}>{value.topic}</h2>

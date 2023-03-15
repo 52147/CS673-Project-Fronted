@@ -13,7 +13,7 @@
   flex-direction: column;
   background-color: #ffffff;
   box-shadow: rgb(0 0 0 / 25%) 0px 3px 11px 0px;
-  width: 30%;
+  width: 20%;
   padding: 50px 20px;
   margin-bottom: 30px;
   margin-top: 150px;
@@ -28,7 +28,7 @@
 }
 
 .card-info .title {
-  margin: 20px 8px;
+  margin: 20px 2px;
   text-align: center;
   font-weight: 700;
   font-size: 20px;
