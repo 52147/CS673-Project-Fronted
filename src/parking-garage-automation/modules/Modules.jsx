@@ -1,9 +1,7 @@
 import React from "react";
 import styles from "./modules.module.css";
-import { useNavigate } from "react-router";
 
 export const Modules = () => {
-  const navigate = useNavigate();
   const data = [
     {
       id: "1",
