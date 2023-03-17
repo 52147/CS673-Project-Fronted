@@ -20,23 +20,23 @@ const ParkingFee = () => {
     let [newMaxFee, setNewMaxFee] = useState('');
     let [newAddition, setNewAddition] = useState('');
 
-    let [name, setName] = useState("Car");
+    let [carType, setCarType] = useState("Car");
 
     const carClickHandler = () => {
-        name = "Car"
-        setName("Car")
-        dispatch(getFeeThunk({name}))
+        carType = "Car"
+        setCarType("Car")
+        dispatch(getFeeThunk({carType}))
     }
     const motorcycleClickHandler = () => {
-        name = "Motorcycle"
-        setName("Motorcycle")
-        dispatch(getFeeThunk({name}))
+        carType = "Motorcycle"
+        setCarType("Motorcycle")
+        dispatch(getFeeThunk({carType}))
     }
 
     const bicycleClickHandler = () => {
-        name = "Bicycle"
-        setName("Bicycle")
-        dispatch(getFeeThunk({name}))
+        carType = "Bicycle"
+        setCarType("Bicycle")
+        dispatch(getFeeThunk({carType}))
     }
 
     const [show, setShow] = useState(false);
@@ -46,12 +46,12 @@ const ParkingFee = () => {
     }
 
     const newFee = {
-        type: name,
-        NewFirstHour: newFirstHour,
-        NewFirstFee: newFirstFee,
-        NewSecondFee: newSecondFee,
-        NewMaxFee: newMaxFee,
-        NewAddition: newAddition,
+        carType: carType,
+        hour: newFirstHour,
+        firstPrice: newFirstFee,
+        secondPrice: newSecondFee,
+        maxPrice: newMaxFee,
+        comment: newAddition,
     }
 
     const resetNewFee= ()=>{
@@ -62,17 +62,20 @@ const ParkingFee = () => {
         setNewAddition('');
     }
 
-    const submitClickHandler = () => {
-        dispatch(setFeeThunk(newFee))
+
+    const submitClickHandler = async () => {
+        await dispatch(setFeeThunk(newFee))
+        dispatch(getFeeThunk({carType}))
         resetNewFee()
         resetClickHandlerClose()
     }
 
     const dispatch = useDispatch();
     useEffect(() => {
-        dispatch(getFeeThunk({name}))
+        dispatch(getFeeThunk({carType}))
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
+
 
     return (
         <>
@@ -95,7 +98,7 @@ const ParkingFee = () => {
                         <Dropdown>
                             <Dropdown.Toggle variant="light" id="dropdown-basic"
                                              className={` ${styles.dropdownButton}`}>
-                                {name}
+                                {carType}
                             </Dropdown.Toggle>
 
                             <Dropdown.Menu>
@@ -115,7 +118,7 @@ const ParkingFee = () => {
                         <Table striped bordered hover variant="light">
                             <thead>
                             <tr>
-                                <th colSpan={2}><h4>{name} Charging Rules</h4></th>
+                                <th colSpan={2}><h4>{carType} Charging Rules</h4></th>
                             </tr>
                             </thead>
                             <tbody>
@@ -149,7 +152,7 @@ const ParkingFee = () => {
                         backdrop="static"
                     >
                         <Modal.Header closeButton>
-                            <Modal.Title>Reset Fee</Modal.Title>
+                            <Modal.Title>Reset {carType} Fee</Modal.Title>
                         </Modal.Header>
 
                         <Modal.Body>

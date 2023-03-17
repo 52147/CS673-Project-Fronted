@@ -17,25 +17,29 @@ const parkFeeSlice = createSlice({
         [getFeeThunk.pending]:
             (state) => {
                 state.loading = true
+                //console.log("pending")
             },
         [getFeeThunk.fulfilled]:
             (state, { payload }) => {
                 state.loading = false
-                state.firstHour = payload.firstHour
-                state.firstFee = payload.firstFee
-                state.secondFee = payload.secondFee
-                state.maxFee = payload.maxFee
-                state.addition = payload.addition
+                state.firstHour = payload.content.hour
+                state.firstFee = payload.content.firstPrice
+                state.secondFee = payload.content.secondPrice
+                state.maxFee = payload.content.maxPrice
+                state.addition = payload.content.comment
+                //console.log("fulfilled")
+                //console.log(state.secondFee)
             },
         [getFeeThunk.rejected]:
             (state) => {
                 state.loading = false
+                //console.log("reject")
             },
 
         [setFeeThunk.pending]:
             (state) => {
                 state.loading = true
-                console.log("pending")
+                //console.log("pending")
             },
         [setFeeThunk.fulfilled]:
             (state, { payload }) => {
