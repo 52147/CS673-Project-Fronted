@@ -42,6 +42,8 @@ export const Autho = () => {
     }
     setDisplayMessage(loading);
     console.log(loading);
+    console.log(history);
+    
   }, [loading]);
 
 
@@ -175,15 +177,19 @@ export const Autho = () => {
       // if(loading === "false"){
       //   setShow(true);
       // }
+
+      if(req.payload== false){
+        setShow(true);
+      }
+      console.log(req.payload);
       setNewUsername("");
       setNewPassword("");
       setNewRole("");
       console.log(JSON.stringify(history)); // 無法接收add function 的 response
-
     })
-    
-
-    // window.location.reload();
+    setTimeout(() => {
+      window.location.reload();
+    }, "1500");  
   };
 
   return (
@@ -286,9 +292,9 @@ export const Autho = () => {
       </div>
       <Modal show={show} onHide={handleClose}>
           <Modal.Header closeButton>
-            <Modal.Title>Welcome Car {newUsername}</Modal.Title>
+            <Modal.Title> Duplicate Username {newUsername}</Modal.Title>
           </Modal.Header>
-          <Modal.Body> Welcome to Victory Eight Parking Lot</Modal.Body>
+          <Modal.Body> Inputed Username is duplicate. </Modal.Body>
           <Modal.Footer>
             <Button variant="primary" onClick={handleClose}>
               Close

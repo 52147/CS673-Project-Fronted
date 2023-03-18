@@ -5,7 +5,7 @@ import { loginThunk } from "../../services/loginThunk";
 
 export const Login = () => {
   const dispatch = useDispatch();
-  const { loading, users } = useSelector((state) => state.submitUser);
+  const { loading, users, token } = useSelector((state) => state.users);
 
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -13,6 +13,7 @@ export const Login = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     await dispatch(loginThunk({ username, password }));
+    console.log(token);
   };
 
 
@@ -52,7 +53,7 @@ export const Login = () => {
           </button>
         </form>
         </div>
-        {users === "fulfilled" && window.location.replace(`/modules`)}
+        {/* {users === "fulfilled" && window.location.replace(`/modules`)} */}
       </div>
     </>
   );

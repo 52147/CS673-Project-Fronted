@@ -5,6 +5,8 @@ const initialState = {
     users: "",
     password: "",
     loading: false,
+    token: "",
+    username: "",
 
 }
 const loginSlice = createSlice({
@@ -13,9 +15,13 @@ const loginSlice = createSlice({
     extraReducers: {
  
         [loginThunk.fulfilled]:
-            (state, action) =>{
+            (state, {payload}) =>{
               state.users = "fulfilled";
               console.log("fulfilled")
+              state.token = payload.token; 
+              state.username = payload.username;
+              console.log(state.token);
+              console.log(payload);
             },
         [loginThunk.rejected]:
             (state, action) =>{

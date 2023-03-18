@@ -4,7 +4,13 @@ import * as service from './loginServices'
 
 export const loginThunk = createAsyncThunk(
     '/login',
-    async (user) => await service.login(user)
+    async (user) => {
+        const loginResult = await service.login(user)
+        return {
+            username: user.username,
+            ...loginResult,
+        }
+    }
 )
 export const findUsersThunk = createAsyncThunk(
     'users/findUsers', async () => {

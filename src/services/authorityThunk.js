@@ -29,7 +29,6 @@ export const addAuthorityThunk = createAsyncThunk(
       return json;
     }
   )
-  
 
   export const importAuthorityThunk = createAsyncThunk(
     '/user/import', async (file) => {
