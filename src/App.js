@@ -14,7 +14,7 @@ import authorityReducer from "./parking-garage-automation/reducers/authorityRedu
 import feeManagementReducer from "./parking-garage-automation/reducers/feeManagementReducer";
 const store = configureStore({reducer: {checkInCars: inputCarReducer,parkInfo: parkInfoReducer,
         parkHistory:parkHistoryReducer,submitUser: loginReducer, checkOutCars:checkOutCarReducer,
-        parkFee: feeManagementReducer,history: authorityReducer,}})
+        parkFee: feeManagementReducer,authoHistory: authorityReducer,}})
 
 function App() {
   return (

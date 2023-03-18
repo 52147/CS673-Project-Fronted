@@ -5,12 +5,14 @@ import {
   deleteAuthorityThunk,
   importAuthorityThunk,
   exportAuthorityThunk,
+  addAuthorityThunk,
 } from "../../services/authorityThunk";
 
 const initialState = {
   loading: false,
   history: [],
-  fil: null
+  mess: "123",
+  
 };
 
 const authoritySlice = createSlice({
@@ -67,6 +69,22 @@ const authoritySlice = createSlice({
     },
     [exportAuthorityThunk.rejected]: (state) => {
       state.loading = false;
+    },
+    [addAuthorityThunk.pending]: (state) => {
+      state.loading = true;
+    },
+    [addAuthorityThunk.fulfilled]: (state, { payload }) => {
+      state.loading = true;
+      console.log(state.loading)
+      state.history = payload;
+      
+      console.log(state.mess)
+    },
+    [addAuthorityThunk.rejected]: (state, message) => {
+      state.loading = false;
+      
+      console.log(state.loading)
+      console.log(state.mess)
     },
   },
 

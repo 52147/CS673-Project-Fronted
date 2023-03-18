@@ -3,7 +3,7 @@ import { Post } from "./Post";
 import { utils, writeFile } from "xlsx";
 import styles from  "./autho.module.css";
 
-import { Button, Table, Spinner, Pagination, Form } from "react-bootstrap";
+import { Button, Table, Spinner, Pagination, Form, Modal } from "react-bootstrap";
 import {
   faSearch,
   faPlus,
@@ -13,7 +13,7 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   AuthorityThunk,
-  updateAuthorityThunk,
+  addAuthorityThunk,
   importAuthorityThunk,
 } from "../../services/authorityThunk";
 import { useDispatch, useSelector } from "react-redux";
@@ -22,7 +22,8 @@ export const Autho = () => {
   const [searchQuery, setSearchQuery] = useState("");
 
   const dispatch = useDispatch();
-  const { loading, history } = useSelector((state) => state.history);
+  const { loading, history} = useSelector((state) => state.authoHistory);
+
   const [newUsername, setNewUsername] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [newRole, setNewRole] = useState("");
@@ -30,12 +31,20 @@ export const Autho = () => {
   const [exporting, setExporting] = useState(false);
   const [posts, setPosts] = useState([]);
   const [active, setActivePage] = useState(1);
+  const [displayMessage, setDisplayMessage] = useState(""); // create state variable to display the message
+
+  const [show, setShow] = useState(false);
+  const handleClose = () => setShow(false);
 
   useEffect(() => {
     if (!loading) {
       paginationClickHandler(1); // 當進入頁面時，paginationClickHandler設定為 1
     }
+    setDisplayMessage(loading);
+    console.log(loading);
   }, [loading]);
+
+
 
   let tempArr = [];
   const paginationClickHandler = (number) => {
@@ -155,24 +164,33 @@ export const Autho = () => {
     setPosts(filteredPosts);
   };
 
-  const handleCreateUser = () => {
-    dispatch(
-      updateAuthorityThunk({
+  const handleCreateUser = async () => {
+    await dispatch(
+      addAuthorityThunk({
         username: newUsername,
         password: newPassword,
         role: newRole,
       })
-    );
-    setNewUsername("");
-    setNewPassword("");
-    setNewRole("");
-    window.location.reload();
+    ).then((req) => {
+      // if(loading === "false"){
+      //   setShow(true);
+      // }
+      setNewUsername("");
+      setNewPassword("");
+      setNewRole("");
+      console.log(JSON.stringify(history)); // 無法接收add function 的 response
+
+    })
+    
+
+    // window.location.reload();
   };
 
   return (
     <>
       <div className="row text-white mt-3 mb-3">
         <h1>AUTHORITY MANAGEMENT</h1>
+        <p>{displayMessage}</p>
       </div>
 
       <div className="input-group">
@@ -266,6 +284,17 @@ export const Autho = () => {
       <div className="mt-2 d-flex justify-content-center">
         <Pagination className="justify-content-end me-5">{items}</Pagination>
       </div>
+      <Modal show={show} onHide={handleClose}>
+          <Modal.Header closeButton>
+            <Modal.Title>Welcome Car {newUsername}</Modal.Title>
+          </Modal.Header>
+          <Modal.Body> Welcome to Victory Eight Parking Lot</Modal.Body>
+          <Modal.Footer>
+            <Button variant="primary" onClick={handleClose}>
+              Close
+            </Button>
+          </Modal.Footer>
+        </Modal>
     </>
   );
 };
