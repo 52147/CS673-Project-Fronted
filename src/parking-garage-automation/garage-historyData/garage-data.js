@@ -56,16 +56,20 @@ const GarageData = () => {
         );
     }
 
-    useEffect(() => {
-        dispatch(getHistoryThunk())
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
-
-    useEffect(() => {
-        if (!loading) {
+    useEffect ( () => {
+        const first = async ()=>{
+            await dispatch(getHistoryThunk())
             paginationClickHandler(1)
         }
-    }, [loading,paginationClickHandler])
+        first()
+
+    }, [dispatch,paginationClickHandler]);
+
+    // useEffect(() => {
+    //     if (!loading) {
+    //         paginationClickHandler(1)
+    //     }
+    // }, [loading,paginationClickHandler])
 
     return (<>
         <div className="row text-white mt-3 mb-3">
