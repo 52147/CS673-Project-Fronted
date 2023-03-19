@@ -19,6 +19,7 @@ const ParkingInformation = () => {
         ParkingFee,
         msg
     } = useSelector((state) => state.parkInfo)
+    console.log(PlateNumber);
 
     const parkInfo = {
         plate: plates

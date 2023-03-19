@@ -1,7 +1,12 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import styles from "./modules.module.css";
+import { garageDataManagementThunk } from "../../services/garageDataManagementThunk";
+import { useDispatch, useSelector } from "react-redux";
 
 export const Modules = () => {
+  const { loading, history } = useSelector((state) => state.garageData);
+  const dispatch = useDispatch();
+
   const data = [
     {
       id: "1",
@@ -28,11 +33,20 @@ export const Modules = () => {
       cover: "parking (1).png",
     },
   ];
+  useEffect(() => {
+    console.log("Fetching history...");
+    dispatch(garageDataManagementThunk());
+    console.log(loading);
+    console.log(history);
+  }, [dispatch]);
 
   return (
     <>
+      <h1 className= "mt-4 text-white"> Remaning Parking Spaces: {history.current_spots}</h1>
+      <h1 className= "text-white"> Total Parking Spaces: {history.total_spots}</h1>
       <div className={`container ${styles.block}`}>
         <div className={`flex row ${styles.group}`}>
+          
           {data.map((value) => {
             return (
               <>

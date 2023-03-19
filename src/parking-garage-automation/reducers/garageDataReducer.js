@@ -15,6 +15,7 @@ const garageDataManagementSlice = createSlice({
     [garageDataManagementThunk.fulfilled]: (state, { payload }) => {
       state.loading = false;
       state.history = payload;
+      console.log("fulfilled");
     },
     [garageDataManagementThunk.rejected]: (state) => {
       state.loading = false;
