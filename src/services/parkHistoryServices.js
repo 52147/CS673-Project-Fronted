@@ -7,6 +7,6 @@ export const getHistoryService = async () => {
 }
 
 export const getSelectedHistoryService = async (json) => {
-    const response = await axios.post(COMMENTS_API+"/index/check/checkIn/checkHistory",json)
+    const response = await axios.post(COMMENTS_API+"/index/check/checkIn/checkHistory/FindbyDate_Exit",json)
     return response.data;
 }
