@@ -23,6 +23,8 @@ const ListBar = ({active}) => {
     }
 
 
+
+
     return (
         <div className="container mt-3 ms-1">
 
@@ -48,24 +50,6 @@ const ListBar = ({active}) => {
                     </ListGroup.Item>
 
                 </ListGroup>
-                {/*</Col>*/}
-                {/*<Col sm={10}>*/}
-                {/*    <Tab.Content>*/}
-                {/*        <Tab.Pane eventKey="#fee">*/}
-                {/*            <ParkingFee/>*/}
-                {/*        </Tab.Pane>*/}
-
-                {/*        <Tab.Pane eventKey="#History Data">*/}
-                {/*            <GarageData></GarageData>*/}
-                {/*        </Tab.Pane>*/}
-                {/*        <Tab.Pane eventKey="#Authority">*/}
-                {/*            <Autho/>*/}
-                {/*        </Tab.Pane>*/}
-
-                {/*    </Tab.Content>*/}
-                {/*</Col>*/}
-                {/*</Row>*/}
-
         </div>
 
     );

@@ -9,7 +9,6 @@ import DatePicker from "react-datepicker";
 
 
 const GarageData = () => {
-    //const {currentUser} = useSelector((state) => state.submitUser)
     const [posts, setPosts] = useState([]);
     let [startDate, setStartDate] = useState(new Date());
     let [endDate, setEndDate] = useState(new Date());
@@ -23,8 +22,8 @@ const GarageData = () => {
 
 
     const date = {
-        startDate: startDate,
-        endDate: endDate
+        startDate: startDate.toISOString(),
+        endDate: endDate.toISOString()
     };
 
     const dispatch = useDispatch();
@@ -56,20 +55,25 @@ const GarageData = () => {
         );
     }
 
-    useEffect ( () => {
-        const first = async ()=>{
-            await dispatch(getHistoryThunk())
-            paginationClickHandler(1)
-        }
-        first()
-
-    }, [dispatch,paginationClickHandler]);
-
-    // useEffect(() => {
-    //     if (!loading) {
+    // useEffect ( () => {
+    //     const first = async ()=>{
+    //         await dispatch(getHistoryThunk())
     //         paginationClickHandler(1)
     //     }
-    // }, [loading,paginationClickHandler])
+    //     first()
+    //
+    // }, [dispatch,paginationClickHandler]);
+
+    useEffect(() => {
+        dispatch(getHistoryThunk())
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
+
+    useEffect(() => {
+        if (!loading) {
+            paginationClickHandler(1)
+        }
+    }, [loading,paginationClickHandler])
 
     return (<>
         <div className="row text-white mt-3 mb-3">
