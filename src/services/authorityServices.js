@@ -6,8 +6,8 @@ export const AuthorityService = async () => {
   return response.data;
 };
 
-export const updateAuthorityService = async (json) => {
-  const response = await axios.post(COMMENTS_API + `/user`, json);
+export const addAuthorityService = async (json) => {
+  const response = await axios.post(COMMENTS_API + `/user/add`, json);
   return response.data;
 };
 
@@ -20,7 +20,14 @@ export const importAuthorityService = async (json) => {
     const response = await axios.post(COMMENTS_API + `/user/import`, json);
     return response.data;
   };
+  
+  export const updateAuthorityService = async (json) => {
+    const response = await axios.post(COMMENTS_API + `/user/save`, json);
+    return response.data;
+  };
+
   export const exportAuthorityService = async (json) => {
     const response = await axios.get(COMMENTS_API + `/user/export`, json);
     return response.data;
   };
+  

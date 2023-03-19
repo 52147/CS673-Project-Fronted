@@ -9,8 +9,15 @@ export const AuthorityThunk = createAsyncThunk(
         return json;
     }
 )
-export const updateAuthorityThunk = createAsyncThunk(
-    '/user/update', async (data) => {
+export const addAuthorityThunk = createAsyncThunk(
+    '/user/add', async (data) => {
+      const json = await service.addAuthorityService(data)
+      return json;
+    }
+  )
+
+  export const updateAuthorityThunk = createAsyncThunk(
+    '/user/save', async (data) => {
       const json = await service.updateAuthorityService(data)
       return json;
     }
@@ -22,7 +29,6 @@ export const updateAuthorityThunk = createAsyncThunk(
       return json;
     }
   )
-  
 
   export const importAuthorityThunk = createAsyncThunk(
     '/user/import', async (file) => {

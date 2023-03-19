@@ -20,12 +20,12 @@ export const InputCar = () => {
     console.log(content);
 
     await dispatch(checkInCarThunk(content)).then((req) => {
-      if (req.payload.content.Entrance === "false") {
+      if (responseMsg === "success") {
         window.location.replace(`/information/${contact}`);
       } else {
         setShow(true);
       }
-      console.log(req.payload.content.Entrance);
+      console.log(responseMsg);
     });
   };
   const handleClose = () => setShow(false);

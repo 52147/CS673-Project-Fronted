@@ -16,10 +16,11 @@ import {
   deleteAuthorityThunk,
   importAuthorityThunk,
   exportAuthorityThunk,
+  addAuthorityThunk
 } from "../../services/authorityThunk";
 import { useDispatch, useSelector } from "react-redux";
 export const Post = ({ posts }) => {
-    const { loading, history, fil } = useSelector((state) => state.history);
+  const { loading, history } = useSelector((state) => state.authoHistory);
     // const [active, setActivePage] = useState(1); 
 
     const dispatch = useDispatch();
