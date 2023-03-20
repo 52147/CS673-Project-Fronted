@@ -11,6 +11,7 @@ const initialState = {
     loading: false,
     token: "",
     username: "",
+    load: "",
 
 }
 const loginSlice = createSlice({
@@ -25,7 +26,8 @@ const loginSlice = createSlice({
             },
         [loginThunk.fulfilled]:
             (state, {payload}) =>{
-              state.users = "fulfilled";
+              state.load = "fulfilled";
+              console.log(state.load)
                 const token = payload.token;
                 const decoded = jwtDecode(token);
               console.log("fulfilled")
@@ -43,7 +45,7 @@ const loginSlice = createSlice({
             },
         [loginThunk.rejected]:
             (state, action) =>{
-                state.users = "reject"
+                state.load = "reject"
                 console.log("rejected")
                 console.log(action.type)
             },

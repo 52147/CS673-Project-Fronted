@@ -3,7 +3,7 @@ import { Modules } from "./Modules";
 import {useSelector} from "react-redux";
 
 export const ModulesComponent = () => {
-    const {users} = useSelector((state) => state.submitUser)
+    const {users} = useSelector((state) => state.users)
 
   return (
     <>
