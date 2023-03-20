@@ -6,7 +6,7 @@ import { Button, Modal } from "react-bootstrap";
 
 export const Login = () => {
   const dispatch = useDispatch();
-  const { loading, users, token } = useSelector((state) => state.users);
+  const { loading, load, token } = useSelector((state) => state.users);
 
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -14,11 +14,18 @@ export const Login = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    await dispatch(loginThunk({ username, password }));
+    await dispatch(
+      loginThunk({ username, password })).then((req) => {
+        console.log(req.type);
+        if(req.type === "/login/rejected"){
+          setShow(true);
+        }
+
+
+    })
     console.log(token);
-    if(users === "reject"){
-      setShow(true);
-    }
+    console.log(load);
+
   };
   const handleClose = () => setShow(false);
 
@@ -53,13 +60,12 @@ export const Login = () => {
           <button
             className={styles.buttonClass}
             type="submit"
-            disabled={loading}
           >
-            {loading ? "Loading..." : "Submit"}
+            Submit
           </button>
         </form>
         </div>
-        {users === "fulfilled" && window.location.replace(`/modules`)}
+        {load === "fulfilled" && window.location.replace(`/modules`)}
       </div>
       <Modal show={show} onHide={handleClose}>
           <Modal.Header closeButton>
