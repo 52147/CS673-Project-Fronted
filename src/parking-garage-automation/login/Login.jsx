@@ -6,7 +6,8 @@ import { Button, Modal } from "react-bootstrap";
 
 export const Login = () => {
   const dispatch = useDispatch();
-  const { loading, load, token } = useSelector((state) => state.users);
+  const { loading, load, token, users } = useSelector((state) => state.users);
+  console.log(users);
 
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -66,6 +67,7 @@ export const Login = () => {
         </form>
         </div>
         {load === "fulfilled" && window.location.replace(`/modules`)}
+
       </div>
       <Modal show={show} onHide={handleClose}>
           <Modal.Header closeButton>
