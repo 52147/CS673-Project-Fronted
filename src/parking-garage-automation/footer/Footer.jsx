@@ -30,7 +30,7 @@ export const Footer = () => {
   return (
     <>
       {showFooter && (
-        <footer className="bg-stone-800 fixed bottom-0 w-full">
+        <footer className="bg-stone-800 fixed bottom-0 w-full bottom-0 left-0 right-0">
           <div className="flex justify-center">
             <div className={styles.box + " bg-stone-700 rounded-lg p-8 md:w-1/2 lg:w-1/3"}>
               <div className="text-white">
