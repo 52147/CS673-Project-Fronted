@@ -7,6 +7,7 @@ import React, {useState} from "react";
 
 const NavBar = () =>{
     const { users } = useSelector((state) => state.users);
+    console.log(users);
 
     const navigate = useNavigate()
 
