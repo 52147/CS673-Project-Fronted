@@ -12,19 +12,19 @@ export const UserModule = () => {
       id: "1",
       page: "form",
       topic: "Reservation Form",
-      cover: "hand.png",
+      cover: "reserve.png",
     },
     {
       id: "2",
       page: "garageData",
       topic: "Reservation Record",
-      cover: "parked-car.png",
+      cover: "booking.png",
     },
     {
       id: "3",
       page: "autho",
       topic: "Membership",
-      cover: "policeman.png",
+      cover: "premium.png",
     },
 
   ];
