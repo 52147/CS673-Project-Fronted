@@ -14,7 +14,8 @@ export const Footer = () => {
 
     const handleResize = () => {
       const isFullHeight = document.documentElement.clientHeight >= document.documentElement.scrollHeight;
-      setShowFooter(isFullHeight);
+      const isShortContent = document.documentElement.scrollHeight <= window.innerHeight;
+      setShowFooter(isFullHeight || isShortContent);
     }
 
     handleResize();
