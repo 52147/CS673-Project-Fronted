@@ -21,8 +21,7 @@ export const Login = () => {
         if(req.type === "/login/rejected"){
           setShow(true);
         }
-
-
+        
     })
     console.log(token);
     console.log(load);

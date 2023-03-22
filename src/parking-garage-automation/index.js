@@ -13,6 +13,7 @@ import AuthoComponent from "./authority-management";
 import FeeComponent from "./garage-fee";
 import GarageDataManagementComponent from "./garage-data-management";
 import FormComponent from "./reservation";
+import UserModuleComponent from "./user-module";
 
 function ParkingGarageAutomation() {
     const [value, setValue] = useState('')
@@ -30,7 +31,8 @@ function ParkingGarageAutomation() {
                 <Route path="/modules/autho" exact element={<AuthoComponent/>}/>
                 <Route path="/modules/fee" exact element={<FeeComponent/>}/>
                 <Route path="/modules/garageDataManagement" exact element={<GarageDataManagementComponent/>}/>
-                <Route path="form" element={<FormComponent/>}/>
+                <Route path="/usermodule/form" element={<FormComponent/>}/>
+                <Route path="usermodule" element={<UserModuleComponent/>}/>
             </Routes>
         )
 

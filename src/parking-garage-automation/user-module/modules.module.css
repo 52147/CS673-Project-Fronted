@@ -1,0 +1,63 @@
+.block {
+  margin-top: 5%;
+}
+
+.group {
+  display: flex;
+  justify-content: center;
+  gap: 0 40px; /*用gap 將 3 個flex box 分開*/
+  margin-top: 30px;
+}
+
+.group .card {
+  flex-direction: column;
+  background-color: #ffffff;
+  box-shadow: rgb(0 0 0 / 25%) 0px 3px 11px 0px;
+  width: 30%;
+  padding: 50px 20px;
+  margin-bottom: 30px;
+  margin-top: 50px;
+  border: 0;
+}
+
+.image {
+  width: 80px;
+  height: 80px;
+  display: block;
+  margin: 0 auto 12px auto;
+}
+
+.card-info .title {
+  margin: 20px 2px;
+  text-align: center;
+  font-weight: 700;
+  font-size: 20px;
+}
+
+.info {
+  min-height: 100px;
+}
+
+.block {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+}
+
+.buttonClass {
+  appearance: none;
+  outline: 0;
+  background-color: white;
+  border: solid 1px #50a3a2;
+  padding: 10px 15px;
+  color: #50a3a2;
+  border-radius: 3px;
+  width: 250px;
+  font-size: 18px;
+  transition-duration: 0.4s;
+}
+
+.buttonClass:hover {
+  background-color: black; /* Green */
+  color: white;
+}
