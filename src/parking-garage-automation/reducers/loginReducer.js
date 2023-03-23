@@ -12,6 +12,7 @@ const initialState = {
     token: "",
     username: "",
     load: "",
+    decode: "",
 
 }
 const loginSlice = createSlice({
@@ -40,7 +41,7 @@ const loginSlice = createSlice({
               console.log(decoded);
               localStorage.setItem('userObject', JSON.stringify("fulfilled"))
 
-
+                state.decode = decoded;
 
             },
         [loginThunk.rejected]:
