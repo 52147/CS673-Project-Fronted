@@ -19,7 +19,7 @@ export const Login = () => {
     await dispatch(loginThunk({ username, password })).then((req) => {
       console.log(req.type);
       console.log(req);
-      console.log(req.payload.token);
+      // console.log(req.payload.token);
 
       const decoded = jwtDecode(req.payload.token);
       console.log(decoded);
@@ -69,7 +69,6 @@ export const Login = () => {
             </button>
           </form>
         </div>
-        {/* {load === "fulfilled" && window.location.replace(`/modules`)} */}
       </div>
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>

@@ -1,20 +1,69 @@
 import { React, useState } from "react";
 import { Form, Col, Row, Button } from "react-bootstrap";
 import styles from "./Form.module.css";
-
+import { useSelector, useDispatch } from "react-redux";
+import { updateFormThunk } from "../../services/formThunk";
 export const ReserveForm = () => {
+  const { loading, load, token, users } = useSelector((state) => state.users);
+  console.log(users);
+
   const [carPlate, setCarPlate] = useState("");
   const [reservationTime, setReservationTime] = useState("");
+  const [carType, setCarType] = useState("");
+  const dispatch = useDispatch();
 
   const handleCarPlateChange = (event) => {
     setCarPlate(event.target.value);
+
+  };
+  const handleCarTypeChange = (event) => {
+    setCarType(event.target.value);
   };
 
   const handleReservationTimeChange = (event) => {
     setReservationTime(event.target.value);
   };
 
-  const submitForm = () => {};
+  const submitForm = () => {
+    dispatch(
+      updateFormThunk(
+        {
+          type: carType,
+          reservationTime: reservationTime,
+          reservationTime: reservationTime,
+          reservationTime: reservationTime,
+          reservationTime: reservationTime,
+          reservationTime: reservationTime,
+          reservationTime: reservationTime,
+          reservationTime: reservationTime,
+          reservationTime: reservationTime,
+          reservationTime: reservationTime,
+          reservationTime: reservationTime,
+          reservationTime: reservationTime,
+          reservationTime: reservationTime,
+          // "A13": reservationTime,
+          // "A14": reservationTime,
+          // "A15": reservationTime,
+          // "A16": reservationTime,
+          // "A17": reservationTime,
+          // "A18": reservationTime,
+          // "A18": reservationTime,
+          // "A8": reservationTime,
+          // "A9": reservationTime,
+          // "A10": reservationTime,
+          // "A11": reservationTime,
+          // "A12": reservationTime,
+        },
+
+        // { date: currentDate, license: carPlate, name: users }
+      )
+    );
+    console.log(carType);
+    console.log(reservationTime);
+    console.log(currentDate);
+    console.log(carPlate);
+    console.log(users);
+  };
   const currentDate = new Date().toLocaleDateString();
 
   const getTimeRange = (hour) => {
@@ -54,6 +103,7 @@ export const ReserveForm = () => {
       <h1 className="text-4xl font-bold mb-6 text-white">
         Reservation Form - {currentDate}
       </h1>
+
       <Form className="bg-white p-8 rounded-lg shadow-lg">
         <Form.Group as={Row} controlId="formCarPlate">
           <Form.Label column sm={3} className="text-lg font-semibold">
@@ -69,6 +119,21 @@ export const ReserveForm = () => {
               className="rounded-lg shadow-sm border-gray-300 focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 w-full"
             />
           </Col>
+        </Form.Group>
+
+        <Form.Group as={Row} controlId="formCarPlate">
+          <Form.Label column sm={3} className="text-lg font-semibold">
+            Car Plate Number
+          </Form.Label>
+          <Col sm={9}>
+            <Form.Select onChange={handleCarTypeChange}>
+              <option>Default select</option>
+              <option value="Car">Car</option>
+              <option value="Motorcycle">Motorcycle</option>
+              <option value="Bicycle">Bicycle</option>
+            </Form.Select>
+          </Col>
+          <br />
         </Form.Group>
 
         <Form.Group as={Row} controlId="formReservationTime">
@@ -93,4 +158,4 @@ export const ReserveForm = () => {
       </Form>
     </div>
   );
-}
+};
