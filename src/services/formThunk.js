@@ -9,3 +9,11 @@ export const updateFormThunk = createAsyncThunk(
         return json;
     }
 )
+
+
+export const recordFormThunk = createAsyncThunk(
+  '/parklot/appointment', async () => {
+      const json =  await service.recordFormService()
+      return json;
+  }
+)

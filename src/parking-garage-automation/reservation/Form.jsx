@@ -2,7 +2,7 @@ import { React, useState } from "react";
 import { Form, Col, Row, Button } from "react-bootstrap";
 import styles from "./Form.module.css";
 import { useSelector, useDispatch } from "react-redux";
-import { updateFormThunk } from "../../services/formThunk";
+import { updateFormThunk, recordFormThunk } from "../../services/formThunk";
 export const ReserveForm = () => {
   const { loading, load, token, users } = useSelector((state) => state.users);
   console.log(users);
@@ -14,7 +14,6 @@ export const ReserveForm = () => {
 
   const handleCarPlateChange = (event) => {
     setCarPlate(event.target.value);
-
   };
   const handleCarTypeChange = (event) => {
     setCarType(event.target.value);
@@ -26,43 +25,105 @@ export const ReserveForm = () => {
 
   const submitForm = () => {
     dispatch(
-      updateFormThunk(
-        {
-          type: carType,
-          reservationTime: reservationTime,
-          reservationTime: reservationTime,
-          reservationTime: reservationTime,
-          reservationTime: reservationTime,
-          reservationTime: reservationTime,
-          reservationTime: reservationTime,
-          reservationTime: reservationTime,
-          reservationTime: reservationTime,
-          reservationTime: reservationTime,
-          reservationTime: reservationTime,
-          reservationTime: reservationTime,
-          reservationTime: reservationTime,
-          // "A13": reservationTime,
-          // "A14": reservationTime,
-          // "A15": reservationTime,
-          // "A16": reservationTime,
-          // "A17": reservationTime,
-          // "A18": reservationTime,
-          // "A18": reservationTime,
-          // "A8": reservationTime,
-          // "A9": reservationTime,
-          // "A10": reservationTime,
-          // "A11": reservationTime,
-          // "A12": reservationTime,
-        },
-
-        // { date: currentDate, license: carPlate, name: users }
-      )
+      updateFormThunk({
+        id: 1,
+        type: "car",
+        a1: "chepai",
+        a2: "chepai",
+        a3: "chepai",
+        a4: "chepai",
+        a5: "chepai",
+        a6: "chepai",
+        a7: "chepai",
+        a8: "chepai",
+        a9: "chepai",
+        a10: "chepai",
+        a11: "chepai",
+        a12: "chepai",
+        a13: "chepai",
+        a14: "chepai",
+        a15: "chepai",
+        a16: "chepai",
+        a17: "chepai",
+        a18: "chepai",
+        a19: "chepai",
+        a20: "chepai",
+        a21: "chepai",
+        a22: "chepai",
+        a23: "chepai",
+        a24: "chepai",
+        b1: "chepbi",
+        b2: "chepbi",
+        b3: "chepbi",
+        b4: "chepbi",
+        b5: "chepbi",
+        b6: "chepbi",
+        b7: "chepbi",
+        b8: "chepbi",
+        b9: "chepbi",
+        b10: "chepbi",
+        b11: "chepbi",
+        b12: "chepbi",
+        b13: "chepbi",
+        b14: "chepbi",
+        b15: "chepbi",
+        b16: "chepbi",
+        b17: "chepbi",
+        b18: "chepbi",
+        b19: "chepbi",
+        b20: "chepbi",
+        b21: "chepbi",
+        b22: "chepbi",
+        b23: "chepbi",
+        b24: "chepbi",
+      })
     );
-    console.log(carType);
+    // dispatch(
+    //   updateFormThunk(
+    //     {
+    //       type: carType,
+    //       reservationTime: reservationTime,
+    //       reservationTime: reservationTime,
+    //       reservationTime: reservationTime,
+    //       reservationTime: reservationTime,
+    //       reservationTime: reservationTime,
+    //       reservationTime: reservationTime,
+    //       reservationTime: reservationTime,
+    //       reservationTime: reservationTime,
+    //       reservationTime: reservationTime,
+    //       reservationTime: reservationTime,
+    //       reservationTime: reservationTime,
+    //       reservationTime: reservationTime,
+    //       // "A13": reservationTime,
+    //       // "A14": reservationTime,
+    //       // "A15": reservationTime,
+    //       // "A16": reservationTime,
+    //       // "A17": reservationTime,
+    //       // "A18": reservationTime,
+    //       // "A18": reservationTime,
+    //       // "A8": reservationTime,
+    //       // "A9": reservationTime,
+    //       // "A10": reservationTime,
+    //       // "A11": reservationTime,
+    //       // "A12": reservationTime,
+    //     },
+
+    //     // { date: currentDate, license: carPlate, name: users }
+    //   )
+    // );
     console.log(reservationTime);
     console.log(currentDate);
     console.log(carPlate);
     console.log(users);
+
+    dispatch(
+      recordFormThunk({
+        parklotId: 2, // Replace with the actual parklotId value
+        date: currentDate,
+        license: carPlate,
+        name: users,
+      })
+    );
   };
   const currentDate = new Date().toLocaleDateString();
 

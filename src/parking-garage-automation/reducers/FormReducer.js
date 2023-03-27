@@ -1,6 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import {
   updateFormThunk,
+  recordFormThunk
 } from "../../services/formThunk";
 
 const authoritySlice = createSlice({
@@ -17,14 +18,14 @@ const authoritySlice = createSlice({
     [updateFormThunk.rejected]: (state) => {
       state.loading = false;
     },
-    [updateAuthorityThunk.pending]: (state) => {
+    [recordFormThunk.pending]: (state) => {
       state.loading = true;
     },
-    [updateAuthorityThunk.fulfilled]: (state, { payload }) => {
+    [recordFormThunk.fulfilled]: (state, { payload }) => {
       state.loading = false;
       state.history = payload;
     },
-    [updateAuthorityThunk.rejected]: (state) => {
+    [recordFormThunk.rejected]: (state) => {
       state.loading = false;
     },
     [deleteAuthorityThunk.pending]: (state) => {

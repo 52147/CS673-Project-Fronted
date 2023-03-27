@@ -7,3 +7,8 @@ export const updateFormService = async () => {
 };
 
 
+
+export const recordFormService = async () => {
+  const response = await axios.post(COMMENTS_API + "/parklot/appointment");
+  return response.data;
+};
