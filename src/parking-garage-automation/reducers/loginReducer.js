@@ -1,7 +1,6 @@
 import {createSlice} from "@reduxjs/toolkit";
 import {loginThunk } from "../../services/loginThunk";
 import jwtDecode from "jwt-decode";
-import {useState} from "react";
 
 const user = localStorage.getItem('userObject') != null? JSON.parse(localStorage.getItem('userObject')):[]
 
@@ -24,8 +23,8 @@ const loginSlice = createSlice({
         [loginThunk.fulfilled]:
             (state, {payload}) =>{
               state.users = "fulfilled";
-                const token = payload.token;
-                const decoded = jwtDecode(token);
+              const token = payload.token;
+              const decoded = jwtDecode(token);
               console.log("fulfilled")
               console.log(decoded);
               localStorage.setItem('userObject', JSON.stringify("fulfilled"))

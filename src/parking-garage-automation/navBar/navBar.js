@@ -21,6 +21,10 @@ const NavBar = () =>{
         navigate('/login');
     }
 
+    const navSignUp = ()=>{
+        navigate('/register');
+    }
+
     const navLogOut = ()=>{
         localStorage.removeItem('userObject');
         logOutHandlerShow();
@@ -59,8 +63,11 @@ const NavBar = () =>{
 
 
                     {
-                        users !=="fulfilled" &&
-                        <Button id="logInButton" onClick={navLogIn} >Log In</Button>
+                        users !=="fulfilled" &&<>
+                        <Button id="SignUpButton" onClick={navSignUp} >Sign Up</Button>
+                        <Button id="SignInButton" onClick={navLogIn} >Sign In</Button>
+                        </>
+
                     }
                     {
                         users ==="fulfilled" &&
