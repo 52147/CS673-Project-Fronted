@@ -14,35 +14,35 @@ const parkHistorySlice = createSlice({
         [getHistoryThunk.pending]:
             (state) => {
                 state.loading = true
-                console.log("pending");
+                //console.log("pending");
             },
         [getHistoryThunk.fulfilled]:
             (state, { payload }) => {
                 state.loading = false
                 state.history = payload
-                console.log(payload);
+                //console.log(payload);
             },
         [getHistoryThunk.rejected]:
             (state) => {
                 state.loading = false
-                console.log("reject");
+                //console.log("reject");
             },
 
         [getSelectedHistoryThunk.pending]:
             (state) => {
                 state.loading = true
-                console.log("pending");
+                //console.log("pending");
             },
         [getSelectedHistoryThunk.fulfilled]:
             (state, { payload }) => {
                 state.loading = false
                 state.history = payload
-                console.log(payload);
+                //console.log(payload.content);
             },
         [getSelectedHistoryThunk.rejected]:
             (state) => {
                 state.loading = false
-                console.log("reject");
+                //console.log("reject");
             }
 
 

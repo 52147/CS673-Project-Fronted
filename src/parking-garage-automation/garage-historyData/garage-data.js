@@ -12,7 +12,7 @@ const GarageData = () => {
     const [posts, setPosts] = useState([]);
     let [startDate, setStartDate] = useState(new Date());
     let [endDate, setEndDate] = useState(new Date());
-    const [active, setActivePage] = useState(1); 
+    const [active, setActivePage] = useState(1);
 
     const {
         loading,
@@ -20,20 +20,21 @@ const GarageData = () => {
     } = useSelector((state) => state.parkHistory)
 
 
-
     const date = {
+        // startDate: startDate.getFullYear()+"-"+(1+startDate.getMonth())+"-"+startDate.getDate(),
+        // endDate: endDate.getFullYear()+"-"+(1+endDate.getMonth())+"-"+endDate.getDate()
         startDate: startDate.toISOString(),
-        endDate: endDate.toISOString()
+        endDate: endDate.toISOString(),
     };
 
     const dispatch = useDispatch();
     const searchClickHandler = () => {
-        console.log(date)
+        //console.log(date)
         dispatch(getSelectedHistoryThunk(date))
     }
 
 
-    const paginationClickHandler =   React.useCallback((number) => {
+    const paginationClickHandler = React.useCallback((number) => {
         let tempArr = []
         for (let i = number * 10 - 10; i <= number * 10 - 1; i++) {
             if (i < history.length) {
@@ -42,7 +43,7 @@ const GarageData = () => {
         }
         setActivePage(number);
         setPosts(tempArr)
-    },[history]);
+    }, [history]);
 
     const pageNumbers = Math.ceil(history.length / 10)
 
@@ -73,12 +74,12 @@ const GarageData = () => {
         if (!loading) {
             paginationClickHandler(1)
         }
-    }, [loading,paginationClickHandler])
+    }, [loading, paginationClickHandler])
 
     return (<>
-        <div className="row text-white mt-3 mb-3">
-            <h1>PARKING HISTORY </h1>
-        </div>
+            <div className="row text-white mt-3 mb-3">
+                <h1>PARKING HISTORY </h1>
+            </div>
             {/*{*/}
             {/*    currentUser == null &&*/}
             {/*    <div className="row text-white mt-5 mb-3">*/}
@@ -111,30 +112,36 @@ const GarageData = () => {
                     <div className={`col-2 ${styles.textLeft}`}>
                         <Button onClick={searchClickHandler} variant="warning">Search</Button>
                     </div>
-
-
                 </div>
-                <div className="row me-4">
-                    <div className="col-12">
-                        <Table striped bordered hover className={`mt-1`} variant="light">
-                            <thead>
-                            <tr>
-                                <th>#</th>
-                                <th>Plate Number</th>
-                                <th>Enter Time</th>
-                                <th>Exit Time</th>
-                                <th>price</th>
-                            </tr>
-                            </thead>
 
-                            <tbody>
+                {
+                    history.length === 0 && <h3 className={`mt-5 text-white`}>There is no such data. Please try again.</h3>
+                }
+                {
+                    history.length !== 0 &&
 
-                            <Posts posts={posts}></Posts>
-                            </tbody>
+                    <div className="row me-4">
+                        <div className="col-12">
+                            <Table striped bordered hover className={`mt-1`} variant="light">
+                                <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Plate Number</th>
+                                    <th>Enter Time</th>
+                                    <th>Exit Time</th>
+                                    <th>price</th>
+                                </tr>
+                                </thead>
 
-                        </Table>
+                                <tbody>
+
+                                <Posts posts={posts}></Posts>
+                                </tbody>
+
+                            </Table>
+                        </div>
                     </div>
-                </div>
+                }
 
 
                 <div>
