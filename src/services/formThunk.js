@@ -10,10 +10,16 @@ export const updateFormThunk = createAsyncThunk(
     }
 )
 
-
 export const recordFormThunk = createAsyncThunk(
   '/parklot/appointment', async () => {
       const json =  await service.recordFormService()
       return json;
   }
 )
+
+export const FormThunk = createAsyncThunk(
+    '/parklot', async () => {
+        const json =  await service.FormService()
+        return json;
+    }
+  )
