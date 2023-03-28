@@ -171,8 +171,15 @@ export const ReserveForm = () => {
     curr.getTime() + 24 * 60 * 60 * 1000
   ).toLocaleDateString(); // add 1 day (in milliseconds) to the current date
 
-  const getTimeRange = (hour) => {
-    const startHour = hour.toString().padStart(2, "0");
+  const getTimeRange = (hour, isColumnA) => {
+    let startHour;
+    if (hour === 0 && isColumnA) {
+      startHour = "24";
+    } else if (hour === 0 && !isColumnA) {
+      startHour = "00";
+    } else {
+      startHour = hour.toString().padStart(2, "0");
+    }
     const endHour = (hour + 1).toString().padStart(2, "0");
     return `${startHour}:00 ~ ${endHour}:00`;
   };
@@ -248,14 +255,14 @@ export const ReserveForm = () => {
                 <div className="d-flex flex-wrap">
                   {availableSlots
                     .filter((slot) => slot.startsWith("a"))
-                    .map((slot, index) => (
+                    .map((slot) => (
                       <Button
                         key={slot}
                         variant={cValues[slot] ? "success" : "primary"}
                         onClick={() => handleCClick(slot)}
                         className="mr-2 mb-2"
                       >
-                        {`${index + 1}:00-${index + 2}:00`}
+                        {getTimeRange(parseInt(slot.substr(1)) - 1, true)}
                       </Button>
                     ))}
                 </div>
@@ -267,14 +274,14 @@ export const ReserveForm = () => {
                 <div className="d-flex flex-wrap">
                   {availableSlots
                     .filter((slot) => slot.startsWith("b"))
-                    .map((slot, index) => (
+                    .map((slot) => (
                       <Button
                         key={slot}
                         variant={cValues[slot] ? "success" : "primary"}
                         onClick={() => handleCClick(slot)}
                         className="mr-2 mb-2"
                       >
-                        {`${index + 1}:00-${index + 2}:00`}
+                        {getTimeRange(parseInt(slot.substr(1)) - 1, false)}
                       </Button>
                     ))}
                 </div>
