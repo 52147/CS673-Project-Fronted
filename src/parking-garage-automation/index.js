@@ -15,6 +15,7 @@ import GarageDataManagementComponent from "./garage-data-management";
 import FormComponent from "./reservation";
 import UserModuleComponent from "./user-module";
 import ReserveTableComponent from "./client-reserve";
+import ReserveManagement from "./reservation-management";
 
 function ParkingGarageAutomation() {
     const [value, setValue] = useState('')
@@ -35,6 +36,7 @@ function ParkingGarageAutomation() {
                 <Route path="/usermodule/form" element={<FormComponent/>}/>
                 <Route path="usermodule" element={<UserModuleComponent/>}/>
                 <Route path="/usermodule/reserveTable" element={<ReserveTableComponent/>}/>
+                <Route path="/modules/reservemanagement" element={<ReserveManagement/>}/>
             </Routes>
         )
 

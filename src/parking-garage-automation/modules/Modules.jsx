@@ -32,6 +32,18 @@ export const Modules = () => {
       topic: "Parking Space Management",
       cover: "parking (1).png",
     },
+    {
+      id: "5",
+      page: "reservemanagement",
+      topic: "Reservation Management",
+      cover: "booking (1).png",
+    },
+    {
+      id: "6",
+      page: "reservemanagement",
+      topic: "Membership Management",
+      cover: "parking (1).png",
+    },
   ];
   useEffect(() => {
     console.log("Fetching history...");
