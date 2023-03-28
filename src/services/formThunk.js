@@ -23,3 +23,11 @@ export const FormThunk = createAsyncThunk(
         return json;
     }
   )
+
+  export const clientrecordFormThunk = createAsyncThunk(
+    '/parklot/showUser', async (setValue) => {
+        console.log(setValue)
+        const json =  await service.clientrecordFormService(setValue)
+        return json;
+    }
+)

@@ -42,7 +42,7 @@ export const Modules = () => {
       id: "6",
       page: "reservemanagement",
       topic: "Membership Management",
-      cover: "parking (1).png",
+      cover: "membership.png",
     },
   ];
   useEffect(() => {

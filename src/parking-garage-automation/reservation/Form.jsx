@@ -2,7 +2,7 @@ import { React, useState, useEffect } from "react";
 import { Form, Col, Row, Button } from "react-bootstrap";
 import styles from "./Form.module.css";
 import { useSelector, useDispatch } from "react-redux";
-import { updateFormThunk, record, FormThunk } from "../../services/formThunk";
+import { FormThunk } from "../../services/formThunk";
 import axios from "axios";
 
 export const ReserveForm = () => {
@@ -15,22 +15,12 @@ export const ReserveForm = () => {
   const [parkingSpaceNo, setParkingSpaceNo] = useState([]);
   const [response, setResponse] = useState(null);
   const [carPlate, setCarPlate] = useState("");
-  const [reservationTime, setReservationTime] = useState("");
   const [carType, setCarType] = useState("");
-  const [selectedSlots, setSelectedSlots] = useState([]);
 
   useEffect(() => {
     setCValues({});
   }, [selectedParkingSpace]);
-  const handleSlotClick = (value) => {
-    if (selectedSlots.includes(value)) {
-      // Slot is already selected, remove it from the array
-      setSelectedSlots(selectedSlots.filter((slot) => slot !== value));
-    } else {
-      // Slot is not selected, add it to the array
-      setSelectedSlots([...selectedSlots, value]);
-    }
-  };
+
   console.log(username);
   useEffect(() => {
     console.log("Fetching history...");
@@ -132,19 +122,36 @@ export const ReserveForm = () => {
   };
 
   const current = new Date(); // get the current date
+
   const year = current.getFullYear(); // get the year (4 digits)
   const month = String(current.getMonth() + 1).padStart(2, "0"); // get the month (2 digits) and pad with leading zero if needed
   const day = String(current.getDate()).padStart(2, "0"); // get the day (2 digits) and pad with leading zero if needed
   const formattedDate = `${year}-${month}-${day}`; // concatenate the year, month, and day with hyphens
   console.log(formattedDate); // output: "2023-03-27"
 
+  const tomorrow = new Date();
+  tomorrow.setDate(tomorrow.getDate() + 1); // set the date to tomorrow
+
+  const tyear = tomorrow.getFullYear();
+  const tmonth = tomorrow.getMonth() + 1; // month is zero-indexed, so add 1
+  const tday = tomorrow.getDate();
+
+  const tomorrowFormatted =
+    tyear +
+    "-" +
+    (tmonth < 10 ? "0" + tmonth : tmonth) +
+    "-" +
+    (tday < 10 ? "0" + tday : tday);
+  console.log(tomorrowFormatted); // output: "2023-03-29" (assuming today is March 28th, 2023)
+
   const submitForm = async (event) => {
     event.preventDefault();
     console.log(cValues);
+    // forData 為 {a1: true, b23: true}
     const formData = {
       ...cValues,
     };
-    Object.keys(formData).forEach((key) => (formData[key] = carPlate));
+    Object.keys(formData).forEach((key) => (formData[key] = carPlate)); // 把所有value改為車牌號碼
     console.log(formData); // or send it to API or save to database
     console.log(carType);
     const withCarType = {
@@ -153,7 +160,7 @@ export const ReserveForm = () => {
       ...formData,
     };
     console.log(withCarType);
-    const url = `http://localhost:8080/parklot/save?date=${formattedDate}&license=${carPlate}&name=${username}`;
+    const url = `http://localhost:8080/parklot/save?date=${result}&license=${carPlate}&name=${username}`;
     console.log("url:", url);
 
     try {
@@ -181,13 +188,47 @@ export const ReserveForm = () => {
       startHour = hour.toString().padStart(2, "0");
     }
     const endHour = (hour + 1).toString().padStart(2, "0");
+    // console.log(`${startHour}:00 ~ ${endHour}:00`);
     return `${startHour}:00 ~ ${endHour}:00`;
   };
-
+  const [time, setTime] = useState({});
   const [cValues, setCValues] = useState({});
   const handleCClick = (value) => {
+    console.log(value);
+    setTime((prevValues) => ({ ...prevValues, value }));
+    console.log(time);
     setCValues((prevValues) => ({ ...prevValues, [value]: true }));
   };
+
+  const selectedSlotsOne = Object.keys(cValues)
+    .filter((key) => cValues[key])
+    .map((slot) => {
+      const isColumnA = slot.startsWith("a");
+      console.log(slot);
+
+      if (slot.startsWith("a")) {
+        const hour = parseInt(slot.substr(1)) - 1;
+        return getTimeRange(hour, isColumnA);
+      }
+    });
+
+  const selectedSlotsTwo = Object.keys(cValues)
+    .filter((key) => cValues[key])
+    .map((slot) => {
+      const isColumnA = slot.startsWith("b");
+      if (slot.startsWith("b")) {
+        const hour = parseInt(slot.substr(1)) - 1;
+        return getTimeRange(hour, isColumnA);
+      }
+    });
+  const selectedSlotsStringOne = selectedSlotsOne.join(" ");
+  const dateStringOne = `${formattedDate}: ${selectedSlotsStringOne}`;
+  const selectedSlotsStringTwo = selectedSlotsTwo.join(" ");
+  const dateStringTwo = `${tomorrowFormatted}: ${selectedSlotsStringTwo}`;
+
+  const result = dateStringOne + " " + dateStringTwo;
+
+  console.log(result);
 
   return (
     <div className="flex flex-col items-center justify-center h-screen  ">

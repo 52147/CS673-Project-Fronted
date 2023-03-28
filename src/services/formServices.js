@@ -17,3 +17,10 @@ export const FormService = async () => {
   const response = await axios.get(COMMENTS_API + "/parklot");
   return response.data;
 };
+
+export const clientrecordFormService = async (json) => {
+  console.log(json)
+
+  const response = await axios.get(COMMENTS_API + `/parklot/appointment/showUser?userName=${json}`, json);
+  return response.data;
+};
