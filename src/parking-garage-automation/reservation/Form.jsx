@@ -12,11 +12,25 @@ export const ReserveForm = () => {
   const [vehicalType, setVehicalType] = useState("");
   const [availableSlots, setAvailableSlots] = useState([]);
   const { users, username } = useSelector((state) => state.users);
-  const [parkingSpaceNo, setParkingSpaceNo] = useState("");
+  const [parkingSpaceNo, setParkingSpaceNo] = useState([]);
   const [response, setResponse] = useState(null);
   const [carPlate, setCarPlate] = useState("");
   const [reservationTime, setReservationTime] = useState("");
   const [carType, setCarType] = useState("");
+  const [selectedSlots, setSelectedSlots] = useState([]);
+
+  useEffect(() => {
+    setCValues({});
+  }, [selectedParkingSpace]);
+  const handleSlotClick = (value) => {
+    if (selectedSlots.includes(value)) {
+      // Slot is already selected, remove it from the array
+      setSelectedSlots(selectedSlots.filter((slot) => slot !== value));
+    } else {
+      // Slot is not selected, add it to the array
+      setSelectedSlots([...selectedSlots, value]);
+    }
+  };
   console.log(username);
   useEffect(() => {
     console.log("Fetching history...");
@@ -31,6 +45,7 @@ export const ReserveForm = () => {
     console.log(event.target.value);
     console.log(carType);
     setVehicalType(carType);
+
     if (event.target.value === "Car") {
       setParkingSpaceNo(["1", "2", "3", "4", "5", "6"]);
     } else if (event.target.value === "Motorcycle") {
@@ -133,8 +148,8 @@ export const ReserveForm = () => {
     console.log(formData); // or send it to API or save to database
     console.log(carType);
     const withCarType = {
-      id: carType,
-      type: vehicalType,
+      id: selectedParkingSpace,
+      type: carType,
       ...formData,
     };
     console.log(withCarType);
@@ -205,57 +220,67 @@ export const ReserveForm = () => {
           <br />
         </Form.Group>
 
-        <Form.Group as={Row} controlId="formCarPlate">
+        <Form.Group as={Row} controlId="formParkingSpace">
           <Form.Label column sm={3} className="text-lg font-semibold">
             Parking Space No.
           </Form.Label>
           <Col sm={9}>
             <Form.Select
-              value={carType}
-              onChange={(event) => {
-                handleCarTypeChange(event);
-                setSelectedParkingSpace(event.target.value);
-              }}
+              value={selectedParkingSpace}
+              onChange={(event) => setSelectedParkingSpace(event.target.value)}
             >
-              <option>Default select</option>
-              {carType === "Car" && (
-                <>
-                  <option value="1">1</option>
-                  <option value="2">2</option>
-                  <option value="3">3</option>
-                  <option value="4">4</option>
-                  <option value="5">5</option>
-                  <option value="6">6</option>
-                </>
-              )}
-              {carType === "Motorcycle" && (
-                <>
-                  <option value="7">7</option>
-                  <option value="8">8</option>
-                  <option value="9">9</option>
-                </>
-              )}
-              {carType === "Bicycle" && <option value="10">10</option>}
+              <option value="">Select a parking space</option>
+              {parkingSpaceNo.map((number) => (
+                <option key={number} value={number}>
+                  {number}
+                </option>
+              ))}
             </Form.Select>
           </Col>
-          <br />
         </Form.Group>
 
         <Form.Group>
-          {availableSlots.map((slot) => (
-            <button
-              key={slot}
-              type="button"
-              onClick={() => {
-                console.log(`Selected slot: ${slot}`);
-                // Do something with the selected slot, e.g. update the form
-                handleCClick(slot);
-              }}
-              className="bg-indigo-500 hover:bg-indigo-400 text-white font-bold py-2 px-4 rounded-lg shadow-md mr-2 mb-2"
-            >
-              {slot}
-            </button>
-          ))}
+          <h5>Available Slots</h5>
+          <Row>
+            <Col>
+              <Form.Group>
+                <Form.Label>{currentDate}</Form.Label>
+                <div className="d-flex flex-wrap">
+                  {availableSlots
+                    .filter((slot) => slot.startsWith("a"))
+                    .map((slot, index) => (
+                      <Button
+                        key={slot}
+                        variant={cValues[slot] ? "success" : "primary"}
+                        onClick={() => handleCClick(slot)}
+                        className="mr-2 mb-2"
+                      >
+                        {`${index + 1}:00-${index + 2}:00`}
+                      </Button>
+                    ))}
+                </div>
+              </Form.Group>
+            </Col>
+            <Col>
+              <Form.Group>
+                <Form.Label>{tomorrowDate}</Form.Label>
+                <div className="d-flex flex-wrap">
+                  {availableSlots
+                    .filter((slot) => slot.startsWith("b"))
+                    .map((slot, index) => (
+                      <Button
+                        key={slot}
+                        variant={cValues[slot] ? "success" : "primary"}
+                        onClick={() => handleCClick(slot)}
+                        className="mr-2 mb-2"
+                      >
+                        {`${index + 1}:00-${index + 2}:00`}
+                      </Button>
+                    ))}
+                </div>
+              </Form.Group>
+            </Col>
+          </Row>
         </Form.Group>
 
         <div className="mt-6 ">
