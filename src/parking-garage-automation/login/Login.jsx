@@ -24,9 +24,9 @@ export const Login = () => {
       const decoded = jwtDecode(req.payload.token);
       console.log(decoded);
       console.log(decoded.role);
-      if (decoded.role == 1) {
+      if (decoded.role == 1 || decoded.role == 2 ) {
         window.location.replace(`/modules`);
-      } else if (decoded.role == 2) {
+      } else if (decoded.role == 3) {
         window.location.replace(`/usermodule`);
       }
       if (req.type === "/login/rejected") {
