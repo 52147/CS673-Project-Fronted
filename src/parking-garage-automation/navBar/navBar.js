@@ -5,7 +5,7 @@ import {useSelector} from "react-redux";
 import React, {useState} from "react";
 
 const NavBar = () =>{
-    const { users } = useSelector((state) => state.submitUser);
+    const { users } = useSelector((state) => state.users);
 
     const navigate = useNavigate()
 

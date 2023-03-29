@@ -4,7 +4,7 @@ import React, {useEffect, useState} from "react";
 import {Button, Modal} from "react-bootstrap";
 
 const NavBarComponent = () => {
-    const {users} = useSelector((state) => state.submitUser);
+    const {users} = useSelector((state) => state.users);
 
     const logOutHandler = () => {
         localStorage.removeItem('userObject');

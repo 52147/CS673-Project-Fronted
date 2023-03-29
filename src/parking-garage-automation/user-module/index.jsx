@@ -4,7 +4,7 @@ import {Modules} from "../modules/Modules";
 import {useSelector} from "react-redux";
 
 export const UserModuleComponent = () => {
-  const {users} = useSelector((state) => state.submitUser)
+  const {users} = useSelector((state) => state.users)
 
   return (
       <>
