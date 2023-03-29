@@ -2,23 +2,22 @@ import {Container, Navbar, Nav, Button, Modal} from "react-bootstrap";
 import styles from './navBar.module.css'
 import {useNavigate} from "react-router";
 import {useSelector} from "react-redux";
-import React, { useState} from "react";
+import React, {useState} from "react";
 
-const NavBar = () => {
-    const {users} = useSelector((state) => state.submitUser);
-
+const NavBar = () =>{
+    const { users } = useSelector((state) => state.submitUser);
 
     const navigate = useNavigate()
 
-    const navHome = () => {
+    const navHome = ()=>{
         navigate('/');
     }
 
-    const navManagementSystem = () => {
+    const navManagementSystem = ()=>{
         navigate('/modules');
     }
 
-    const navLogIn = () => {
+    const navLogIn = ()=>{
         navigate('/login');
     }
 
@@ -48,9 +47,7 @@ const NavBar = () => {
     }
 
 
-
-
-    return (<>
+    return(<>
             <Navbar bg="light">
                 <Container>
                     <Navbar.Brand onClick={navHome}>
@@ -65,6 +62,7 @@ const NavBar = () => {
                             {/*    <NavDropdown.Item eventKey="4.1">ParkingFee Management</NavDropdown.Item>*/}
                             {/*    <NavDropdown.Item eventKey="4.2">Parking History</NavDropdown.Item>*/}
                             {/*    <NavDropdown.Item eventKey="4.3">Authority Management</NavDropdown.Item>*/}
+
                             {/*</NavDropdown>*/}
                         </>
                         }
@@ -112,6 +110,7 @@ const NavBar = () => {
 
                 </Container>
             </Navbar>
+
 
 
         </>
