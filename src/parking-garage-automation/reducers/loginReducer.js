@@ -28,11 +28,14 @@ const loginSlice = createSlice({
             },
         [loginThunk.fulfilled]:
             (state, {payload}) =>{
-              state.load = "fulfilled";
-              console.log(state.load)
+              state.users = "fulfilled";
                 const token = payload.token;
                 const decoded = jwtDecode(token);
-              console.log("fulfilled")
+                const person = {
+                    username:decoded.username,
+                    role: decoded.role,
+                    exp: decoded.exp
+                }
 
               state.token = payload.token; 
               state.username = payload.username;
@@ -40,6 +43,11 @@ const loginSlice = createSlice({
               console.log(state.token);
               console.log(payload);
 
+              //console.log("fulfilled")
+
+              state.token = payload.token;
+              state.username = payload.username;
+              state.load= "fulfilled";
               console.log(decoded);
               localStorage.setItem('userObject', JSON.stringify("fulfilled"))
               localStorage.setItem('nameObject', JSON.stringify(state.username))

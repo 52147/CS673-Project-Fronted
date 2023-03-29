@@ -13,7 +13,6 @@ const ParkingPayment = () => {
     const {ParkingFee, loading, msg} = useSelector((state) => state.parkInfo)
 
 
-
     let [credit, setCredit] = useState(0);
     const cashPayClickHandler = () => {
         setCredit(0)
@@ -34,7 +33,7 @@ const ParkingPayment = () => {
     const payButtonClickHandlerClose = () => setShow(false);
     const payButtonClickHandlerShow = () => {
         dispatch(checkOutCarThunk(payInfo));
-        setTimeout(() =>navigate('/'), 3000)
+        setTimeout(() => navigate('/'), 3000)
         setShow(true);
     }
 
@@ -49,7 +48,7 @@ const ParkingPayment = () => {
             plate: plates
         }
         dispatch(getParkingInfoThunk(parkInfo))
-    }, [dispatch, navigate,plates]);
+    }, [dispatch, navigate, plates]);
 
     return (<>
             <div className={styles.backG}>
@@ -77,13 +76,16 @@ const ParkingPayment = () => {
 
                         <div className="row mt-4">
                             <div className={`col-5 text-white ${styles.textRight}`}>
-                                <Button className={`${styles.buttonWidth}`} onClick={cashPayClickHandler} variant="light">Pay with Cash/Card</Button>
+                                <Button className={`${styles.buttonWidth}`} onClick={cashPayClickHandler} variant="light">Pay
+                                    with Cash/Card</Button>
                             </div>
                             <div className={`col-2 text-white `}>
-                                <Button className={`${styles.buttonWidth}`} onClick={onlinePayClickHandler} variant="light"> Pay Online </Button>
+                                <Button className={`${styles.buttonWidth}`} onClick={onlinePayClickHandler}
+                                        variant="light"> Pay Online </Button>
                             </div>
                             <div className={`col-5 text-white ${styles.textLeft}`}>
-                                <Button className={`${styles.buttonWidth}`} onClick={zellePayClickHandler} variant="light">Pay with Zelle</Button>
+                                <Button className={`${styles.buttonWidth}`} onClick={zellePayClickHandler} variant="light">Pay
+                                    with Zelle</Button>
                             </div>
                         </div>
 

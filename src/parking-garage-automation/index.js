@@ -12,6 +12,7 @@ import ModulesComponent from "./modules";
 import AuthoComponent from "./authority-management";
 import FeeComponent from "./garage-fee";
 import GarageDataManagementComponent from "./garage-data-management";
+import ParkingRegisterComponent from "./parking-register";
 import FormComponent from "./reservation";
 import UserModuleComponent from "./user-module";
 import ReserveTableComponent from "./client-reserve";
@@ -36,6 +37,7 @@ function ParkingGarageAutomation() {
                 <Route path="/modules/garageDataManagement" exact element={<GarageDataManagementComponent/>}/>
                 <Route path="/usermodule/form" element={<FormComponent/>}/>
                 <Route path="usermodule" element={<UserModuleComponent/>}/>
+                <Route path="/register" exact element={<ParkingRegisterComponent/>}/>
                 <Route path="/usermodule/reserveTable" element={<ReserveTableComponent/>}/>
                 <Route path="/modules/reservemanagement" element={<ReserveManagement/>}/>
                 <Route path="/modules/appointmentmanagement" element={<AppointmentComponent/>}/>
