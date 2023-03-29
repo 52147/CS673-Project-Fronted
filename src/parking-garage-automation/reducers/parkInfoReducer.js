@@ -26,7 +26,7 @@ const parkInfoSlice = createSlice({
                 state.loading = false
                 state.PlateNumber = payload.content.parkinfo.plate
                 if(payload.content.parkinfo.entrance !=null){state.EnterTime = payload.content.parkinfo.entrance.substring(0,19)}
-                //if(payload.content.exit !=null){state.DepartureTime = payload.content.exit.substring(0,19)}
+                if(payload.content.exit !=null){state.DepartureTime = payload.content.exit.substring(0,19)}
                 state.TotalParkingTime = payload.content.parking_time
                 state.ParkingFee = payload.content.parkingFee
                 state.msg = 'success'

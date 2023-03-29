@@ -10,7 +10,7 @@ import {checkOutCarThunk} from "../../services/checkOutCarThunk";
 
 const ParkingPayment = () => {
     const {plates} = useParams();
-    const {ParkingFee, loading, msg} = useSelector((state) => state.parkInfo)
+    const {DepartureTime,TotalParkingTime,ParkingFee, loading, msg} = useSelector((state) => state.parkInfo)
 
 
     let [credit, setCredit] = useState(0);
@@ -26,13 +26,17 @@ const ParkingPayment = () => {
     }
 
     const payInfo = {
-        plate: plates
+        plate: plates,
+        exit:DepartureTime,
+        parkingFee: ParkingFee,
+        totalParkingTime: TotalParkingTime
     }
 
     const [show, setShow] = useState(false);
     const payButtonClickHandlerClose = () => setShow(false);
     const payButtonClickHandlerShow = () => {
         dispatch(checkOutCarThunk(payInfo));
+        console.log(payInfo);
         setTimeout(() => navigate('/'), 3000)
         setShow(true);
     }
