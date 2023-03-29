@@ -2,7 +2,6 @@ import {useDispatch, useSelector} from "react-redux";
 import React, {useState} from "react";
 import {parkingRegisterThunk} from "../../services/registerThunk";
 import DatePicker from "react-datepicker";
-import $ from 'jquery';
 import styles from "../parking-register/register.module.css";
 import {Button} from "react-bootstrap";
 
@@ -13,22 +12,17 @@ const ParkingRegister = () => {
     let [password, setPassword] = useState('');
     let [email, setEmail] = useState('');
     let [address, setAddress] = useState('');
-    let [startDate, setStartDate] = useState(new Date());
     let [phoneNumber, setPhoneNumber] = useState('');
 
     const dispatch = useDispatch();
 
     const signUpClickHandler = () => {
-        let gender = $('#gender').val();
         let role = 1;
-        let date = startDate.getFullYear() + "-" + (1 + startDate.getMonth()) + "-" + startDate.getDate();
         const newUser = {
             username: userName,
             password: password,
             Email: email,
             Address: address,
-            DateOfBirth: date,
-            Gender: gender,
             PhoneNumber: phoneNumber,
             role: role
         }
@@ -40,7 +34,6 @@ const ParkingRegister = () => {
     const resetFields = () => {
         setUserName('');
         setPassword('');
-        setStartDate(new Date());
         setEmail('');
         setAddress('');
         setPhoneNumber('');
@@ -69,23 +62,6 @@ const ParkingRegister = () => {
                 </div>
             </div>
 
-            <div className="row mt-5">
-                <div className={`col-4 text-white ${styles.textRight}`}>
-                    Date of Birth:
-                </div>
-                <div className={`col-2 ${styles.textLeft}`}>
-                    <DatePicker selected={startDate} onChange={(date: Date) => setStartDate(date)}/>
-                </div>
-                <div className={`col-1 text-white ${styles.textRight}`}>
-                    Gender:
-                </div>
-                <div className={`col-2 ${styles.textLeft}`}>
-                    <select name="gender" id="gender">
-                        <option value="Male">Male</option>
-                        <option value="Female">Female</option>
-                    </select>
-                </div>
-            </div>
 
             <div className="row mt-5">
                 <div className={`col-4 mt-1 text-white ${styles.textRight}`}>
@@ -105,7 +81,7 @@ const ParkingRegister = () => {
                 </div>
             </div>
 
-            <div className="row mt-4 ">
+            <div className="row mt-5 ">
                 <div className={`col-4 text-white ${styles.textRight}`}>
                     Address:
                 </div>
@@ -117,7 +93,9 @@ const ParkingRegister = () => {
             </div>
 
 
-            <Button className={`mt-3  container ${styles.submitButton}`} onClick={signUpClickHandler}
+
+
+            <Button className={`mt-5  container ${styles.submitButton}`} onClick={signUpClickHandler}
                     variant="warning">Submit</Button>
         </>
     )

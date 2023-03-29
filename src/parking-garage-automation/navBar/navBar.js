@@ -1,33 +1,36 @@
-
 import {Container, Navbar, Nav, Button, Modal} from "react-bootstrap";
 import styles from './navBar.module.css'
 import {useNavigate} from "react-router";
 import {useSelector} from "react-redux";
-import React, {useState} from "react";
+import React, { useState} from "react";
 
-const NavBar = () =>{
-    const { users } = useSelector((state) => state.users);
-    console.log(users);
+const NavBar = () => {
+    const {users} = useSelector((state) => state.submitUser);
+
 
     const navigate = useNavigate()
 
-    const navHome = ()=>{
+    const navHome = () => {
         navigate('/');
     }
 
-    const navManagementSystem = ()=>{
+    const navManagementSystem = () => {
         navigate('/modules');
     }
 
-    const navLogIn = ()=>{
+    const navLogIn = () => {
         navigate('/login');
     }
 
-    const navSignUp = ()=>{
+    const navSignUp = () => {
         navigate('/register');
     }
 
-    const navLogOut = ()=>{
+    const navUser = () => {
+        navigate('usermodule');
+    }
+
+    const navLogOut = () => {
         localStorage.removeItem('userObject');
         logOutHandlerShow();
         setTimeout(() => window.location.replace(`/`), 3000)
@@ -45,35 +48,48 @@ const NavBar = () =>{
     }
 
 
-    return(<>
+
+
+    return (<>
             <Navbar bg="light">
                 <Container>
                     <Navbar.Brand onClick={navHome}>
                         <div className={styles.textColor}>Victory Eight</div>
                     </Navbar.Brand>
 
-                        <Nav className="me-auto" >
-                            <Nav.Link onClick={navHome}>Home</Nav.Link>
-                             <Nav.Link onClick={navManagementSystem}>Management System</Nav.Link>
+                    <Nav className="me-auto">
+                        <Nav.Link onClick={navHome}>Home</Nav.Link>
+                        {(users.role === 1 || users.role === 2) && <>
+                            <Nav.Link onClick={navManagementSystem}>Management System</Nav.Link>
                             {/*<NavDropdown title="Management System" id="nav-dropdown">*/}
                             {/*    <NavDropdown.Item eventKey="4.1">ParkingFee Management</NavDropdown.Item>*/}
                             {/*    <NavDropdown.Item eventKey="4.2">Parking History</NavDropdown.Item>*/}
                             {/*    <NavDropdown.Item eventKey="4.3">Authority Management</NavDropdown.Item>*/}
-
                             {/*</NavDropdown>*/}
-                        </Nav>
+                        </>
+                        }
+                        {
+                            users.role === 3 && <><Nav.Link onClick={navUser}>User Center</Nav.Link>
+                            </>
+                        }
+
+
+                    </Nav>
 
 
                     {
-                        users !=="fulfilled" &&<>
-                        <Button id="SignUpButton" onClick={navSignUp} >Sign Up</Button>
-                        <Button id="SignInButton" onClick={navLogIn} >Sign In</Button>
+                        users.role !== 1 && users.role !== 2 && users.role !== 3 &&
+                        <>
+                            <Nav.Link className={'mr-5'} onClick={navSignUp}>Sign Up</Nav.Link>
+                            <Button id="SignInButton" onClick={navLogIn}>Sign In</Button>
                         </>
 
                     }
                     {
-                        users ==="fulfilled" &&
-                        <Button id="logInButton" onClick={navLogOut} >Log out</Button>
+                        (users.role === 1 || users.role === 2 || users.role === 3) && <>
+                            <div className={`mr-3`}>Hi, {users.username}!</div>
+                            <Button id="logOutButton" onClick={navLogOut}>Sign out</Button>
+                        </>
                     }
 
                     <Modal
@@ -96,7 +112,6 @@ const NavBar = () =>{
 
                 </Container>
             </Navbar>
-
 
 
         </>

@@ -6,7 +6,7 @@ import { Button, Modal } from "react-bootstrap";
 
 export const Login = () => {
   const dispatch = useDispatch();
-  const { loading, load, token, users } = useSelector((state) => state.users);
+  const { loading, load, token, users } = useSelector((state) => state.submitUser);
   console.log(users);
 
   const [username, setUsername] = useState("");
