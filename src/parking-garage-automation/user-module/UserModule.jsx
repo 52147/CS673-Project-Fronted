@@ -16,7 +16,7 @@ export const UserModule = () => {
     },
     {
       id: "2",
-      page: "garageData",
+      page: "reserveTable",
       topic: "Reservation Record",
       cover: "booking.png",
     },

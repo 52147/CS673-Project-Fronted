@@ -21,7 +21,12 @@ const ListBar = ({active}) => {
     const garageHandler = () => {
         navigate('/modules/garageDataManagement');
     }
-
+    const reserveHandler = () => {
+        navigate('/modules/reservemanagement');
+    }
+    const ReservationHandler = () => {
+        navigate('/modules/appointmentmanagement');
+    }
 
 
 
@@ -46,6 +51,15 @@ const ListBar = ({active}) => {
 
                     <ListGroup.Item onClick={garageHandler} action href="#Garage Data">
                         Parking Space
+                        Management
+                    </ListGroup.Item>
+                    <ListGroup.Item onClick={ReservationHandler} action href="#Appointment">
+                        Reservation
+                        Management
+                    </ListGroup.Item>
+
+                    <ListGroup.Item onClick={reserveHandler} action href="#Reservation Data">
+                        Parking Slot
                         Management
                     </ListGroup.Item>
 
