@@ -49,7 +49,7 @@ const loginSlice = createSlice({
               state.username = payload.username;
               state.load= "fulfilled";
               console.log(decoded);
-              localStorage.setItem('userObject', JSON.stringify("fulfilled"))
+              localStorage.setItem('userObject', JSON.stringify(person))
               localStorage.setItem('nameObject', JSON.stringify(state.username))
                 state.decode = decoded;
 
