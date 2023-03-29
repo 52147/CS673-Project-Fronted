@@ -7,7 +7,7 @@ import jwtDecode from "jwt-decode";
 
 export const Login = () => {
   const dispatch = useDispatch();
-  const { loading, load, token, users } = useSelector((state) => state.submitUser);
+  const { loading, load, token, users } = useSelector((state) => state.users);
   console.log(users);
 
   const [username, setUsername] = useState("");
