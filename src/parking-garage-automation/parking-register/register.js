@@ -17,13 +17,13 @@ const ParkingRegister = () => {
     const dispatch = useDispatch();
 
     const signUpClickHandler = () => {
-        let role = 1;
+        let role = 3;
         const newUser = {
             username: userName,
             password: password,
-            Email: email,
-            Address: address,
-            PhoneNumber: phoneNumber,
+            // Email: email,
+            // Address: address,
+            // PhoneNumber: phoneNumber,
             role: role
         }
         console.log(newUser);
