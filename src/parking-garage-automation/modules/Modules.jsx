@@ -34,15 +34,15 @@ export const Modules = () => {
     },
     {
       id: "5",
-      page: "reservemanagement",
-      topic: "Parklot Management",
-      cover: "parking-lot.png",
-    },
-    {
-      id: "6",
       page: "appointmentmanagement",
       topic: "Reservation Management",
       cover: "booking (1).png",
+    },
+    {
+      id: "6",
+      page: "reservemanagement",
+      topic: "Parklot Management",
+      cover: "parking-lot.png",
     },
     {
       id: "7",
@@ -60,11 +60,16 @@ export const Modules = () => {
 
   return (
     <>
-      <h1 className= "mt-4 text-white"> Remaning Parking Spaces: {history.current_spots}</h1>
-      <h1 className= "text-white"> Total Parking Spaces: {history.total_spots}</h1>
+      <h1 className="mt-4 text-white">
+        {" "}
+        Remaning Parking Spaces: {history.current_spots}
+      </h1>
+      <h1 className="text-white">
+        {" "}
+        Total Parking Spaces: {history.total_spots}
+      </h1>
       <div className={`container ${styles.block}`}>
         <div className={`flex row ${styles.group}`}>
-          
           {data.map((value) => {
             return (
               <>

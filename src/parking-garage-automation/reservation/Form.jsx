@@ -1,5 +1,5 @@
 import { React, useState, useEffect } from "react";
-import { Form, Col, Row, Button } from "react-bootstrap";
+import { Form, Col, Row, Button, Modal } from "react-bootstrap";
 import styles from "./Form.module.css";
 import { useSelector, useDispatch } from "react-redux";
 import { FormThunk } from "../../services/formThunk";
@@ -17,6 +17,8 @@ export const ReserveForm = () => {
   const [carPlate, setCarPlate] = useState("");
   const [carType, setCarType] = useState("");
   const [selectedButton, setSelectedButton] = useState(null);
+  const [show, setShow] = useState(false);
+  const handleClose = () => setShow(false);
 
   useEffect(() => {
     setCValues({});
@@ -146,6 +148,7 @@ export const ReserveForm = () => {
   console.log(tomorrowFormatted); // output: "2023-03-29" (assuming today is March 28th, 2023)
 
   const submitForm = async (event) => {
+    setShow(true);
     event.preventDefault();
     console.log(cValues);
     // forData 為 {a1: true, b23: true}
@@ -172,6 +175,9 @@ export const ReserveForm = () => {
       console.error("Error sending data:", error);
       setResponse("Error sending data");
     }
+    setTimeout(() => {
+      window.location.reload();
+    }, "1500");
   };
   const currentDate = new Date().toLocaleDateString();
   const curr = new Date();
@@ -198,7 +204,7 @@ export const ReserveForm = () => {
     console.log(value);
     setTime((prevValues) => ({ ...prevValues, value }));
     console.log(time);
-  
+
     setCValues((prevValues) => {
       const newState = { ...prevValues };
       newState[value] = !newState[value];
@@ -259,7 +265,7 @@ export const ReserveForm = () => {
           </Col>
         </Form.Group>
 
-        <Form.Group as={Row} controlId="formCarPlate">
+        <Form.Group as={Row} controlId="formCarPlate" className="mt-4">
           <Form.Label column sm={3} className="text-lg font-semibold">
             Car Type
           </Form.Label>
@@ -308,7 +314,7 @@ export const ReserveForm = () => {
                         variant={cValues[slot] ? "success" : "primary"}
                         onClick={() => handleCClick(slot)}
                         className="mr-2 mb-2"
-                        >
+                      >
                         {getTimeRange(parseInt(slot.substr(1)) - 1, true)}
                       </Button>
                     ))}
@@ -346,6 +352,17 @@ export const ReserveForm = () => {
           </Button>
         </div>
       </Form>
+      <Modal show={show} onHide={handleClose}>
+        <Modal.Header closeButton>
+          <Modal.Title>Reservation Form Submit Successfully</Modal.Title>
+        </Modal.Header>
+        <Modal.Body> Submit Successfully! </Modal.Body>
+        <Modal.Footer>
+          <Button variant="primary" onClick={handleClose}>
+            Close
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </div>
   );
 };
