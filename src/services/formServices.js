@@ -24,3 +24,9 @@ export const clientrecordFormService = async (json) => {
   const response = await axios.get(COMMENTS_API + `/parklot/appointment/showUser?userName=${json}`, json);
   return response.data;
 };
+
+export const appointmentFormService = async (json) => {
+
+  const response = await axios.get(COMMENTS_API + "/parklot/appointment/showAll", json);
+  return response.data;
+};

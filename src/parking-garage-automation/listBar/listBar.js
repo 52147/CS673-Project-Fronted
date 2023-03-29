@@ -24,7 +24,9 @@ const ListBar = ({active}) => {
     const reserveHandler = () => {
         navigate('/modules/reservemanagement');
     }
-
+    const ReservationHandler = () => {
+        navigate('/modules/appointmentmanagement');
+    }
 
 
 
@@ -51,9 +53,13 @@ const ListBar = ({active}) => {
                         Parking Space
                         Management
                     </ListGroup.Item>
+                    <ListGroup.Item onClick={ReservationHandler} action href="#Appointment">
+                        Reservation
+                        Management
+                    </ListGroup.Item>
 
                     <ListGroup.Item onClick={reserveHandler} action href="#Reservation Data">
-                        Reservation
+                        Parking Slot
                         Management
                     </ListGroup.Item>
 

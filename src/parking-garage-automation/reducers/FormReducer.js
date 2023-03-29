@@ -3,7 +3,8 @@ import {
   updateFormThunk,
   recordFormThunk,
   FormThunk,
-  clientrecordFormThunk
+  clientrecordFormThunk,
+  appointmentFormThunk
 } from "../../services/formThunk";
 const initialState = {
   loading: false,
@@ -54,6 +55,17 @@ const authoritySlice = createSlice({
       state.history = payload;
     },
     [clientrecordFormThunk.rejected]: (state, { payload }) => {
+      state.loading = false;
+      state.history = payload;
+    },
+    [appointmentFormThunk.pending]: (state) => {
+      state.loading = true;
+    },
+    [appointmentFormThunk.fulfilled]: (state, { payload }) => {
+      state.loading = false;
+      state.history = payload;
+    },
+    [appointmentFormThunk.rejected]: (state, { payload }) => {
       state.loading = false;
       state.history = payload;
     },

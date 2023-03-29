@@ -1,8 +1,8 @@
-import React from 'react';
+import React from "react";
 
-export const ReserveData = ({posts}) => {
-    return (
-<>
+export const ReserveData = ({ posts }) => {
+  return (
+    <>
       {posts.map((post) => (
         <tr key={post.id}>
           <td>{post.id}</td>
@@ -16,6 +16,5 @@ export const ReserveData = ({posts}) => {
         </tr>
       ))}
     </>
-    );
+  );
 };
-

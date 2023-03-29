@@ -35,11 +35,17 @@ export const Modules = () => {
     {
       id: "5",
       page: "reservemanagement",
+      topic: "Parklot Management",
+      cover: "parking-lot.png",
+    },
+    {
+      id: "6",
+      page: "appointmentmanagement",
       topic: "Reservation Management",
       cover: "booking (1).png",
     },
     {
-      id: "6",
+      id: "7",
       page: "reservemanagement",
       topic: "Membership Management",
       cover: "membership.png",

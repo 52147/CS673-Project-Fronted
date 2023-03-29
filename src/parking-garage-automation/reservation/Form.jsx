@@ -16,6 +16,7 @@ export const ReserveForm = () => {
   const [response, setResponse] = useState(null);
   const [carPlate, setCarPlate] = useState("");
   const [carType, setCarType] = useState("");
+  const [selectedButton, setSelectedButton] = useState(null);
 
   useEffect(() => {
     setCValues({});
@@ -197,7 +198,12 @@ export const ReserveForm = () => {
     console.log(value);
     setTime((prevValues) => ({ ...prevValues, value }));
     console.log(time);
-    setCValues((prevValues) => ({ ...prevValues, [value]: true }));
+  
+    setCValues((prevValues) => {
+      const newState = { ...prevValues };
+      newState[value] = !newState[value];
+      return newState;
+    });
   };
 
   const selectedSlotsOne = Object.keys(cValues)
@@ -268,7 +274,7 @@ export const ReserveForm = () => {
           <br />
         </Form.Group>
 
-        <Form.Group as={Row} controlId="formParkingSpace">
+        <Form.Group as={Row} controlId="formParkingSpace" className="mt-4">
           <Form.Label column sm={3} className="text-lg font-semibold">
             Parking Space No.
           </Form.Label>
@@ -302,7 +308,7 @@ export const ReserveForm = () => {
                         variant={cValues[slot] ? "success" : "primary"}
                         onClick={() => handleCClick(slot)}
                         className="mr-2 mb-2"
-                      >
+                        >
                         {getTimeRange(parseInt(slot.substr(1)) - 1, true)}
                       </Button>
                     ))}
