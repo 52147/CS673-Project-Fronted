@@ -1,20 +1,8 @@
 import { React, useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { FormThunk } from "../../services/formThunk";
-import {
-  Button,
-  Table,
-  Spinner,
-  Pagination,
-  Form,
-  Modal,
-} from "react-bootstrap";
-import {
-  faSearch,
-  faPlus,
-  faUpload,
-  faDownload,
-} from "@fortawesome/free-solid-svg-icons";
+import { Button, Table } from "react-bootstrap";
+import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { ReserveData } from "./ReserveData";
 
@@ -22,7 +10,6 @@ export const ReserveManagement = () => {
   const dispatch = useDispatch();
   const [searchQuery, setSearchQuery] = useState("");
   const [posts, setPosts] = useState([]);
-  const [filteredData, setFilteredData] = useState([]);
 
   const { history, loading } = useSelector((state) => state.updateForm);
 
@@ -37,7 +24,6 @@ export const ReserveManagement = () => {
     setPosts(history);
   }, [history]); // 2. 第二個useEffect，每一次reload頁面，更新 history
 
-
   const handleSearch = () => {
     const filteredPosts = history.filter((post) => {
       // Convert all fields to strings and join them into a single string
@@ -47,16 +33,14 @@ export const ReserveManagement = () => {
       return rowString.includes(searchQuery.toLowerCase());
     });
 
-    setFilteredData(filteredPosts);
     setPosts(filteredPosts); // Also update the posts state if needed
   };
 
   // 清空搜尋紀錄，並重新呈現所有紀錄
   const resetSearch = () => {
     setSearchQuery("");
-    setPosts(history); 
+    setPosts(history);
   };
-
 
   return (
     <div className="container-fluid">

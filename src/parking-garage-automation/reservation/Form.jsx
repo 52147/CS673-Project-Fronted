@@ -4,17 +4,12 @@ import styles from "./Form.module.css";
 import { useSelector, useDispatch } from "react-redux";
 import { FormThunk } from "../../services/formThunk";
 import axios from "axios";
-import { Navigate, useNavigate } from "react-router";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router";
 
-export const ReserveForm = ({ setData}) => {
-  // console.log(setData)
-  // setData("456")
-
+export const ReserveForm = ({ setData }) => {
   const dispatch = useDispatch();
   const { history } = useSelector((state) => state.updateForm);
   const [selectedParkingSpace, setSelectedParkingSpace] = useState("");
-  const [vehicalType, setVehicalType] = useState("");
   const [availableSlots, setAvailableSlots] = useState([]);
   const { users, username } = useSelector((state) => state.users);
   const [parkingSpaceNo, setParkingSpaceNo] = useState([]);
@@ -25,25 +20,30 @@ export const ReserveForm = ({ setData}) => {
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
 
+  // useEffect 顯示被選擇的button
   useEffect(() => {
     setCValues({});
   }, [selectedParkingSpace]);
 
+  // useEffect 顯示從後端反回的數據
   console.log(username);
   useEffect(() => {
     console.log("Fetching history...");
     dispatch(FormThunk());
   }, [dispatch]);
   console.log(history);
+
+  // useState 抓到更新的車牌
   const handleCarPlateChange = (event) => {
     setCarPlate(event.target.value);
   };
+
+  // 將兩個select option關聯起來，用兩個useState，第一個useState用來改變第一個select，第二個useState根據第一個useState，來呈現option
+  // 可以將option中的選項放在一個array中，顯示option用map iterate 數組中的內容
   const handleCarTypeChange = (event) => {
     setCarType(event.target.value);
     console.log(event.target.value);
     console.log(carType);
-    setVehicalType(carType);
-
     if (event.target.value === "Car") {
       setParkingSpaceNo(["1", "2", "3", "4", "5", "6"]);
     } else if (event.target.value === "Motorcycle") {
@@ -52,6 +52,9 @@ export const ReserveForm = ({ setData}) => {
       setParkingSpaceNo(["10"]);
     }
   };
+
+  // useEffect 如果 user 選了一個車位，先找到此車位的紀錄，查看column是否是empty，
+  // 如果是empty，把此時段加到數組，接下來用此數組產出button
   useEffect(() => {
     if (selectedParkingSpace !== "") {
       const record = history.find(
@@ -75,6 +78,7 @@ export const ReserveForm = ({ setData}) => {
     }
   }, [selectedParkingSpace, history]);
 
+  // 需要返回給後端的資料樣式
   const carData = {
     id: 666,
     type: "car",
@@ -129,6 +133,7 @@ export const ReserveForm = ({ setData}) => {
     // ... include the rest of the JSON data here
   };
 
+  // 格式化今天和明天的日期為: 2018-05-05
   const current = new Date(); // get the current date
 
   const year = current.getFullYear(); // get the year (4 digits)
@@ -152,6 +157,7 @@ export const ReserveForm = ({ setData}) => {
     (tday < 10 ? "0" + tday : tday);
   console.log(tomorrowFormatted); // output: "2023-03-29" (assuming today is March 28th, 2023)
 
+  // 發送資料到後端：3比資料用url param key，1比資料用json放到body帶過去
   const submitForm = async (event) => {
     setShow(true);
     event.preventDefault();
@@ -184,18 +190,15 @@ export const ReserveForm = ({ setData}) => {
       result,
       carPlate,
       username,
-      withCarType
-    }
-  // setData("14567")
-  setData(sendData)
+      withCarType,
+    };
+    // setData("14567")
+    setData(sendData);
     setTimeout(() => {
       navigate(`/payment/${carPlate}`);
       // window.location.reload();
     }, "1500");
   };
-
-
-  
 
   const currentDate = new Date().toLocaleDateString();
   const curr = new Date();
@@ -217,12 +220,15 @@ export const ReserveForm = ({ setData}) => {
     return `${startHour}:00 ~ ${endHour}:00`;
   };
   const [time, setTime] = useState({});
+
+  // 抓出user選擇的button裡的資料
   const [cValues, setCValues] = useState({});
   const handleCClick = (value) => {
     console.log(value);
     setTime((prevValues) => ({ ...prevValues, value }));
     console.log(time);
 
+    // 將所有選到的值，用 a1: true，的方式儲存在 cValue
     setCValues((prevValues) => {
       const newState = { ...prevValues };
       newState[value] = !newState[value];
@@ -230,6 +236,7 @@ export const ReserveForm = ({ setData}) => {
     });
   };
 
+  // 將user 選擇的button，格式化資料為想要的格式： a1 -> 24:00 ~ 1:00
   const selectedSlotsOne = Object.keys(cValues)
     .filter((key) => cValues[key])
     .map((slot) => {

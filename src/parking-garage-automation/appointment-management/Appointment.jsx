@@ -4,16 +4,10 @@ import { appointmentFormThunk } from "../../services/formThunk";
 import {
   Button,
   Table,
-  Spinner,
   Pagination,
-  Form,
-  Modal,
 } from "react-bootstrap";
 import {
   faSearch,
-  faPlus,
-  faUpload,
-  faDownload,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { AppointmentData } from "./AppointmentData";
@@ -24,26 +18,23 @@ export const Appointment = () => {
   const [filteredData, setFilteredData] = useState([]);
 
   const { history, loading } = useSelector((state) => state.updateForm);
-
-  console.log(history);
-
   useEffect(() => {
     console.log("Fetching history...");
     dispatch(appointmentFormThunk());
   }, [dispatch]);
+  console.log(history);
+
+  // 用function 的順序很重要，要先將history更新到post，再用pagintation將第一頁１０比資料呈現
+  // 如果順序顛倒，第一頁的pagination無法運作
+  useEffect(() => {
+    setPosts(history); // step 1
+    paginationClickHandler(1); // step 2
+  }, [history]); // 2. 第二個useEffect，每一次reload頁面，更新 history
+
+
 
   const [active, setActivePage] = useState(1);
-  const [displayMessage, setDisplayMessage] = useState(""); // create state variable to display the message
 
-  useEffect(() => {
-    if (!loading) {
-      paginationClickHandler(1); // 當進入頁面時，paginationClickHandler設定為 1
-    }
-    paginationClickHandler(1);
-    setDisplayMessage(loading);
-    console.log(loading);
-    console.log(history);
-  }, [loading]);
 
   let tempArr = [];
   const paginationClickHandler = (number) => {
