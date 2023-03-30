@@ -4,8 +4,13 @@ import styles from "./Form.module.css";
 import { useSelector, useDispatch } from "react-redux";
 import { FormThunk } from "../../services/formThunk";
 import axios from "axios";
+import { Navigate, useNavigate } from "react-router";
+import { Link } from "react-router-dom";
 
-export const ReserveForm = () => {
+export const ReserveForm = ({ setData}) => {
+  // console.log(setData)
+  // setData("456")
+
   const dispatch = useDispatch();
   const { history } = useSelector((state) => state.updateForm);
   const [selectedParkingSpace, setSelectedParkingSpace] = useState("");
@@ -131,7 +136,7 @@ export const ReserveForm = () => {
   const day = String(current.getDate()).padStart(2, "0"); // get the day (2 digits) and pad with leading zero if needed
   const formattedDate = `${year}-${month}-${day}`; // concatenate the year, month, and day with hyphens
   console.log(formattedDate); // output: "2023-03-27"
-
+  const navigate = useNavigate();
   const tomorrow = new Date();
   tomorrow.setDate(tomorrow.getDate() + 1); // set the date to tomorrow
 
@@ -175,10 +180,23 @@ export const ReserveForm = () => {
       console.error("Error sending data:", error);
       setResponse("Error sending data");
     }
+    const sendData = {
+      result,
+      carPlate,
+      username,
+      withCarType
+    }
+  // setData("14567")
+  setData(sendData)
     setTimeout(() => {
-      window.location.reload();
+      navigate(`/payment/${carPlate}`);
+      // window.location.reload();
     }, "1500");
   };
+
+
+  
+
   const currentDate = new Date().toLocaleDateString();
   const curr = new Date();
   const tomorrowDate = new Date(
