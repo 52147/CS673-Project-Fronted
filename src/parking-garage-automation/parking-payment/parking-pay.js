@@ -8,7 +8,8 @@ import {useParams} from "react-router-dom";
 import {getParkingInfoThunk} from "../../services/parkInfoThunk";
 import {checkOutCarThunk} from "../../services/checkOutCarThunk";
 
-const ParkingPayment = () => {
+const ParkingPayment = ({ data}) => {
+    console.log(data)
     const {plates} = useParams();
     const {DepartureTime,TotalParkingTime,ParkingFee, loading, msg} = useSelector((state) => state.parkInfo)
 

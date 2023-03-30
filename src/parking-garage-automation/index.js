@@ -21,13 +21,15 @@ import AppointmentComponent from "./appointment-management";
 
 function ParkingGarageAutomation() {
     const [value, setValue] = useState('')
+    const [data, setData] = useState({})
+    console.log(data);
     let dom = (value) => {
         return (
             <Routes>
                 <Route path="information/:plates" element={<ParkingInformationComponent />}/>
                 <Route path="information" element={<ParkingInformationComponent />}/>
-                <Route path="payment" element={<ParkingPaymentComponent/>}/>
-                <Route path="payment/:plates" element={<ParkingPaymentComponent/>}/>
+                <Route path="payment" element={<ParkingPaymentComponent data = {data}/>}/>
+                <Route path="payment/:plates" element={<ParkingPaymentComponent data = {data}/>}/>
                 <Route path="login" element={<LoginComponent/>}/>
                 <Route path='/' exact element={<InputCarComponent/>}/>
                 <Route path='/modules/garageData' exact element={<GarageDataComponent/>}/>
@@ -35,7 +37,7 @@ function ParkingGarageAutomation() {
                 <Route path="/modules/autho" exact element={<AuthoComponent/>}/>
                 <Route path="/modules/fee" exact element={<FeeComponent/>}/>
                 <Route path="/modules/garageDataManagement" exact element={<GarageDataManagementComponent/>}/>
-                <Route path="/usermodule/form" element={<FormComponent/>}/>
+                <Route path="/usermodule/form" element={<FormComponent setData = {setData}/>}/>
                 <Route path="usermodule" element={<UserModuleComponent/>}/>
                 <Route path="/register" exact element={<ParkingRegisterComponent/>}/>
                 <Route path="/usermodule/reserveTable" element={<ReserveTableComponent/>}/>

@@ -1,9 +1,9 @@
 import React from "react";
 import { ReserveForm } from "./Form";
-export const FormComponent = () => {
+export const FormComponent = ({setData}) => {
   return (
     <>
-      <ReserveForm />
+      <ReserveForm setData = {setData}/>
     </>
   );
 };
