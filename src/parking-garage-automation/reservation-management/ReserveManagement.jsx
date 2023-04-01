@@ -40,6 +40,7 @@ export const ReserveManagement = () => {
   const resetSearch = () => {
     setSearchQuery("");
     setPosts(history);
+    window.location.reload();
   };
 
 

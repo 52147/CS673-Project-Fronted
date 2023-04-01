@@ -23,7 +23,6 @@ export const ReserveForm = ({ setData }) => {
 
   const [isFormValid, setIsFormValid] = useState(false);
   const [showWarningModal, setShowWarningModal] = useState(false);
-  const [showSuccessModal, setShowSuccessModal] = useState(false);
 
   // useEffect 顯示被選擇的button
   useEffect(() => {
@@ -224,10 +223,7 @@ export const ReserveForm = ({ setData }) => {
         navigate(`/payment/${carPlate}`);
         // window.location.reload();
       }, "1500");
-    } else {
-      
-      setShowWarningModal(true);
-    }
+    } 
   };
 
   const currentDate = new Date().toLocaleDateString();
