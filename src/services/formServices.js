@@ -30,3 +30,9 @@ export const appointmentFormService = async (json) => {
   const response = await axios.get(COMMENTS_API + "/parklot/appointment/showAll", json);
   return response.data;
 };
+
+export const resetFormService = async (json) => {
+
+  const response = await axios.post(COMMENTS_API + "/parklot/reset", json);
+  return response.data;
+};

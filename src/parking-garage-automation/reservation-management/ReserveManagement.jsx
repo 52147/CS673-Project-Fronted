@@ -1,6 +1,6 @@
 import { React, useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { FormThunk } from "../../services/formThunk";
+import { FormThunk, resetFormThunk } from "../../services/formThunk";
 import { Button, Table } from "react-bootstrap";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -42,6 +42,11 @@ export const ReserveManagement = () => {
     setPosts(history);
   };
 
+
+  const handleReset = () => {
+    dispatch(resetFormThunk());
+  }
+
   return (
     <div className="container-fluid">
       <div className="row bg-primary text-white py-3">
@@ -66,6 +71,11 @@ export const ReserveManagement = () => {
             <div className="col-md-3">
               <Button variant="primary" onClick={resetSearch}>
                 Clear search
+              </Button>
+            </div>
+            <div className="col-md-3">
+              <Button variant="primary" onClick={handleReset}>
+                Reset
               </Button>
             </div>
           </div>

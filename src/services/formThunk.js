@@ -36,3 +36,12 @@ export const appointmentFormThunk = createAsyncThunk(
     return json;
   }
 );
+export const resetFormThunk = createAsyncThunk(
+  "/parklot/reset",
+  async (setValue) => {
+    console.log(setValue);
+    const json = await service.resetFormService(setValue);
+    return json;
+  }
+);
+

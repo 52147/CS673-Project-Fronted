@@ -19,6 +19,11 @@ export const ReserveForm = ({ setData }) => {
   const [selectedButton, setSelectedButton] = useState(null);
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
+  const handleClose2 = () => setShowWarningModal(false);
+
+  const [isFormValid, setIsFormValid] = useState(false);
+  const [showWarningModal, setShowWarningModal] = useState(false);
+  const [showSuccessModal, setShowSuccessModal] = useState(false);
 
   // useEffect 顯示被選擇的button
   useEffect(() => {
@@ -157,47 +162,72 @@ export const ReserveForm = ({ setData }) => {
     (tday < 10 ? "0" + tday : tday);
   console.log(tomorrowFormatted); // output: "2023-03-29" (assuming today is March 28th, 2023)
 
+  const validateForm = () => {
+    const hasSelectedTimeSlot = Object.values(cValues).includes(true);
+    console.log("hasSelectedTimeSlot", hasSelectedTimeSlot);
+    if (
+      carPlate === "" ||
+      carType === "" ||
+      selectedParkingSpace === "" ||
+      hasSelectedTimeSlot != true
+    ) {
+      setIsFormValid(false);
+      setShowWarningModal(true); // Display warning modal
+    } else {
+      setIsFormValid(true);
+    }
+    console.log("cValues", cValues);
+  };
   // 發送資料到後端：3比資料用url param key，1比資料用json放到body帶過去
   const submitForm = async (event) => {
-    setShow(true);
-    event.preventDefault();
-    console.log(cValues);
-    // forData 為 {a1: true, b23: true}
-    const formData = {
-      ...cValues,
-    };
-    Object.keys(formData).forEach((key) => (formData[key] = carPlate)); // 把所有value改為車牌號碼
-    console.log(formData); // or send it to API or save to database
-    console.log(carType);
-    const withCarType = {
-      id: selectedParkingSpace,
-      type: carType,
-      ...formData,
-    };
-    console.log(withCarType);
-    const url = `http://localhost:8080/parklot/save?date=${result}&license=${carPlate}&name=${username}`;
-    console.log("url:", url);
+    validateForm();
+    if (isFormValid) {
+      // Submit form logic
+      setShow(true);
+      // Display success modal
 
-    try {
-      const res = await axios.post(url, withCarType);
-      setResponse(res.data);
-      console.log(" sending data:", res.data);
-    } catch (error) {
-      console.error("Error sending data:", error);
-      setResponse("Error sending data");
+      event.preventDefault();
+      console.log(cValues);
+      // forData 為 {a1: true, b23: true}
+      const formData = {
+        ...cValues,
+      };
+      Object.keys(formData).forEach((key) => (formData[key] = carPlate)); // 把所有value改為車牌號碼
+      console.log(formData); // or send it to API or save to database
+      console.log(carType);
+      const withCarType = {
+        id: selectedParkingSpace,
+        type: carType,
+        ...formData,
+      };
+      console.log(withCarType);
+      const url = `http://localhost:8080/parklot/save?date=${result}&license=${carPlate}&name=${username}`;
+      console.log("url:", url);
+
+      try {
+        const res = await axios.post(url, withCarType);
+        setResponse(res.data);
+        console.log(" sending data:", res.data);
+      } catch (error) {
+        console.error("Error sending data:", error);
+        setResponse("Error sending data");
+      }
+      const sendData = {
+        result,
+        carPlate,
+        username,
+        withCarType,
+      };
+      // setData("14567")
+      setData(sendData);
+      setTimeout(() => {
+        navigate(`/payment/${carPlate}`);
+        // window.location.reload();
+      }, "1500");
+    } else {
+      
+      setShowWarningModal(true);
     }
-    const sendData = {
-      result,
-      carPlate,
-      username,
-      withCarType,
-    };
-    // setData("14567")
-    setData(sendData);
-    setTimeout(() => {
-      navigate(`/payment/${carPlate}`);
-      // window.location.reload();
-    }, "1500");
   };
 
   const currentDate = new Date().toLocaleDateString();
@@ -384,6 +414,17 @@ export const ReserveForm = ({ setData }) => {
         <Modal.Body> Submit Successfully! </Modal.Body>
         <Modal.Footer>
           <Button variant="primary" onClick={handleClose}>
+            Close
+          </Button>
+        </Modal.Footer>
+      </Modal>
+      <Modal show={showWarningModal} onHide={handleClose2}>
+        <Modal.Header closeButton>
+          <Modal.Title>Warning</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>Please fill in all required fields.</Modal.Body>
+        <Modal.Footer>
+          <Button variant="primary" onClick={handleClose2}>
             Close
           </Button>
         </Modal.Footer>
