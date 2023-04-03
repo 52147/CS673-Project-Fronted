@@ -1,9 +1,12 @@
 import ParkingInformation from "./parking-info";
+import {useState} from "react";
 
-const ParkingInformationComponent = () => {
+const ParkingInformationComponent = ({setData}) => {
+
     return (
         <>
-            <ParkingInformation></ParkingInformation>
+
+            <ParkingInformation setData = {setData}></ParkingInformation>
         </>
     )
 }

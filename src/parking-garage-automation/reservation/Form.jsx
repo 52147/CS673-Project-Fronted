@@ -153,7 +153,7 @@ export const ReserveForm = ({ setData}) => {
   console.log(tomorrowFormatted); // output: "2023-03-29" (assuming today is March 28th, 2023)
 
   const submitForm = async (event) => {
-    setShow(true);
+    // setShow(true);
     event.preventDefault();
     console.log(cValues);
     // forData 為 {a1: true, b23: true}
@@ -168,30 +168,33 @@ export const ReserveForm = ({ setData}) => {
       type: carType,
       ...formData,
     };
-    console.log(withCarType);
-    const url = `http://localhost:8080/parklot/save?date=${result}&license=${carPlate}&name=${username}`;
-    console.log("url:", url);
-
-    try {
-      const res = await axios.post(url, withCarType);
-      setResponse(res.data);
-      console.log(" sending data:", res.data);
-    } catch (error) {
-      console.error("Error sending data:", error);
-      setResponse("Error sending data");
-    }
+    // console.log(withCarType);
+    // const url = `http://localhost:8080/parklot/save?date=${result}&license=${carPlate}&name=${username}`;
+    // console.log("url:", url);
+    //
+    // try {
+    //   const res = await axios.post(url, withCarType);
+    //   setResponse(res.data);
+    //   console.log(" sending data:", res.data);
+    // } catch (error) {
+    //   console.error("Error sending data:", error);
+    //   setResponse("Error sending data");
+    // }
     const sendData = {
+      from:"reservation",
+      hour: 1,
       result,
       carPlate,
       username,
       withCarType
     }
-  // setData("14567")
-  setData(sendData)
-    setTimeout(() => {
-      navigate(`/payment/${carPlate}`);
-      // window.location.reload();
-    }, "1500");
+    // setData("14567")
+    setData(sendData)
+    navigate(`/payment`);
+    // setTimeout(() => {
+    //   navigate(`/payment`);
+    //   // window.location.reload();
+    // }, "1500");
   };
 
 

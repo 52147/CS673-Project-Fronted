@@ -19,13 +19,13 @@ const checkOutCarSlice = createSlice({
             (state, { payload }) => {
                 state.loading = false
                 state.checkOutMsg  = 'success'
-                console.log(state.msg)
+                console.log(payload)
             },
         [checkOutCarThunk.rejected]:
             (state) => {
                 state.loading = false
                 state.checkOutMsg  = 'fail'
-                console.log(state.msg)
+                console.log(state.checkOutMsg)
             }
 
 
