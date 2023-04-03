@@ -30,3 +30,11 @@ export const appointmentFormService = async (json) => {
   const response = await axios.get(COMMENTS_API + "/parklot/appointment/showAll", json);
   return response.data;
 };
+
+export const safeFormService = async (json) => {
+  const url = `/parklot/save?date=${json.result}&license=${json.carPlate}&name=${json.username}`;
+  console.log(url)
+  console.log(json.withCarType)
+  const response = await axios.post(COMMENTS_API + url, json.withCarType);
+  return response.data;
+};

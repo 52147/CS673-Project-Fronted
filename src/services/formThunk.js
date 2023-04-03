@@ -1,5 +1,6 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import * as service from "./formServices";
+import {safeFormService} from "./formServices";
 
 export const updateFormThunk = createAsyncThunk("/parklot/save", async () => {
   const json = await service.updateFormService();
@@ -35,4 +36,13 @@ export const appointmentFormThunk = createAsyncThunk(
     const json = await service.appointmentFormService(setValue);
     return json;
   }
+);
+
+export const safeFormThunk = createAsyncThunk(
+    "/parklot/appointment/showAll",
+    async (data) => {
+        console.log(data);
+        const json = await service.safeFormService(data);
+        return json;
+    }
 );
