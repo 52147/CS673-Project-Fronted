@@ -5,7 +5,9 @@ import { useNavigate } from "react-router";
 export const UpdatePassword = () => {
   let [password, setPassword] = useState("");
 
-  const changePassword = () => {};
+  const changePassword = () => {
+
+  };
 
   return (
     <>
