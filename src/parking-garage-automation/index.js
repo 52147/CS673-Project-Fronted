@@ -19,6 +19,7 @@ import ReserveTableComponent from "./client-reserve";
 import ReserveManagement from "./reservation-management";
 import AppointmentComponent from "./appointment-management";
 import ForgotPasswordComponent from "./parking-forgot-password";
+import UpdatePasswordComponent from "./updatePassword";
 
 function ParkingGarageAutomation() {
     const [value, setValue] = useState('')
@@ -46,7 +47,8 @@ function ParkingGarageAutomation() {
                 <Route path="/modules/reservemanagement" element={<ReserveManagement/>}/>
                 <Route path="/modules/appointmentmanagement" element={<AppointmentComponent/>}/>
                 <Route path="/forget" element={<ForgotPasswordComponent/>}/>
-
+                <Route path="/reset-password" element={<UpdatePasswordComponent/>}/>
+                <Route path="/reset-password:token" element={<UpdatePasswordComponent/>}/>
             </Routes>
         )
 

@@ -1,42 +1,99 @@
 import styles from "./forgetP.module.css";
-import {Button, Nav} from "react-bootstrap";
-import React, {useState} from "react";
-import {useNavigate} from "react-router";
-
+import { Button, Nav } from "react-bootstrap";
+import React, { useState, useRef } from "react";
+import emailjs from "@emailjs/browser";
+// import crypto from "crypto";
+import { useDispatch, useSelector } from "react-redux";
+// import {resetPasswordEmail} from "../../actions/usersActions";
+import { useNavigate } from "react-router";
 
 const InputEmail = () => {
+  const dispatch = useDispatch();
+  const { loading, load, token, users } = useSelector((state) => state.users);
 
-    let [userName, setUserName] = useState('');
-    const navigate = useNavigate()
-    const navRegister = () => {
-        navigate('/register');
-    }
+  let [email, setEmail] = useState("");
+  const emailRef = useRef();
 
-    const signUpClickHandler = () => {
+  const navigate = useNavigate();
 
-    }
+  const navRegister = () => {
+    navigate("/register");
+  };
 
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    const email = emailRef.current.value;
+    const resetLink = generateResetLink(email);
+    sendPasswordResetEmail(email, resetLink);
+    // dispatch(resetPasswordEmail(email, resetLink));
 
-    return (<>
-        <div className="row mt-4">
-            <div className="row">
-                <div className={`col-5 mt-1 text-white ${styles.textRight}`}>
-                    e-mail:
-                </div>
-                <div className={`col-3 ${styles.textLeft}`}>
-                    <input value={userName} onChange={(event) => setUserName(event.target.value)}
-                           className="form-control" type="text"/>
-                </div>
-            </div>
+  };
+
+  const USER_ID = process.env.REACT_APP_EMAILJS_USER_ID;
+  const SERVICE_ID = process.env.REACT_APP_EMAILJS_SERVICE_ID;
+  const TEMPLATE_ID = process.env.REACT_APP_EMAILJS_TEMPLATE_ID;
+  const url = process.env.REACT_APP_APP_URL;
+  console.log(url);
+
+  console.log(USER_ID);
+  function generateResetLink(email) {
+    const timestamp = new Date().getTime();
+    return `${url}/reset-password?token=${token}`;
+  }
+// ${url}/reset-password?token=${token}&timestamp=${timestamp}
+  
+  const sendPasswordResetEmail = (email, resetLink) => {
+    console.log(resetLink)
+    const templateParams = {
+      user_email: email,
+      message: "Please click the link to reset your password.",
+      reset_link: resetLink,
+    };
+
+    emailjs
+      .send(SERVICE_ID, TEMPLATE_ID, templateParams, USER_ID)
+      .then((result) => {
+        console.log("Password reset email sent successfully:", result.text);
+        alert("Password reset email sent successfully.");
+      })
+      .catch((error) => {
+        console.log(error.text);
+        alert("Error sending password reset email.");
+      });
+  };
+
+  return (
+    <>
+      <div className="row mt-4">
+        <div className="row">
+          <div className={`col-5 mt-1 text-white ${styles.textRight}`}>
+            e-mail:
+          </div>
+          <div className={`col-3 ${styles.textLeft}`}>
+            <input
+              ref={emailRef}
+              value={email}
+              onChange={(event) => setEmail(event.target.value)}
+              className="form-control"
+              type="email"
+            />
+          </div>
         </div>
+      </div>
 
+      <Button
+        className={`mt-4  container ${styles.submitButton}`}
+        onClick={handleSubmit}
+        variant="warning"
+      >
+        Reset My Password
+      </Button>
 
-        <Button className={`mt-4  container ${styles.submitButton}`} onClick={signUpClickHandler}
-                variant="warning">Reset My Password</Button>
-        <Nav.Link className={`mt-4 text-white`} onClick={navRegister}>sign up?</Nav.Link>
-
-    </>)
-
-}
+      <Nav.Link className={`mt-4 text-white`} onClick={navRegister}>
+        sign up?
+      </Nav.Link>
+    </>
+  );
+};
 
 export default InputEmail;
