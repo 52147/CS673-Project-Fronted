@@ -40,12 +40,20 @@ export const ReserveManagement = () => {
   const resetSearch = () => {
     setSearchQuery("");
     setPosts(history);
-    window.location.reload();
+    
   };
 
 
   const handleReset = () => {
+    console.log("Resetting form...");
     dispatch(resetFormThunk());
+
+    setPosts(history);
+
+    setTimeout(() => {
+      window.location.reload();
+    }, "1500");
+
   }
 
   return (

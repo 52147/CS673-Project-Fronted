@@ -1,9 +1,9 @@
 import ParkingInformation from "./parking-info";
 
-const ParkingInformationComponent = () => {
+const ParkingInformationComponent = ({setData}) => {
     return (
         <>
-            <ParkingInformation></ParkingInformation>
+            <ParkingInformation setData = {setData}></ParkingInformation>
         </>
     )
 }

@@ -194,6 +194,18 @@ export const ReserveForm = ({ setData }) => {
       Object.keys(formData).forEach((key) => (formData[key] = carPlate)); // 把所有value改為車牌號碼
       console.log(formData); // or send it to API or save to database
       console.log(carType);
+      let reserveFee = 1;
+      console.log(Object.keys(formData).length)
+      const totalReserveTime = Object.keys(formData).length;
+      console.log(totalReserveTime * 30);
+      if(carType === "Car"){
+        reserveFee = totalReserveTime * 30;
+      }else if(carType === "Motorcycle"){
+        reserveFee = totalReserveTime * 20;
+      }else{
+        reserveFee = totalReserveTime * 10;
+      }
+      console.log("reserve Fee", reserveFee);
       const withCarType = {
         id: selectedParkingSpace,
         type: carType,
@@ -212,6 +224,9 @@ export const ReserveForm = ({ setData }) => {
         setResponse("Error sending data");
       }
       const sendData = {
+        from: "reservation",
+        hour: totalReserveTime,
+        reserveFee,
         result,
         carPlate,
         username,
@@ -220,7 +235,7 @@ export const ReserveForm = ({ setData }) => {
       // setData("14567")
       setData(sendData);
       setTimeout(() => {
-        navigate(`/payment/${carPlate}`);
+        // navigate(`/payment/${carPlate}`);
         // window.location.reload();
       }, "1500");
     } 

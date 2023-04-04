@@ -7,7 +7,10 @@ import {getParkingInfoThunk} from "../../services/parkInfoThunk";
 import {useParams} from "react-router-dom";
 
 
-const ParkingInformation = () => {
+const ParkingInformation = ({ setData }) => {
+
+    setData("123456789");
+    
     const {plates} = useParams();
 
     const {
