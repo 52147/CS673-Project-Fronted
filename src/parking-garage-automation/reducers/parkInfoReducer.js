@@ -22,7 +22,6 @@ const parkInfoSlice = createSlice({
             },
         [getParkingInfoThunk.fulfilled]:
             (state, { payload }) => {
-                console.log(payload)
                 state.loading = false
                 state.PlateNumber = payload.content.parkinfo.plate
                 if(payload.content.parkinfo.entrance !=null){state.EnterTime = payload.content.parkinfo.entrance.substring(0,19)}
@@ -31,7 +30,7 @@ const parkInfoSlice = createSlice({
                 state.ParkingFee = payload.content.parkingFee
                 state.msg = 'success'
 
-                console.log(payload)
+                //console.log(payload)
             },
         [getParkingInfoThunk.rejected]:
             (state) => {

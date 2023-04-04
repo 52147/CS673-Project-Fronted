@@ -7,10 +7,8 @@ import {getParkingInfoThunk} from "../../services/parkInfoThunk";
 import {useParams} from "react-router-dom";
 
 
-const ParkingInformation = ({ setData }) => {
 
-    setData("123456789");
-    
+const ParkingInformation = ({setData}) => {
     const {plates} = useParams();
 
     const {
@@ -22,14 +20,20 @@ const ParkingInformation = ({ setData }) => {
         ParkingFee,
         msg
     } = useSelector((state) => state.parkInfo)
-    console.log(PlateNumber);
+    //console.log(PlateNumber);
 
     const parkInfo = {
         plate: plates
     }
 
     const payButtonClickHandler = () => {
-        window.location.replace(`/payment/${plates}`)
+        const payInfo=
+        {
+            from:"parkInfo",
+        }
+        //console.log(payInfo)
+        setData(payInfo)
+        navigate(`/payment`)
     }
 
     const navigate = useNavigate()

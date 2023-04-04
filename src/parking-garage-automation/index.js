@@ -21,15 +21,16 @@ import AppointmentComponent from "./appointment-management";
 
 function ParkingGarageAutomation() {
     const [value, setValue] = useState('')
-    const [data, setData] = useState({})
+    const [data, setData] = useState('')
     console.log(data);
+
     let dom = (value) => {
         return (
             <Routes>
                 <Route path="information/:plates" element={<ParkingInformationComponent setData = {setData}/>}/>
-                <Route path="information" element={<ParkingInformationComponent />}/>
+
+                <Route path="information" element={<ParkingInformationComponent setData = {setData}/>}/>
                 <Route path="payment" element={<ParkingPaymentComponent data = {data}/>}/>
-                <Route path="payment/:plates" element={<ParkingPaymentComponent data = {data}/>}/>
                 <Route path="login" element={<LoginComponent/>}/>
                 <Route path='/' exact element={<InputCarComponent/>}/>
                 <Route path='/modules/garageData' exact element={<GarageDataComponent/>}/>
