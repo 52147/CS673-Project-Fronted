@@ -5,12 +5,13 @@ import {useState} from "react";
 
 const user = localStorage.getItem('userObject') != null? JSON.parse(localStorage.getItem('userObject')):[]
 const name = localStorage.getItem('nameObject') != null? JSON.parse(localStorage.getItem('nameObject')):[]
+const tok = localStorage.getItem('tokenObject') != null? JSON.parse(localStorage.getItem('tokenObject')):[]
 
 const initialState = {
     users: user,
     password: "",
     loading: false,
-    token: "",
+    token: tok,
     username: name,
     load: "",
     decode: "",
@@ -51,6 +52,7 @@ const loginSlice = createSlice({
               console.log(decoded);
               localStorage.setItem('userObject', JSON.stringify(person))
               localStorage.setItem('nameObject', JSON.stringify(state.username))
+              localStorage.setItem('tokenObject', JSON.stringify(state.token))
                 state.decode = decoded;
 
             },
