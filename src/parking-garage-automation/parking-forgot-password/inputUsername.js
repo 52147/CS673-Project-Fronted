@@ -83,7 +83,7 @@ const InputUsername = () => {
         <div className="row mt-5">
             <div className="row">
                 <div className={`col-5 mt-1 text-white ${styles.textRight}`}>
-                    UserName:
+                    e-mail:
                 </div>
                 <div className={`col-3 ${styles.textLeft}`}>
                     <input value={userName} onChange={(event) => setUserName(event.target.value)}
