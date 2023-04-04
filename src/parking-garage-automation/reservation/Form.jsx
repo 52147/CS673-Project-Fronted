@@ -226,7 +226,6 @@ export const ReserveForm = ({ setData }) => {
       const sendData = {
         from: "reservation",
         hour: totalReserveTime,
-        reserveFee,
         result,
         carPlate,
         username,
@@ -235,7 +234,7 @@ export const ReserveForm = ({ setData }) => {
       // setData("14567")
       setData(sendData);
       setTimeout(() => {
-        // navigate(`/payment/${carPlate}`);
+        navigate(`/payment/${carPlate}`);
         // window.location.reload();
       }, "1500");
     } 
