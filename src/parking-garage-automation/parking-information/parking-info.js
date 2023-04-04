@@ -44,6 +44,7 @@ const ParkingInformation = ({setData}) => {
     useEffect(() => {
         dispatch(getParkingInfoThunk(parkInfo))
         // eslint-disable-next-line react-hooks/exhaustive-deps
+        setTimeout(() => navigate('/'), 15000)
     }, []);
 
 
@@ -132,8 +133,12 @@ const ParkingInformation = ({setData}) => {
                                         variant="secondary">Back</Button>
                             </div>
                         </div>
+
                     </div>
+
+
                 }
+
 
             </div>
         </>

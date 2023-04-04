@@ -58,12 +58,6 @@ const NavBar = () =>{
                         <Nav.Link onClick={navHome}>Home</Nav.Link>
                         {(users.role === 1 || users.role === 2) && <>
                             <Nav.Link onClick={navManagementSystem}>Management System</Nav.Link>
-                            {/*<NavDropdown title="Management System" id="nav-dropdown">*/}
-                            {/*    <NavDropdown.Item eventKey="4.1">ParkingFee Management</NavDropdown.Item>*/}
-                            {/*    <NavDropdown.Item eventKey="4.2">Parking History</NavDropdown.Item>*/}
-                            {/*    <NavDropdown.Item eventKey="4.3">Authority Management</NavDropdown.Item>*/}
-
-                            {/*</NavDropdown>*/}
                         </>
                         }
                         {
@@ -92,9 +86,7 @@ const NavBar = () =>{
 
                     <Modal
                         show={show}
-                        onHide={logOutHandlerShow}
-                        backdrop="static"
-                        keyboard={false}
+                        onHide={logOutHandlerClose}
                     >
                         <Modal.Header closeButton>
                             <Modal.Title>Log Out</Modal.Title>

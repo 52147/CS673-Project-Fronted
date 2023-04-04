@@ -2,8 +2,9 @@ import {useDispatch, useSelector} from "react-redux";
 import React, {useState} from "react";
 import {parkingRegisterThunk} from "../../services/registerThunk";
 import styles from "../parking-register/register.module.css";
-import {Button, Modal} from "react-bootstrap";
+import {Button, Modal, Nav} from "react-bootstrap";
 import $ from 'jquery';
+import {useNavigate} from "react-router";
 
 
 const ParkingRegister = () => {
@@ -16,29 +17,51 @@ const ParkingRegister = () => {
     let [securityAnswer1, setSecurityAnswer1] = useState('');
     let [securityAnswer2, setSecurityAnswer2] = useState('');
 
-    const successHandler = () => {
-        localStorage.removeItem('userObject');
-        errorHandlerShow();
-        setTimeout(() => window.location.replace(`/`), 3000)
+    const navigate = useNavigate()
+    const navHome = () => {
+        navigate('/');
+    }
+    const navForgotPassword = () => {
+        navigate('/forget');
+    }
+
+    const [errorShow, setErrorShow] = useState(false);
+    const errorHandlerClose = () => {
+        setErrorShow(false)
+    };
+    const errorHandlerShow = () => {
+        setErrorShow(true);
+    }
+
+    const [successShow, setSuccessShow] = useState(false);
+    const successHandlerClose = () => {
+        setSuccessShow(false)
+    };
+    const successHandlerShow = () => {
+        setSuccessShow(true);
+    }
+
+
+    const successHandler = (newUser) => {
+        (parkingRegisterThunk(newUser));
+        if(msg == 'success'){
+            successHandlerShow();
+            setTimeout(() => window.location.replace(`/`), 3000)
+        }else{
+            errorHandlerShow();
+            setTimeout((event) => setErrorShow(false), 3000)
+        }
+
 
     }
     const errorHandler = () => {
-        localStorage.removeItem('userObject');
         errorHandlerShow();
         setTimeout(() => window.location.replace(`/`), 3000)
 
     }
 
-    const [show, setShow] = useState(false);
-    const errorHandlerClose = () => {
-        setShow(false)
-    };
-    const errorHandlerShow = () => {
-        setShow(true);
-    }
 
     const dispatch = useDispatch();
-
     const signUpClickHandler = () => {
         let sq1 = $('#securityQuestion1').val();
         let sq2 = $('#securityQuestion2').val();
@@ -54,9 +77,9 @@ const ParkingRegister = () => {
             A2 : securityAnswer2
         }
         console.log(newUser);
-        dispatch(parkingRegisterThunk(newUser));
+
         resetFields();
-        errorHandlerShow();
+        successHandler(newUser);
 
     }
     const resetFields = () => {
@@ -181,18 +204,36 @@ const ParkingRegister = () => {
                            className="form-control"/>
                 </div>
             </div>
+
             <Button className={`mt-5  container ${styles.submitButton}`} onClick={signUpClickHandler}
                     variant="warning">Submit</Button>
+            <Nav.Link className={`mt-4 text-white`} onClick={navForgotPassword}>forgot password?</Nav.Link>
 
             <Modal
-                show={show}
+                show={errorShow}
+                onHide={(event) => setErrorShow(false)}
             >
                 <Modal.Header closeButton>
-                    <Modal.Title>Log Out</Modal.Title>
+                    <Modal.Title>Sign Up</Modal.Title>
                 </Modal.Header>
-                <Modal.Body> Log Out Successfully!</Modal.Body>
+                <Modal.Body> Have problem, Please try again!</Modal.Body>
                 <Modal.Footer>
-                    <Button variant="primary" onClick={errorHandlerClose}>
+                    <Button variant="primary" onClick={(event) => setErrorShow(false)}>
+                        Close
+                    </Button>
+                </Modal.Footer>
+            </Modal>
+
+            <Modal
+                show={successShow}
+                onHide={navHome}
+            >
+                <Modal.Header closeButton>
+                    <Modal.Title>Sign Up</Modal.Title>
+                </Modal.Header>
+                <Modal.Body> Sign up Successfully!</Modal.Body>
+                <Modal.Footer>
+                    <Button variant="primary" onClick={navHome}>
                         Close
                     </Button>
                 </Modal.Footer>
