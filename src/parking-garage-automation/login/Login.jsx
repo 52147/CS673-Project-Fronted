@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { loginThunk } from "../../services/loginThunk";
 import { Button, Modal } from "react-bootstrap";
 import jwtDecode from "jwt-decode";
+import { useNavigate } from "react-router";
 
 export const Login = () => {
   const dispatch = useDispatch();
@@ -37,6 +38,11 @@ export const Login = () => {
     console.log(load);
   };
   const handleClose = () => setShow(false);
+  const navigate = useNavigate();
+
+  const handleClick = () => {
+    navigate("/forget");
+  }
 
   return (
     <>
@@ -68,6 +74,9 @@ export const Login = () => {
               Submit
             </button>
           </form>
+          <button className={`${styles.buttonClass} mt-3`} onClick = {handleClick} type="submit">
+              Forgot Password
+          </button>
         </div>
       </div>
       <Modal show={show} onHide={handleClose}>
