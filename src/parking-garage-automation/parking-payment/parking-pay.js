@@ -52,11 +52,11 @@ const ParkingPayment = ({data}) => {
                 totalParkingTime: TotalParkingTime
             }
             dispatch(checkOutCarThunk(payInfo));
-            console.log(payInfo);
-            setTimeout(() => navigate('/'), 3000)
+
         } else if (data.from === 'reservation') {
             dispatch(safeFormThunk(data))
         }
+        setTimeout(() => navigate('/'), 3000)
     }
 
     const navigate = useNavigate()

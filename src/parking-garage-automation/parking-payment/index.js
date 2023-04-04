@@ -1,7 +1,7 @@
 import ParkingPayment from "./parking-pay";
 
 const ParkingPaymentComponent = ({ data }) => {
-    console.log(data);
+    //console.log(data);
     return (
     <>
     
