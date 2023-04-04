@@ -38,11 +38,13 @@ export const appointmentFormThunk = createAsyncThunk(
   }
 );
 
-export const safeFormThunk = createAsyncThunk(
-    "/parklot/appointment/showAll",
-    async (data) => {
-        console.log(data);
-        const json = await service.safeFormService(data);
-        return json;
-    }
+export const resetFormThunk = createAsyncThunk(
+  "/parklot/reset",
+  async (setValue) => {
+    console.log(setValue);
+    const json = await service.resetFormService(setValue);
+    return json;
+  }
 );
+
+

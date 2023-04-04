@@ -28,6 +28,7 @@ function ParkingGarageAutomation() {
         return (
             <Routes>
                 <Route path="information/:plates" element={<ParkingInformationComponent setData = {setData}/>}/>
+
                 <Route path="information" element={<ParkingInformationComponent setData = {setData}/>}/>
                 <Route path="payment" element={<ParkingPaymentComponent data = {data}/>}/>
                 <Route path="login" element={<LoginComponent/>}/>
