@@ -18,7 +18,7 @@ const Posts = ({posts}) => {
                         {post.exit.substring(0, 19)}
                     </td>
                     <td>
-                        {post.parkingFee}
+                        {post.cardNum}
                     </td>
                 </tr>
             ))}

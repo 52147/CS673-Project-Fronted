@@ -20,6 +20,8 @@ import ReserveManagement from "./reservation-management";
 import AppointmentComponent from "./appointment-management";
 import ForgotPasswordComponent from "./parking-forgot-password";
 import UpdatePasswordComponent from "./updatePassword";
+import ParkingMembershipComponent from "./parking-membership";
+import ParkingMembershipRecordComponent from "./garage-membership";
 
 function ParkingGarageAutomation() {
     const [value, setValue] = useState('')
@@ -30,7 +32,6 @@ function ParkingGarageAutomation() {
         return (
             <Routes>
                 <Route path="information/:plates" element={<ParkingInformationComponent setData = {setData}/>}/>
-
                 <Route path="information" element={<ParkingInformationComponent setData = {setData}/>}/>
                 <Route path="payment" element={<ParkingPaymentComponent data = {data}/>}/>
                 <Route path="login" element={<LoginComponent/>}/>
@@ -49,6 +50,9 @@ function ParkingGarageAutomation() {
                 <Route path="/forget" element={<ForgotPasswordComponent/>}/>
                 <Route path="/reset-password" element={<UpdatePasswordComponent/>}/>
                 <Route path="/reset-password:token" element={<UpdatePasswordComponent/>}/>
+                <Route path="/usermodule/membership" element={<ParkingMembershipComponent/>}/>
+                <Route path="/modules/membership" element={<ParkingMembershipRecordComponent/>}/>
+                ParkingMembershipHistoryComponent
             </Routes>
         )
 

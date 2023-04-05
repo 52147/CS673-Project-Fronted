@@ -28,6 +28,10 @@ const ListBar = ({active}) => {
         navigate('/modules/appointmentmanagement');
     }
 
+    const membershipRecordHandler = () => {
+        navigate('/modules/membership');
+    }
+
 
 
     return (
@@ -53,6 +57,7 @@ const ListBar = ({active}) => {
                         Parking Space
                         Management
                     </ListGroup.Item>
+
                     <ListGroup.Item onClick={ReservationHandler} action href="#Appointment">
                         Reservation
                         Management
@@ -61,6 +66,10 @@ const ListBar = ({active}) => {
                     <ListGroup.Item onClick={reserveHandler} action href="#Reservation Data">
                         Parking Slot
                         Management
+                    </ListGroup.Item>
+
+                    <ListGroup.Item onClick={membershipRecordHandler} action href="#MembershipRecords">
+                        Membership Records
                     </ListGroup.Item>
 
                 </ListGroup>
