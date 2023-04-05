@@ -84,6 +84,10 @@ const ParkingPayment = ({data}) => {
             }
             fetchData();
         }
+        else if(data.from === "membership"){
+            setFee(data.price)
+            console.log(ParkingFee)
+        }
 
     }, [fee]);
 

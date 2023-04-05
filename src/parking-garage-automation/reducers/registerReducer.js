@@ -20,14 +20,15 @@ const parkRegisterSlice = createSlice({
             (state, { payload }) => {
                 state.loading = false
                 state.msg = 'success'
-                //console.log("success")
-                //console.log(payload)
+                console.log("success")
+                console.log(payload)
             },
         [parkingRegisterThunk.rejected]:
-            (state) => {
+            (state,{ payload }) => {
                 state.loading = false
                 state.msg = 'reject'
-                //console.log("reject" )
+                console.log("reject" )
+                console.log(payload)
             }
 
 

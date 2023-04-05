@@ -42,10 +42,11 @@ const ParkingRegister = () => {
     }
 
 
-    const successHandler = (newUser) => {
-        dispatch(parkingRegisterThunk(newUser));
-        console.log(newUser)
-        if(msg == 'success'){
+    const successHandler = async (newUser) => {
+        const msgg = await dispatch(parkingRegisterThunk(newUser));
+        console.log(msgg)
+        if(msgg.type === '/register/fulfilled'){
+            resetFields();
             successHandlerShow();
             setTimeout(() => window.location.replace(`/`), 3000)
         }else{
@@ -63,7 +64,7 @@ const ParkingRegister = () => {
 
 
     const dispatch = useDispatch();
-    const signUpClickHandler = () => {
+    const signUpClickHandler = async () => {
         let sq1 = $('#securityQuestion1').val();
         let sq2 = $('#securityQuestion2').val();
         const newUser = {
@@ -78,9 +79,7 @@ const ParkingRegister = () => {
             a2 : securityAnswer2
         }
 
-
-        resetFields();
-        successHandler(newUser);
+        await successHandler(newUser);
 
     }
     const resetFields = () => {

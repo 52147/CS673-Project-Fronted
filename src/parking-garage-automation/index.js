@@ -50,7 +50,7 @@ function ParkingGarageAutomation() {
                 <Route path="/forget" element={<ForgotPasswordComponent/>}/>
                 <Route path="/reset-password" element={<UpdatePasswordComponent/>}/>
                 <Route path="/reset-password:token" element={<UpdatePasswordComponent/>}/>
-                <Route path="/usermodule/membership" element={<ParkingMembershipComponent/>}/>
+                <Route path="/usermodule/membership" element={<ParkingMembershipComponent setData = {setData}/>}/>
                 <Route path="/modules/membership" element={<ParkingMembershipRecordComponent/>}/>
                 ParkingMembershipHistoryComponent
             </Routes>

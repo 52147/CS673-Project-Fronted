@@ -22,7 +22,7 @@ export const UserModule = () => {
     },
     {
       id: "3",
-      page: "autho",
+      page: "membership",
       topic: "Membership",
       cover: "premium.png",
     },
