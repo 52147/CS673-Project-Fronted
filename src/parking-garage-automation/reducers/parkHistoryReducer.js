@@ -37,7 +37,7 @@ const parkHistorySlice = createSlice({
             (state, { payload }) => {
                 state.loading = false
                 state.history = payload
-                //console.log(payload.content);
+                //console.log(payload);
             },
         [getSelectedHistoryThunk.rejected]:
             (state) => {

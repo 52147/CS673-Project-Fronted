@@ -43,7 +43,8 @@ const ParkingRegister = () => {
 
 
     const successHandler = (newUser) => {
-        (parkingRegisterThunk(newUser));
+        dispatch(parkingRegisterThunk(newUser));
+        console.log(newUser)
         if(msg == 'success'){
             successHandlerShow();
             setTimeout(() => window.location.replace(`/`), 3000)
@@ -68,15 +69,15 @@ const ParkingRegister = () => {
         const newUser = {
             username: userName,
             password: password,
-            Email: email,
-            Address: address,
-            PhoneNumber: phoneNumber,
-            Sq1 : sq1,
-            A1: securityAnswer1,
-            Sq2 : sq2,
-            A2 : securityAnswer2
+            email: email,
+            address: address,
+            phone: phoneNumber,
+            q1 : sq1,
+            a1: securityAnswer1,
+            q2 : sq2,
+            a2 : securityAnswer2
         }
-        console.log(newUser);
+
 
         resetFields();
         successHandler(newUser);
