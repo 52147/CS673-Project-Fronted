@@ -1,86 +1,75 @@
-import React, { useState } from "react";
-import styles from "./login.module.css";
-import { useDispatch, useSelector } from "react-redux";
-import { loginThunk } from "../../services/loginThunk";
-import { Button, Modal } from "react-bootstrap";
-import jwtDecode from "jwt-decode";
+import React from "react";
+import { render, screen, fireEvent, waitFor } from "@testing-library/react";
+import { Login } from "../../parking-garage-automation/login/Login";
+import { Provider } from "react-redux";
+import configureStore from "redux-mock-store";
+import thunk from "redux-thunk";
+import { MemoryRouter } from "react-router-dom";
 
-export const Login = () => {
-  const dispatch = useDispatch();
-  const { loading, load, token, users } = useSelector((state) => state.users);
-  console.log(users);
+const middlewares = [thunk];
+const mockStore = configureStore(middlewares);
 
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
-  const [show, setShow] = useState(false);
+describe("Login component", () => {
+  test("renders login form with username and password inputs", () => {
+    render(<Login />);
+    const usernameInput = screen.getByLabelText("Username");
+    const passwordInput = screen.getByLabelText("Password");
+    const submitButton = screen.getByText("Submit");
 
-  const handleSubmit = async (event) => {
-    event.preventDefault();
-    await dispatch(loginThunk({ username, password })).then((req) => {
-      console.log(req.type);
-      console.log(req);
-      // console.log(req.payload.token);
+    expect(usernameInput).toBeInTheDocument();
+    expect(passwordInput).toBeInTheDocument();
+    expect(submitButton).toBeInTheDocument();
+  });
 
-      const decoded = jwtDecode(req.payload.token);
-      console.log(decoded);
-      console.log(decoded.role);
-      if (decoded.role == 1 || decoded.role == 2 ) {
-        window.location.replace(`/modules`);
-      } else if (decoded.role == 3) {
-        window.location.replace(`/usermodule`);
-      }
-      if (req.type === "/login/rejected") {
-        setShow(true);
-      }
+  test("submits the form with valid credentials and redirects to modules page for role 1 or 2 user", async () => {
+    const fakeToken = "fakeToken123";
+    const fakeUser = {
+      id: 1,
+      username: "testuser",
+      role: 1,
+    };
+
+    const initialState = {
+      users: {
+        loading: false,
+        load: true,
+        token: "",
+        users: [],
+      },
+    };
+    const store = mockStore(initialState);
+
+    const loginThunkMock = jest.fn().mockResolvedValue({
+      type: "login/fulfilled",
+      payload: {
+        token: fakeToken,
+        user: fakeUser,
+      },
     });
-    console.log(token);
-    console.log(load);
-  };
-  const handleClose = () => setShow(false);
 
-  return (
-    <>
-      <div className={styles.container}>
-        <div className="mt-12">
-          <form onSubmit={handleSubmit}>
-            <h1>Login</h1>
-            <div>
-              <input
-                className={styles.inputClass}
-                type="text"
-                id="username"
-                name="username"
-                value={username}
-                onChange={(event) => setUsername(event.target.value)}
-              />
-            </div>
-            <div>
-              <input
-                className={styles.inputClass}
-                type="password"
-                id="password"
-                name="password"
-                value={password}
-                onChange={(event) => setPassword(event.target.value)}
-              />
-            </div>
-            <button className={styles.buttonClass} type="submit">
-              Submit
-            </button>
-          </form>
-        </div>
-      </div>
-      <Modal show={show} onHide={handleClose}>
-        <Modal.Header closeButton>
-          <Modal.Title>Incorrect username or password</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>Your username or password is not correct.</Modal.Body>
-        <Modal.Footer>
-          <Button variant="primary" onClick={handleClose}>
-            Close
-          </Button>
-        </Modal.Footer>
-      </Modal>
-    </>
-  );
-};
+    render(
+      <Provider store={store}>
+        <MemoryRouter>
+          <Login />
+        </MemoryRouter>
+      </Provider>
+    );
+
+    const usernameInput = screen.getByLabelText("Username");
+    const passwordInput = screen.getByLabelText("Password");
+    const submitButton = screen.getByText("Submit");
+
+    fireEvent.change(usernameInput, { target: { value: "testuser" } });
+    fireEvent.change(passwordInput, { target: { value: "testpassword" } });
+    fireEvent.click(submitButton);
+
+    expect(loginThunkMock).toHaveBeenCalledWith({
+      username: "testuser",
+      password: "testpassword",
+    });
+
+    await waitFor(() => {
+      expect(window.location.replace).toHaveBeenCalledWith("/modules");
+    });
+  });
+});

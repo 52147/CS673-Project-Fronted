@@ -234,7 +234,7 @@ export const ReserveForm = ({ setData }) => {
       // setData("14567")
       setData(sendData);
       setTimeout(() => {
-        navigate(`/payment/${carPlate}`);
+        // navigate(`/payment/${carPlate}`);
         // window.location.reload();
       }, "1500");
     } 
