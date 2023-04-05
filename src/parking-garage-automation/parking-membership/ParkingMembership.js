@@ -1,9 +1,35 @@
 import React, {useState} from "react";
-import {Card, CardGroup, Table} from "react-bootstrap";
+import {Button, Card, CardGroup, Table} from "react-bootstrap";
 import styles from './membership.module.css'
+import {useNavigate} from "react-router";
 
 
-const ParkingMembership = () => {
+const ParkingMembership = ({setData}) => {
+    let [price, setPrice] = useState(0);
+    const navigate = useNavigate()
+    const monthPayButtonClickHandler = () => {
+        price = 200;
+        const payInfo=
+            {
+                from:"membership",
+                price:price
+            }
+        //console.log(payInfo)
+        setData(payInfo)
+        navigate(`/payment`)
+    }
+
+    const yearPayButtonClickHandler = () => {
+        price = 2000;
+        const payInfo=
+            {
+                from:"membership",
+                price:price
+            }
+        //console.log(payInfo)
+        setData(payInfo)
+        navigate(`/payment`)
+    }
 
 
     return (<>
@@ -41,9 +67,12 @@ const ParkingMembership = () => {
                         Our monthly plan grants access to all premium features,
                         the best plan for short-term subscribers.
                     </Card.Text>
+                    <Button className={`${styles.payButton}`}
+                            onClick={monthPayButtonClickHandler}
+                            variant="warning">Pay</Button>
                 </Card.Body>
                 <Card.Footer>
-                    <small className="text-muted">30% of people choose this</small>
+                    <small className="text-muted">36% of people choose this</small>
                 </Card.Footer>
             </Card>
             <br />
@@ -55,24 +84,16 @@ const ParkingMembership = () => {
                         Our most popular plan previously sold for $299 and is now only $13.25/month.
                         This plan saves you over 60% in comparison to the monthly plan.
                     </Card.Text>
+                    <Button className={`${styles.payButton}`}
+                            onClick={yearPayButtonClickHandler}
+                            variant="warning">Pay</Button>
                 </Card.Body>
                 <Card.Footer>
-                    <small className="text-muted">68% of people choose this</small>
+                    <small className="text-muted">64% of people choose this</small>
                 </Card.Footer>
             </Card>
             <br />
-            <Card>
-                <Card.Img variant="top" src="holder.js/100px160" />
-                <Card.Body>
-                    <Card.Title>Customize your plan</Card.Title>
-                    <Card.Text>
-                        111
-                    </Card.Text>
-                </Card.Body>
-                <Card.Footer>
-                    <small className="text-muted">2% of people choose this</small>
-                </Card.Footer>
-            </Card>
+
         </CardGroup>
     </>)
 

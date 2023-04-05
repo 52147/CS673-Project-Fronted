@@ -3,9 +3,9 @@ import ParkingMembership from "./ParkingMembership";
 
 
 
-const ParkingMembershipComponent = () => {
+const ParkingMembershipComponent = ({setData}) => {
     return(
-    <ParkingMembership></ParkingMembership>
+    <ParkingMembership setData = {setData}></ParkingMembership>
     )
 
 }
