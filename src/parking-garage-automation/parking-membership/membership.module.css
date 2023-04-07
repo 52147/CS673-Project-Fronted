@@ -23,3 +23,10 @@
 .card{
     width : 70% !important;
 }
+
+.image {
+    width: 80px;
+    height: 80px;
+    display: block;
+    margin: 0 auto 12px auto;
+}

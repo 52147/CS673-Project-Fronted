@@ -7,6 +7,7 @@ import {useNavigate} from "react-router";
 import {checkOutCarThunk} from "../../services/checkOutCarThunk";
 import {getFeeThunk, setFeeThunk} from "../../services/feeManagementThunk";
 import {safeFormThunk} from "../../services/formThunk";
+import {purchaseMembershipThunk} from "../../services/membershipThunk";
 
 
 const ParkingPayment = ({data}) => {
@@ -56,7 +57,10 @@ const ParkingPayment = ({data}) => {
         } else if (data.from === 'reservation') {
             dispatch(safeFormThunk(data))
         }
-        setTimeout(() => navigate('/'), 3000)
+        else if(data.from === 'membership'){
+            dispatch(purchaseMembershipThunk(data))
+        }
+        //setTimeout(() => navigate('/'), 3000)
     }
 
     const navigate = useNavigate()
