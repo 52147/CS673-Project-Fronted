@@ -1,9 +1,9 @@
 import React from 'react';
 
-const Posts = ({posts}) => {
+const Posts = ({historyPosts}) => {
     return (
         <>
-            {posts.map(post => (
+            {historyPosts.map(post => (
                 <tr>
                     <td>
                         {post.id}
@@ -12,10 +12,10 @@ const Posts = ({posts}) => {
                         {post.plate}
                     </td>
                     <td>
-                        {post.entrance.substring(0, 19)}
+                        {post.entrance && post.entrance.length > 0 ? post.entrance.substring(0, 19) : 'N/A'}
                     </td>
                     <td>
-                        {post.exit.substring(0, 19)}
+                        {post.exit && post.exit.length > 0 ? post.exit.substring(0, 19) : 'N/A'}
                     </td>
                     <td>
                         {post.parkingFee}

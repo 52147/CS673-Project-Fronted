@@ -9,7 +9,7 @@ import DatePicker from "react-datepicker";
 
 
 const GarageData = () => {
-    const [posts, setPosts] = useState([]);
+    const [historyPosts, setHistoryPosts] = useState([]);
     let [startDate, setStartDate] = useState(new Date());
     let [endDate, setEndDate] = useState(new Date());
     const [active, setActivePage] = useState(1);
@@ -21,8 +21,6 @@ const GarageData = () => {
 
 
     const date = {
-        // startDate: startDate.getFullYear()+"-"+(1+startDate.getMonth())+"-"+startDate.getDate(),
-        // endDate: endDate.getFullYear()+"-"+(1+endDate.getMonth())+"-"+endDate.getDate()
         startDate: startDate.toISOString(),
         endDate: endDate.toISOString(),
     };
@@ -42,7 +40,7 @@ const GarageData = () => {
             }
         }
         setActivePage(number);
-        setPosts(tempArr)
+        setHistoryPosts(tempArr)
     }, [history]);
 
     const pageNumbers = Math.ceil(history.length / 10)
@@ -135,7 +133,7 @@ const GarageData = () => {
 
                                 <tbody>
 
-                                <Posts posts={posts}></Posts>
+                                <Posts historyPosts={historyPosts}></Posts>
                                 </tbody>
 
                             </Table>

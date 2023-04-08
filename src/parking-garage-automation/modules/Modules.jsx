@@ -46,7 +46,7 @@ export const Modules = () => {
     },
     {
       id: "7",
-      page: "reservemanagement",
+      page: "membership",
       topic: "Membership Management",
       cover: "membership.png",
     },
