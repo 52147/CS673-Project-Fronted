@@ -21,12 +21,13 @@ export const InputCar = () => {
     console.log(content);
 
     await dispatch(checkInCarThunk(content)).then((req) => {
-      if (responseMsg === "success") {
+      if (req.payload.content.Entrance === "false") {
         window.location.replace(`/information/${contact}`);
       } else {
         setShow(true);
       }
       console.log(responseMsg);
+      console.log(req.payload.content.Entrance);
     });
   };
   const handleClose = () => setShow(false);
