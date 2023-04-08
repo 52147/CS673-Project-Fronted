@@ -14,24 +14,24 @@ const parkMembershipSlice = createSlice({
         [getMembershipThunk.pending]:
             (state) => {
                 state.loading = true
-                console.log("pending");
+                //console.log("pending");
             },
         [getMembershipThunk.fulfilled]:
             (state, { payload }) => {
                 state.loading = false
                 state.historyAll = payload
-                console.log(payload);
+                //console.log(payload);
             },
         [getMembershipThunk.rejected]:
             (state) => {
                 state.loading = false
-                console.log("reject");
+                //console.log("reject");
             },
 
         [getAllMembershipThunk.pending]:
             (state) => {
                 state.loading = true
-                console.log("pending");
+                //console.log("pending");
             },
         [getAllMembershipThunk.fulfilled]:
             (state, { payload }) => {
@@ -42,7 +42,7 @@ const parkMembershipSlice = createSlice({
         [getAllMembershipThunk.rejected]:
             (state) => {
                 state.loading = false
-                console.log("reject");
+                //console.log("reject");
             },
 
 

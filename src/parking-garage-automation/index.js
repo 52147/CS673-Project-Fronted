@@ -48,8 +48,8 @@ function ParkingGarageAutomation() {
                 <Route path="/modules/reservemanagement" element={<ReserveManagement/>}/>
                 <Route path="/modules/appointmentmanagement" element={<AppointmentComponent/>}/>
                 <Route path="/forget" element={<ForgotPasswordComponent/>}/>
-                <Route path="/reset-password" element={<UpdatePasswordComponent/>}/>
-                <Route path="/reset-password:token" element={<UpdatePasswordComponent/>}/>
+                {/*<Route path="/reset-password" element={<UpdatePasswordComponent/>}/>*/}
+                {/*<Route path="/reset-password:token" element={<UpdatePasswordComponent/>}/>*/}
                 <Route path="/usermodule/membership" element={<ParkingMembershipComponent setData = {setData}/>}/>
                 <Route path="/modules/membership" element={<ParkingMembershipRecordComponent/>}/>
                 ParkingMembershipHistoryComponent

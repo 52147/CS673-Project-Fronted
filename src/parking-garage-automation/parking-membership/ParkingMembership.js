@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {Button, Card, CardGroup, Form, InputGroup, Modal, Table} from "react-bootstrap";
+import {Alert, Button, Card, CardGroup, Form, InputGroup, Modal, Table} from "react-bootstrap";
 import styles from './membership.module.css'
 import {useNavigate} from "react-router";
 import {useDispatch, useSelector} from "react-redux";
@@ -18,6 +18,7 @@ const ParkingMembership = ({setData}) => {
     const [price, setPrice] = useState(0);
     const [memberType, setMemberType] = useState('');
     const [plate, setPlate] = useState('');
+    const [check, setCheck] = useState(0);
     const navigate = useNavigate()
     const monthPayButtonClickHandler = () => {
         setPrice(200)
@@ -26,23 +27,27 @@ const ParkingMembership = ({setData}) => {
     }
 
     const yearPayButtonClickHandler = () => {
-        setPrice(2000)
+        setPrice(1999)
         setMemberType('year')
         payClickHandlerShow();
     }
 
     const payButtonClickHandler = () => {
         console.log(price)
-        const payInfo=
-            {
-                from:"membership",
-                price:price,
-                userId:users.username,
-                permitType:memberType,
-                plate:plate,
-            }
-        setData(payInfo)
-        navigate(`/payment`)
+        if(!plate){
+            setCheck(1)
+        }else{
+            const payInfo=
+                {
+                    from:"membership",
+                    price:price,
+                    userId:users.username,
+                    permitType:memberType,
+                    plate:plate,
+                }
+            setData(payInfo)
+            navigate(`/payment`)
+        }
     }
 
 
@@ -78,8 +83,7 @@ const ParkingMembership = ({setData}) => {
             </tr>
             </thead>
             <tbody>
-            {
-                historyAll ===[]&&
+            {historyAll.length ===0 &&
                 <tr>
                     <td colSpan={3}>Your membership has expired.</td>
                 </tr>
@@ -99,17 +103,15 @@ const ParkingMembership = ({setData}) => {
         </h1>
 
         <CardGroup className={ `container ${styles.card}`}>
-
             <Card>
-
                 <Card.Body>
                     <Card.Title>Buy a month</Card.Title>
                     <Card.Text>
-                        Down from $39/month.
-                        Our monthly plan grants access to all premium features,
-                        the best plan for short-term subscribers.
+                        The best plan for short-term subscribers.
+
+                        <h1 className={` `}><br/>200/mo</h1>
                     </Card.Text>
-                    <Button className={`${styles.payButton}`}
+                    <Button className={`mt-2 ${styles.payButton}`}
                             onClick={monthPayButtonClickHandler}
                             variant="warning">Buy</Button>
                 </Card.Body>
@@ -124,10 +126,10 @@ const ParkingMembership = ({setData}) => {
                 <Card.Body>
                     <Card.Title>Buy a year</Card.Title>
                     <Card.Text>
-                        Our most popular plan previously sold for $299 and is now only $13.25/month.
-                        This plan saves you over 60% in comparison to the monthly plan.
+                        Our most popular plan previously sold for $2199 and is now only $166.6/month.
+                        <h1 className={`mt-4 `}>1999/year</h1>
                     </Card.Text>
-                    <Button className={`${styles.payButton}`}
+                    <Button className={`mt-2 ${styles.payButton}`}
                             onClick={yearPayButtonClickHandler}
                             variant="warning">Buy</Button>
                 </Card.Body>
@@ -148,6 +150,12 @@ const ParkingMembership = ({setData}) => {
             </Modal.Header>
 
             <Modal.Body>
+                {
+                    check === 1 && <Alert key={"danger"} variant={'danger'}>
+                        Please enter plate!
+                    </Alert>
+                }
+
                 <Form.Label htmlFor="time-period">Plate:</Form.Label>
                 <InputGroup className="mb-3">
                     <Form.Control

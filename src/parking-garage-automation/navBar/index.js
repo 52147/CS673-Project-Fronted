@@ -30,8 +30,8 @@ const NavBarComponent = () => {
         if(time > users.exp){
             logOutHandler()
         }
-        console.log(time)
-        console.log(users)
+        //console.log(time)
+        //console.log(users)
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [users,date]);
     return (

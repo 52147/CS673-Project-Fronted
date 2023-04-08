@@ -1,5 +1,5 @@
 import styles from "./forgetP.module.css";
-import { Button, Nav } from "react-bootstrap";
+import {Button, Card, Nav} from "react-bootstrap";
 import React, { useState, useRef } from "react";
 import emailjs from "@emailjs/browser";
 // import crypto from "crypto";
@@ -9,7 +9,7 @@ import { useNavigate } from "react-router";
 
 const InputEmail = () => {
   const dispatch = useDispatch();
-  const { loading, load, token, users } = useSelector((state) => state.users);
+  const {token} = useSelector((state) => state.users);
 
   let [email, setEmail] = useState("");
   const emailRef = useRef();
@@ -64,6 +64,26 @@ const InputEmail = () => {
 
   return (
     <>
+      <div className={`row text-white mx-auto ${styles.line}`} style={{ opacity: 0.5 }}>
+        <hr />
+      </div>
+      <div className={` row  ${styles.content}`}>
+        <Card
+            bg={'Light'.toLowerCase()}
+            key={'Light'}
+            text={'Light'.toLowerCase() === 'light' ? 'dark' : 'white'}
+            style={{ width: '25rem' }}
+            className="mb-2"
+        >
+          <Card.Body>
+            <Card.Text >
+              Forgotten your password? Enter your e-mail address below,
+              and we'll send you an e-mail allowing you to reset it.
+            </Card.Text>
+          </Card.Body>
+        </Card>
+      </div>
+
       <div className="row mt-4">
         <div className="row">
           <div className={`col-5 mt-1 text-white ${styles.textRight}`}>

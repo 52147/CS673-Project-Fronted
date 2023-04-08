@@ -1,10 +1,10 @@
 import {createAsyncThunk}
     from "@reduxjs/toolkit"
-import * as service from "./forgetPasswordService";
+import * as service from "./forgetPassworsService";
 
 export const forgetPasswordThunk = createAsyncThunk(
-    '/forget', async (user) => {
-        const json =  await service.forgetPasswordService(user)
+    '/username', async (user) => {
+        const json =  await service.checkUsernameService(user)
         return json;
     }
 )
