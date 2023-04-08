@@ -2,14 +2,23 @@ import styles from "./forgetP.module.css";
 import {Button, Modal, Nav} from "react-bootstrap";
 import React, {useState} from "react";
 import {useNavigate} from "react-router";
+import {changePasswordThunk, forgetPasswordThunk} from "../../services/forgetPasswordThunk";
+import {useDispatch, useSelector} from "react-redux";
 
 export const UpdatePassword = () => {
+    const {loading, user} = useSelector((state) => state.forgetPassword)
     let [password1, setPassword1] = useState("");
     let [password2, setPassword2] = useState("");
 
+    const dispatch = useDispatch();
     const changePassword = () => {
         if(password1=== password2){
             console.log('same')
+            const users={
+                password:password1,
+                username:user.username
+            }
+            dispatch(changePasswordThunk(users));
             //window.location.replace(`/`);
         }else{
             errorHandlerShow()
