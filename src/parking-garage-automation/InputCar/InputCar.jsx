@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import styles from "./inputCar.module.css";
 import { useDispatch, useSelector } from "react-redux";
-import { checkInCarThunk, createUserThunk} from "../../services/inputCarThunk";
+import { checkInCarThunk, createUserThunk } from "../../services/inputCarThunk";
 import { Button, Modal } from "react-bootstrap";
+import MessengerCustomerChat from "react-messenger-customer-chat";
 
 export const InputCar = () => {
   const { loading, responseMsg, car } = useSelector(
@@ -39,7 +40,7 @@ export const InputCar = () => {
   // send a random id to backend
   const handleCreateUser = () => {
     const id = Math.floor(Math.random() * 100);
-    console.log(id)
+    console.log(id);
     dispatch(createUserThunk({ id }));
   };
 
@@ -74,7 +75,9 @@ export const InputCar = () => {
         </button>
         <br />
         <br />
-        <button className={styles.buttonClass} onClick={handleCreateUser}>Bicycle User Press Here</button>
+        <button className={styles.buttonClass} onClick={handleCreateUser}>
+          Bicycle User Press Here
+        </button>
 
         <Modal show={show} onHide={handleClose}>
           <Modal.Header closeButton>
@@ -87,6 +90,10 @@ export const InputCar = () => {
             </Button>
           </Modal.Footer>
         </Modal>
+        <MessengerCustomerChat
+          pageId="107150052349235"
+          appId="2210845679103617"
+        />
       </div>
     </div>
   );
