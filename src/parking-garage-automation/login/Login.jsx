@@ -14,12 +14,26 @@ export const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [show, setShow] = useState(false);
+  const [showWarning, setShowWarning] = useState(false); // New state variable
+  const [formSubmitted, setFormSubmitted] = useState(false); // New state variable
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+
+    setFormSubmitted(true); // Update the state variable
+    // Check if the input fields are empty
+    if (username === "" || password === "") {
+      setShowWarning(true);
+      return;
+    }
+    
     await dispatch(loginThunk({ username, password })).then((req) => {
       console.log(req.type);
       console.log(req);
+      if (req.type === "/login/rejected") {
+        setShow(true);
+        console.log("123456");
+      }
       // console.log(req.payload.token);
 
       const decoded = jwtDecode(req.payload.token);
@@ -30,9 +44,7 @@ export const Login = () => {
       } else if (decoded.role == 3) {
         window.location.replace(`/usermodule`);
       }
-      if (req.type === "/login/rejected") {
-        setShow(true);
-      }
+
     });
     console.log(token);
     console.log(load);
@@ -86,6 +98,19 @@ export const Login = () => {
         <Modal.Body>Your username or password is not correct.</Modal.Body>
         <Modal.Footer>
           <Button variant="primary" onClick={handleClose}>
+            Close
+          </Button>
+        </Modal.Footer>
+      </Modal>
+            {/* Warning modal */}
+            <Modal show={showWarning && formSubmitted} onHide={() => setShowWarning(false)}>
+        <Modal.Header closeButton>
+          <Modal.Title>Warning</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>Please fill up all input fields before submitting.</Modal.Body>
+        
+        <Modal.Footer>
+          <Button variant="primary" onClick={() => setShowWarning(false)}>
             Close
           </Button>
         </Modal.Footer>
