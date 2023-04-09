@@ -18,32 +18,28 @@ const initialState = {
 const forgetPasswordSlice = createSlice({
     name: 'forgetPassword',
     initialState,
-    extraReducers: {
-        [forgetPasswordThunk.pending]:
-            (state) => {
+    reducers: {
+        //...
+    },
+    extraReducers: (builder) => {
+        builder
+            .addCase(forgetPasswordThunk.pending, (state) => {
                 state.loading = true
                 //console.log("pending")
-            },
-        [forgetPasswordThunk.fulfilled]:
-            (state, { payload }) => {
+            })
+            .addCase(forgetPasswordThunk.fulfilled, (state, { payload }) => {
                 state.loading = false
                 state.msg = 'success'
                 state.user = payload.user
                 //console.log("success")
                 //console.log(payload)
-            },
-        [forgetPasswordThunk.rejected]:
-            (state) => {
+            })
+            .addCase(forgetPasswordThunk.rejected, (state) => {
                 state.loading = false
                 state.msg = 'reject'
                 //console.log("reject" )
-            }
+            });
     },
-
-    reducers: {
-        //...
-    }
-
 });
 
 export default forgetPasswordSlice.reducer

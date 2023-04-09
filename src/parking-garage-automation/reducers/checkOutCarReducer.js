@@ -9,33 +9,24 @@ const initialState = {
 const checkOutCarSlice = createSlice({
     name: 'checkOutCars',
     initialState,
-    extraReducers: {
-        [checkOutCarThunk.pending]:
-            (state) => {
-                state.loading = true
-                console.log("pending")
-            },
-        [checkOutCarThunk.fulfilled]:
-            (state, { payload }) => {
-                state.loading = false
-                state.checkOutMsg  = 'success'
-                console.log(payload)
-            },
-        [checkOutCarThunk.rejected]:
-            (state) => {
-                state.loading = false
-                state.checkOutMsg  = 'fail'
-                console.log(state.checkOutMsg)
-            }
-
-
+    reducers: {},
+    extraReducers: (builder) => {
+      builder
+        .addCase(checkOutCarThunk.pending, (state) => {
+          state.loading = true;
+          console.log('pending');
+        })
+        .addCase(checkOutCarThunk.fulfilled, (state, { payload }) => {
+          state.loading = false;
+          state.checkOutMsg = 'success';
+          console.log(payload);
+        })
+        .addCase(checkOutCarThunk.rejected, (state) => {
+          state.loading = false;
+          state.checkOutMsg = 'fail';
+          console.log(state.checkOutMsg);
+        });
     },
-
-    reducers: {
-        //...
-    }
-
 });
-
 
 export default checkOutCarSlice.reducer

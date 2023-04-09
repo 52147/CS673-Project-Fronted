@@ -18,78 +18,76 @@ const initialState = {
 const authoritySlice = createSlice({
   name: "authoHistory",
   initialState,
-  extraReducers: {
-    [AuthorityThunk.pending]: (state) => {
-      state.loading = true;
-    },
-    [AuthorityThunk.fulfilled]: (state, { payload }) => {
-      state.loading = false;
-      state.history = payload;
-    },
-    [AuthorityThunk.rejected]: (state) => {
-      state.loading = false;
-    },
-    [updateAuthorityThunk.pending]: (state) => {
-      state.loading = true;
-    },
-    [updateAuthorityThunk.fulfilled]: (state, { payload }) => {
-      state.loading = false;
-      state.history = payload;
-    },
-    [updateAuthorityThunk.rejected]: (state) => {
-      state.loading = false;
-    },
-    [deleteAuthorityThunk.pending]: (state) => {
-      state.loading = true;
-    },
-    [deleteAuthorityThunk.fulfilled]: (state, { payload }) => {
-      state.loading = false;
-      state.history = payload;
-    },
-    [deleteAuthorityThunk.rejected]: (state) => {
-      state.loading = false;
-    },
-    [importAuthorityThunk.pending]: (state) => {
-      state.loading = true;
-    },
-    [importAuthorityThunk.fulfilled]: (state, { payload }) => {
-      state.loading = false;
-      state.history = payload;
-    },
-    [importAuthorityThunk.rejected]: (state) => {
-      state.loading = false;
-    },
-    [exportAuthorityThunk.pending]: (state) => {
-      state.loading = true;
-    },
-    [exportAuthorityThunk.fulfilled]: (state, { payload }, f) => {
-      state.loading = false;
-      state.history = payload;
-      state.file = f;
-    },
-    [exportAuthorityThunk.rejected]: (state) => {
-      state.loading = false;
-    },
-    [addAuthorityThunk.pending]: (state) => {
-      state.loading = true;
-    },
-    [addAuthorityThunk.fulfilled]: (state, { payload }) => {
-      state.loading = true;
-      console.log(state.loading)
-      state.history = payload;
-      
-      console.log(state.mess)
-    },
-    [addAuthorityThunk.rejected]: (state, message) => {
-      state.loading = false;
-      
-      console.log(state.loading)
-      console.log(state.mess)
-    },
-  },
-
   reducers: {
     //...
+  },
+  extraReducers: (builder) => {
+    builder
+      .addCase(AuthorityThunk.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(AuthorityThunk.fulfilled, (state, { payload }) => {
+        state.loading = false;
+        state.history = payload;
+      })
+      .addCase(AuthorityThunk.rejected, (state) => {
+        state.loading = false;
+      })
+      .addCase(updateAuthorityThunk.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(updateAuthorityThunk.fulfilled, (state, { payload }) => {
+        state.loading = false;
+        state.history = payload;
+      })
+      .addCase(updateAuthorityThunk.rejected, (state) => {
+        state.loading = false;
+      })
+      .addCase(deleteAuthorityThunk.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(deleteAuthorityThunk.fulfilled, (state, { payload }) => {
+        state.loading = false;
+        state.history = payload;
+      })
+      .addCase(deleteAuthorityThunk.rejected, (state) => {
+        state.loading = false;
+      })
+      .addCase(importAuthorityThunk.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(importAuthorityThunk.fulfilled, (state, { payload }) => {
+        state.loading = false;
+        state.history = payload;
+      })
+      .addCase(importAuthorityThunk.rejected, (state) => {
+        state.loading = false;
+      })
+      .addCase(exportAuthorityThunk.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(exportAuthorityThunk.fulfilled, (state, { payload }, f) => {
+        state.loading = false;
+        state.history = payload;
+        state.file = f;
+      })
+      .addCase(exportAuthorityThunk.rejected, (state) => {
+        state.loading = false;
+      })
+      .addCase(addAuthorityThunk.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(addAuthorityThunk.fulfilled, (state, { payload }) => {
+        state.loading = true;
+        console.log(state.loading)
+        state.history = payload;
+        console.log(state.mess)
+      })
+      .addCase(addAuthorityThunk.rejected, (state, { payload }) => {
+        state.loading = false;
+        console.log(state.loading)
+        console.log(payload)
+      })
   },
 });
 
