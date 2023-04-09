@@ -5,8 +5,8 @@ import { checkInCarThunk, createUserThunk } from "../../services/inputCarThunk";
 import { Button, Modal } from "react-bootstrap";
 import MessengerCustomerChat from "react-messenger-customer-chat";
 
-export const InputCar = () => {
-  const { loading, responseMsg, car } = useSelector(
+export const InputCar = (props) => {
+  const { responseMsg } = useSelector(
     (state) => state.checkInCars
   );
   const [contact, setContact] = useState("");
@@ -91,10 +91,14 @@ export const InputCar = () => {
             </Button>
           </Modal.Footer>
         </Modal>
-        <MessengerCustomerChat
-          pageId="107150052349235"
-          appId="2210845679103617"
-        />
+        {
+          props.showMessengerCustomerChat ? (
+            <MessengerCustomerChat
+              pageId="107150052349235"
+              appId="2210845679103617"
+            />
+          ) : undefined
+        }
       </div>
     </div>
   );
