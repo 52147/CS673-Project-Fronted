@@ -4,13 +4,7 @@ import {forgetPasswordThunk} from "../../services/forgetPasswordThunk";
 const initialState = {
     loading: false,
     msg: '',
-    user:{
-        username:'username',
-        q1:'1',
-        a1:'11',
-        q2:'2',
-        a2:'22',
-    },
+    user:{},
 
 
 }
@@ -28,9 +22,9 @@ const forgetPasswordSlice = createSlice({
             (state, { payload }) => {
                 state.loading = false
                 state.msg = 'success'
-                state.user = payload.user
+                state.user = payload
                 //console.log("success")
-                //console.log(payload)
+                console.log(payload)
             },
         [forgetPasswordThunk.rejected]:
             (state) => {

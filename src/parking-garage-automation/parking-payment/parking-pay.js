@@ -25,7 +25,6 @@ const ParkingPayment = ({data}) => {
         DepartureTime,
         TotalParkingTime,
         ParkingFee,
-        msg
     } = useSelector((state) => state.parkInfo)
 
     let [credit, setCredit] = useState(0);

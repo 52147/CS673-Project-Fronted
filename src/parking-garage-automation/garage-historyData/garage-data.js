@@ -2,10 +2,13 @@ import {Button, Table, Pagination, Spinner} from "react-bootstrap";
 import React, {useEffect, useState} from "react";
 import styles from './garage-data.module.css'
 import {useDispatch, useSelector} from "react-redux";
-import {getHistoryThunk, getSelectedHistoryThunk} from "../../services/parkHistoryThunk";
+import {getHistoryByPlateThunk, getHistoryThunk, getSelectedHistoryThunk} from "../../services/parkHistoryThunk";
 import Posts from "./Item";
 import "react-datepicker/dist/react-datepicker.css";
 import DatePicker from "react-datepicker";
+import {utils, writeFile} from "xlsx";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faDownload} from "@fortawesome/free-solid-svg-icons";
 
 
 const GarageData = () => {
@@ -13,6 +16,7 @@ const GarageData = () => {
     let [startDate, setStartDate] = useState(new Date());
     let [endDate, setEndDate] = useState(new Date());
     const [active, setActivePage] = useState(1);
+    let [plate, setPlate] = useState('')
 
     const {
         loading,
@@ -29,6 +33,13 @@ const GarageData = () => {
     const searchClickHandler = () => {
         //console.log(date)
         dispatch(getSelectedHistoryThunk(date))
+    }
+    const searchClickHandler2 = () => {
+        const plates = {
+            plate: plate,
+        };
+        console.log(plates)
+        dispatch(getHistoryByPlateThunk(plates))
     }
 
 
@@ -53,6 +64,17 @@ const GarageData = () => {
             </Pagination.Item>,
         );
     }
+    const handleExportXLS = () => {
+        let rowData = [["#", "Plate Number", "Enter Time", "Exit Time","price"]]; // 設置column名
+        history.forEach((data) => {
+            // 製造一個新的array，加上資料和column
+            rowData.push([data.id, data.plate, data.entrance, data.exit,data.parkingFee]);
+        });
+        const wb = utils.book_new(); // 製造一個excel work book(workbook裡可以有很多worksheet，work sheet 為 excel file裡面的一個表)
+        const ws = utils.aoa_to_sheet(rowData); // 用aoa_to_sheet 轉換 rowData 裡的資料成excel worksheet object
+        utils.book_append_sheet(wb, ws, "Sheet1"); // 使用 book_append_sheet 將work sheet 加到work book
+        writeFile(wb, "parkingHistory.xlsx"); // 使用writeFile 將work book 寫入 excel file
+    };
 
     // useEffect ( () => {
     //     const first = async ()=>{
@@ -93,8 +115,6 @@ const GarageData = () => {
             !loading && <>
 
                 <div className="row">
-
-
                     <div className={`col-1 text-white ${styles.textRight}`}>
                         <h3>From: </h3>
                     </div>
@@ -110,7 +130,37 @@ const GarageData = () => {
                     <div className={`col-2 ${styles.textLeft}`}>
                         <Button onClick={searchClickHandler} variant="warning">Search</Button>
                     </div>
+
                 </div>
+
+                <div className="row">
+                    <div className={`col-1 text-white ${styles.textRight}`}>
+                        <h3>Plate: </h3>
+                    </div>
+
+                    <div className={`col-2 ${styles.textLeft}`}>
+                        <input value={plate} onChange={(event) => setPlate(event.target.value)}
+                               className="form-control" type="username"/>
+                    </div>
+
+                    <div className={`col-2 ${styles.textLeft}`}>
+                        <Button onClick={searchClickHandler2} variant="warning">Search</Button>
+                    </div>
+
+                    <div className={`col-6 mr-5 ${styles.textRight}`}>
+                        <Button
+                            className="ml-4 mr-2"
+                            variant="primary"
+                            onClick={handleExportXLS}
+                        >
+                            {<span>Export File</span>}
+                            <FontAwesomeIcon icon={faDownload} />
+                        </Button>
+                    </div>
+                </div>
+
+
+
 
                 {
                     history.length === 0 && <h3 className={`mt-5 text-white`}>There is no such data. Please try again.</h3>

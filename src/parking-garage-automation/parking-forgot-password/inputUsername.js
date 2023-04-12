@@ -23,13 +23,14 @@ const InputUsername = ({setValue}) => {
 
     const dispatch = useDispatch();
     const signUpClickHandler = async () => {
+
         const checkUsername = await dispatch(forgetPasswordThunk(userName));
         if(checkUsername.type === '/username/fulfilled'){
             setValue('sq')
             setUserName('')
         }else{
-            //errorHandlerShow()
-            setValue('sq')
+            errorHandlerShow()
+            //setValue('sq')
         }
     }
 

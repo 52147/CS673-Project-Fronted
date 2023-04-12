@@ -44,7 +44,7 @@ const ParkingRegister = () => {
 
     const successHandler = async (newUser) => {
         const msgg = await dispatch(parkingRegisterThunk(newUser));
-        //console.log(msgg)
+        console.log(newUser)
         if (msgg.type === '/register/fulfilled') {
             resetFields();
             successHandlerShow();
@@ -120,7 +120,6 @@ const ParkingRegister = () => {
                 a2: securityAnswer2
             }
             await successHandler(newUser);
-            //console.log('Signup successful!');
         } else {
             errorHandlerShow();
         }

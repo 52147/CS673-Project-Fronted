@@ -2,19 +2,37 @@ import styles from "./forgetP.module.css";
 import {Button, Modal, Nav} from "react-bootstrap";
 import React, {useState} from "react";
 import {useNavigate} from "react-router";
+import {changePasswordThunk, forgetPasswordThunk} from "../../services/forgetPasswordThunk";
+import {useDispatch, useSelector} from "react-redux";
 
 export const UpdatePassword = () => {
+    const {loading, user} = useSelector((state) => state.forgetPassword)
     let [password1, setPassword1] = useState("");
     let [password2, setPassword2] = useState("");
+    const [formErrors, setFormErrors] = useState([]);
 
+    const dispatch = useDispatch();
     const changePassword = () => {
-        if(password1=== password2){
-            console.log('same')
-            //window.location.replace(`/`);
-        }else{
-            errorHandlerShow()
+        const errors = [];
+        if (password1.length < 8) {
+            errors.push('Password must be at least 8 characters long.');
+        } else if (password1 !== password2) {
+            errors.push('Passwords do not match.');
         }
+        setFormErrors(errors);
+        if (errors.length === 0) {
+            const users={
+                password:password1,
+                username:user.username
+            }
+            dispatch(changePasswordThunk(users));
+            window.location.replace(`/`);
+        } else {
+            errorHandlerShow();
+        }
+
     };
+
 
     const [errorShow, setErrorShow] = useState(false);
     const errorHandlerClose = () => {
@@ -22,6 +40,16 @@ export const UpdatePassword = () => {
     };
     const errorHandlerShow = () => {
         setErrorShow(true);
+    }
+
+    const navigate = useNavigate()
+    const [successShow, setSuccessShow] = useState(false);
+    const successHandlerClose = () => {
+        navigate('/');
+        setSuccessShow(false)
+    };
+    const successHandlerShow = () => {
+        setSuccessShow(true);
     }
 
     return (
@@ -70,9 +98,28 @@ export const UpdatePassword = () => {
                     <Modal.Header closeButton>
                         <Modal.Title>Error</Modal.Title>
                     </Modal.Header>
-                    <Modal.Body> These two passwords are not identical!</Modal.Body>
+                    <Modal.Body>
+                        {formErrors.map((error) => (
+                            <li key={error}>{error}</li>
+                        ))}
+                    </Modal.Body>
                     <Modal.Footer>
                         <Button variant="primary" onClick={errorHandlerClose}>
+                            Close
+                        </Button>
+                    </Modal.Footer>
+                </Modal>
+
+                <Modal
+                    show={successShow}
+                    onHide= {successHandlerClose}
+                >
+                    <Modal.Header closeButton>
+                        <Modal.Title>Sign Up</Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body> Sign up Successfully!</Modal.Body>
+                    <Modal.Footer>
+                        <Button variant="primary" onClick={successHandlerClose}>
                             Close
                         </Button>
                     </Modal.Footer>

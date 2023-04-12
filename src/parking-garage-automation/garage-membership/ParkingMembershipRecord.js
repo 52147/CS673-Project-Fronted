@@ -54,7 +54,9 @@ const ParkingMembershipRecord = () => {
             Membership Records
         </h1>
 
-        {!loading&&
+
+
+        {!loading&&<>
             <div className="mt-3 row me-4">
                 <div className="col-12">
                     <Table striped bordered hover className={`mt-1`} variant="light">
@@ -75,6 +77,7 @@ const ParkingMembershipRecord = () => {
                     </Table>
                 </div>
             </div>
+            </>
         }
         <Pagination className="justify-content-end me-5">{items}</Pagination>
     </>)
