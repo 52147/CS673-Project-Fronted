@@ -15,3 +15,9 @@ export const getSelectedHistoryService = async (json) => {
     const response = await axios.post(COMMENTS_API+ url)
     return response.data;
 }
+
+export const getHistoryByPlateService = async (json) => {
+    console.log(json)
+    const response = await axios.get(COMMENTS_API+"/index/check/checkIn/checkHistory/checkPlate",json)
+    return response.data;
+}

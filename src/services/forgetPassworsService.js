@@ -8,7 +8,13 @@ export const checkUsernameService = async (json) => {
 }
 
 export const changePasswordService = async (json) => {
-    console.log(json)
-    const response = await axios.post(COMMENTS_API+"/forget/changePassword", json)
+
+    const user={
+        username : json.username
+    }
+    const url = "/forget/changePassword?newPassword="+json.password
+    console.log(user)
+    console.log(url)
+    const response = await axios.post(COMMENTS_API+url, user)
     return response.data;
 }

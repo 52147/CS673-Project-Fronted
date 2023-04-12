@@ -1,5 +1,5 @@
 import {createSlice} from "@reduxjs/toolkit";
-import {getHistoryThunk, getSelectedHistoryThunk} from "../../services/parkHistoryThunk";
+import {getHistoryByPlateThunk, getHistoryThunk, getSelectedHistoryThunk} from "../../services/parkHistoryThunk";
 
 const initialState = {
     loading: false,
@@ -40,6 +40,23 @@ const parkHistorySlice = createSlice({
                 //console.log(payload);
             },
         [getSelectedHistoryThunk.rejected]:
+            (state) => {
+                state.loading = false
+                //console.log("reject");
+            },
+
+        [getHistoryByPlateThunk.pending]:
+            (state) => {
+                state.loading = true
+                //console.log("pending");
+            },
+        [getHistoryByPlateThunk.fulfilled]:
+            (state, { payload }) => {
+                state.loading = false
+                state.history = payload
+                //console.log(payload);
+            },
+        [getHistoryByPlateThunk.rejected]:
             (state) => {
                 state.loading = false
                 //console.log("reject");
