@@ -1,8 +1,15 @@
 import {createAsyncThunk}
     from "@reduxjs/toolkit"
 import * as service from './membershipService'
-import {getAllMembership, purchaseMembership} from "./membershipService";
+import {getAllMembership, getMembershipByPlate, purchaseMembership} from "./membershipService";
 
+export const getMembershipByPlateThunk = createAsyncThunk(
+    '/getMembershipThunk', async (plate) => {
+        console.log(plate)
+        const json =  await service.getMembershipByPlate(plate)
+        return json;
+    }
+)
 
 export const getMembershipThunk = createAsyncThunk(
     '/getMembershipThunk', async (username) => {

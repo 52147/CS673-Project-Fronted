@@ -48,18 +48,18 @@ const parkHistorySlice = createSlice({
         [getHistoryByPlateThunk.pending]:
             (state) => {
                 state.loading = true
-                //console.log("pending");
+                console.log("pending1");
             },
         [getHistoryByPlateThunk.fulfilled]:
             (state, { payload }) => {
                 state.loading = false
                 state.history = payload
-                //console.log(payload);
+                console.log(payload);
             },
         [getHistoryByPlateThunk.rejected]:
             (state) => {
                 state.loading = false
-                //console.log("reject");
+                console.log("reject1");
             }
 
 

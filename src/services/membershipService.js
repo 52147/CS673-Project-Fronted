@@ -1,6 +1,11 @@
 import axios from 'axios';
 
 const COMMENTS_API = 'http://localhost:8080'
+export const getMembershipByPlate = async (plate) => {
+    const response = await axios.post(COMMENTS_API+"/check/index/check/checkIn/checkPermitByPlate",plate)
+    return response.data;
+}
+
 export const getMembershipById = async (username) => {
     const response = await axios.post(COMMENTS_API+"/check/index/check/checkIn/checkPermitByUserId",username)
     return response.data;
