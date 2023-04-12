@@ -29,16 +29,17 @@ const GarageData = () => {
         endDate: endDate.toISOString(),
     };
 
+    const plates = {
+        plate: plate,
+    };
     const dispatch = useDispatch();
     const searchClickHandler = () => {
         //console.log(date)
         dispatch(getSelectedHistoryThunk(date))
     }
     const searchClickHandler2 = () => {
-        const plates = {
-            plate: plate,
-        };
-        console.log(plates)
+
+        //console.log(plates)
         dispatch(getHistoryByPlateThunk(plates))
     }
 

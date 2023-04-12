@@ -89,7 +89,7 @@ const ParkingFee = () => {
                 </Spinner>
             }
             {
-                !loading &&
+                !loading &&<>
                 <div className="row ms-2">
                     <div className={`col-4 text-white ${styles.textRight}`}>
                         <h3>Vehicles type: </h3>
@@ -113,8 +113,9 @@ const ParkingFee = () => {
                     <div className={`col-2 `}>
                         <Button onClick={resetClickHandlerShow}  variant="warning">Reset</Button>
                     </div>
+                </div>
 
-                    <div className={`row mt-1 ${styles.tableSize}`}>
+                    <div className={`row mt-3 ${styles.tableSize}`}>
                         <Table striped bordered hover variant="light">
                             <thead>
                             <tr>
@@ -227,7 +228,7 @@ const ParkingFee = () => {
                         </Modal.Footer>
                     </Modal>
 
-                </div>
+                </>
             }
 
 

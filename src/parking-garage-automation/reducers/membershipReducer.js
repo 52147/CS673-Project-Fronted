@@ -1,5 +1,5 @@
 import {createSlice} from "@reduxjs/toolkit";
-import {getAllMembershipThunk, getMembershipThunk} from "../../services/membershipThunk";
+import {getAllMembershipThunk, getMembershipByPlateThunk, getMembershipThunk} from "../../services/membershipThunk";
 
 const initialState = {
     loading: false,
@@ -40,6 +40,23 @@ const parkMembershipSlice = createSlice({
                 //console.log(payload);
             },
         [getAllMembershipThunk.rejected]:
+            (state) => {
+                state.loading = false
+                //console.log("reject");
+            },
+
+        [getMembershipByPlateThunk.pending]:
+            (state) => {
+                state.loading = true
+                //console.log("pending");
+            },
+        [getMembershipByPlateThunk.fulfilled]:
+            (state, { payload }) => {
+                state.loading = false
+                state.historyAll = payload
+                //console.log(payload);
+            },
+        [getMembershipByPlateThunk.rejected]:
             (state) => {
                 state.loading = false
                 //console.log("reject");
