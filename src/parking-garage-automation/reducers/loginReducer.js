@@ -15,47 +15,56 @@ const initialState = {
     username: name,
     load: "",
     decode: "",
-}
 
+}
 const loginSlice = createSlice({
     name: 'users',
     initialState,
-    reducers: {},
-    extraReducers: (builder) => {
-      builder
-        .addCase(loginThunk.pending, (state) => {
-          state.loading = true;
-        })
-        .addCase(loginThunk.fulfilled, (state, { payload }) => {
-          state.loading = false;
-          state.users = "fulfilled";
-          const token = payload.token;
-          const decoded = jwtDecode(token);
-          const person = {
-            username: decoded.username,
-            role: decoded.role,
-            exp: decoded.exp
-          };
-          state.token = payload.token;
-          state.username = payload.username;
-          console.log(state.username);
-          console.log(state.token);
-          console.log(payload);
-          state.token = payload.token;
-          state.username = payload.username;
-          state.load = "fulfilled";
-          console.log(decoded);
-          localStorage.setItem('userObject', JSON.stringify(person));
-          localStorage.setItem('nameObject', JSON.stringify(state.username));
-          localStorage.setItem('tokenObject', JSON.stringify(state.token));
-          state.decode = decoded;
-        })
-        .addCase(loginThunk.rejected, (state, action) => {
-          state.loading = false;
-          state.load = "reject";
-          console.log("rejected");
-          console.log(action.type);
-        });
+    extraReducers: {
+
+        [loginThunk.pending]:
+            (state) => {
+                state.loading = true
+                //console.log("pending")
+            },
+        [loginThunk.fulfilled]:
+            (state, {payload}) =>{
+              state.users = "fulfilled";
+                const token = payload.token;
+                const decoded = jwtDecode(token);
+                const person = {
+                    username:decoded.username,
+                    role: decoded.role,
+                    exp: decoded.exp
+                }
+
+              state.token = payload.token; 
+              state.username = payload.username;
+              console.log(state.username);
+              console.log(state.token);
+              console.log(payload);
+
+              //console.log("fulfilled")
+
+              state.token = payload.token;
+              state.username = payload.username;
+              state.load= "fulfilled";
+              console.log(decoded);
+              localStorage.setItem('userObject', JSON.stringify(person))
+              localStorage.setItem('nameObject', JSON.stringify(state.username))
+              localStorage.setItem('tokenObject', JSON.stringify(state.token))
+                state.decode = decoded;
+
+            },
+        [loginThunk.rejected]:
+            (state, action) =>{
+                state.load = "reject"
+                console.log("rejected")
+                console.log(action.type)
+            },
+
+    },
+    reducers: {
     }
 });
 
