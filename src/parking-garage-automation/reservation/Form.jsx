@@ -8,7 +8,7 @@ import { useNavigate } from "react-router";
 
 export const ReserveForm = ({ setData }) => {
   const dispatch = useDispatch();
-  const { history } = useSelector((state) => state.updateForm);
+  const { history } = useSelector((state) => state.updateForm)|| {};
   const [selectedParkingSpace, setSelectedParkingSpace] = useState("");
   const [availableSlots, setAvailableSlots] = useState([]);
   const { users, username } = useSelector((state) => state.users);

@@ -10,35 +10,28 @@ const initialState = {
 const parkRegisterSlice = createSlice({
     name: 'parkRegister',
     initialState,
-    extraReducers: {
-        [parkingRegisterThunk.pending]:
-            (state) => {
+    reducers: {
+        // ...
+    },
+    extraReducers: (builder) => {
+        builder
+            .addCase(parkingRegisterThunk.pending, (state) => {
                 state.loading = true
-                 //console.log("pending")
-            },
-        [parkingRegisterThunk.fulfilled]:
-            (state, { payload }) => {
+                // console.log("pending")
+            })
+            .addCase(parkingRegisterThunk.fulfilled, (state, { payload }) => {
                 state.loading = false
                 state.msg = 'success'
                 console.log("success")
                 console.log(payload)
-            },
-        [parkingRegisterThunk.rejected]:
-            (state,{ payload }) => {
+            })
+            .addCase(parkingRegisterThunk.rejected, (state, { payload }) => {
                 state.loading = false
                 state.msg = 'reject'
                 console.log("reject" )
                 console.log(payload)
-            }
-
-
-
-    },
-
-    reducers: {
-        //...
+            })
     }
-
 });
 
 export default parkRegisterSlice.reducer

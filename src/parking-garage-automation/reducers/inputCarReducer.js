@@ -11,33 +11,25 @@ const initialState = {
 }
 
 const checkInCarSlice = createSlice({
-    name: 'checkInCars',
+    name: "checkInCars",
     initialState,
-    extraReducers: {
-        [checkInCarThunk.pending]:
-            (state) => {
-                state.loading = true
-                console.log("pending")
-            },
-        [checkInCarThunk.fulfilled]:
-            (state, { payload }) => {
-                state.loading = false
-                state.responseMsg = payload.msg
-                console.log("**")
-                console.log(state.responseMsg)
-            },
-        [checkInCarThunk.rejected]:
-            (state) => {
-                state.loading = false
-            }
-
-
+    reducers: {},
+    extraReducers: (builder) => {
+      builder
+        .addCase(checkInCarThunk.pending, (state) => {
+          state.loading = true;
+          console.log("pending");
+        })
+        .addCase(checkInCarThunk.fulfilled, (state, { payload }) => {
+          state.loading = false;
+          state.responseMsg = payload.msg;
+          console.log("**");
+          console.log(state.responseMsg);
+        })
+        .addCase(checkInCarThunk.rejected, (state) => {
+          state.loading = false;
+        });
     },
-
-    reducers: {
-        //...
-    }
-
 });
 
 export default checkInCarSlice.reducer

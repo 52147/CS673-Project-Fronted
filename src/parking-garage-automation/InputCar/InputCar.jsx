@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import styles from "./inputCar.module.css";
 import { useDispatch, useSelector } from "react-redux";
-import { checkInCarThunk, createUserThunk } from "../../services/inputCarThunk";
+import { checkInCarThunk, showBicycleUserThunk } from "../../services/inputCarThunk";
 import { Button, Modal } from "react-bootstrap";
 import MessengerCustomerChat from "react-messenger-customer-chat";
 
-export const InputCar = () => {
-  const { loading, responseMsg, car } = useSelector(
+export const InputCar = (props) => {
+  const { responseMsg } = useSelector(
     (state) => state.checkInCars
   );
   const [contact, setContact] = useState("");
@@ -14,9 +14,12 @@ export const InputCar = () => {
   const [isMouseOver, setMouseOver] = useState(false);
   const [show, setShow] = useState(false);
 
+
+
   const submitPlateHandler = async () => {
     const content = {
       plate: contact,
+      carType: "Car"
     };
     console.log(content);
 
@@ -29,6 +32,8 @@ export const InputCar = () => {
       console.log(responseMsg);
       console.log(req.payload.content.Entrance);
     });
+
+
   };
   const handleClose = () => setShow(false);
 
@@ -40,9 +45,22 @@ export const InputCar = () => {
   }
   // send a random id to backend
   const handleCreateUser = () => {
-    const id = Math.floor(Math.random() * 100);
-    console.log(id);
-    dispatch(createUserThunk({ id }));
+    const content = {
+      carType: "Bicycle",
+      plate: contact,
+    };
+    dispatch(checkInCarThunk(content)).then((req) => {
+      if (req.payload.content.Entrance === "false") {
+        window.location.replace(`/information/${contact}`);
+      } else {
+        setShow(true);
+      }
+      console.log(responseMsg);
+      console.log(req.payload.content.Entrance);
+    });
+    // dispatch(showBicycleUserThunk()).then((req) =>{
+    //   console.log(req);
+    // });
   };
 
   return (
@@ -91,10 +109,14 @@ export const InputCar = () => {
             </Button>
           </Modal.Footer>
         </Modal>
-        <MessengerCustomerChat
-          pageId="107150052349235"
-          appId="2210845679103617"
-        />
+        {
+          props.showMessengerCustomerChat ? (
+            <MessengerCustomerChat
+              pageId="107150052349235"
+              appId="2210845679103617"
+            />
+          ) : undefined
+        }
       </div>
     </div>
   );

@@ -1,10 +1,13 @@
+
 import React from 'react'
 import { InputCar } from './InputCar';
 
-export const InputCarComponent = () => {
+export const InputCarComponent = (props) => {
   return (
     <>
-      <InputCar />
+      <InputCar
+        showMessengerCustomerChat={props.showMessengerCustomerChat ?? true}
+      />
     </>
   )
 }

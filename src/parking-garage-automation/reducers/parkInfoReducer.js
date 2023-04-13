@@ -14,39 +14,33 @@ const initialState = {
 const parkInfoSlice = createSlice({
     name: 'parkInfo',
     initialState,
-    extraReducers: {
-        [getParkingInfoThunk.pending]:
-            (state) => {
-                state.loading = true
-                // console.log("pending")
-            },
-        [getParkingInfoThunk.fulfilled]:
-            (state, { payload }) => {
-                state.loading = false
-                state.PlateNumber = payload.content.parkinfo.plate
-                if(payload.content.parkinfo.entrance !=null){state.EnterTime = payload.content.parkinfo.entrance.substring(0,19)}
-                if(payload.content.exit !=null){state.DepartureTime = payload.content.exit.substring(0,19)}
-                state.TotalParkingTime = payload.content.parking_time
-                state.ParkingFee = payload.content.parkingFee
-                state.msg = 'success'
-
-                //console.log(payload)
-            },
-        [getParkingInfoThunk.rejected]:
-            (state) => {
-                state.loading = false
-                state.msg = 'fail'
-                console.log("reject" )
-            }
-
-
-
-    },
-
     reducers: {
-        //...
-    }
-
+      // ...
+    },
+    extraReducers: (builder) => {
+      builder
+        .addCase(getParkingInfoThunk.pending, (state) => {
+          state.loading = true;
+        })
+        .addCase(getParkingInfoThunk.fulfilled, (state, action) => {
+          state.loading = false;
+          state.PlateNumber = action.payload.content.parkinfo.plate;
+          if (action.payload.content.parkinfo.entrance != null) {
+            state.EnterTime = action.payload.content.parkinfo.entrance.substring(0, 19);
+          }
+          if (action.payload.content.exit != null) {
+            state.DepartureTime = action.payload.content.exit.substring(0, 19);
+          }
+          state.TotalParkingTime = action.payload.content.parking_time;
+          state.ParkingFee = action.payload.content.parkingFee;
+          state.msg = 'success';
+        })
+        .addCase(getParkingInfoThunk.rejected, (state) => {
+          state.loading = false;
+          state.msg = 'fail';
+          console.log('reject');
+        });
+    },
 });
 
 export default parkInfoSlice.reducer

@@ -5,26 +5,28 @@ const initialState = {
   loading: false,
   history: [],
 };
+
 const garageDataManagementSlice = createSlice({
   name: "garageData",
   initialState,
-  extraReducers: {
-    [garageDataManagementThunk.pending]: (state) => {
-      state.loading = true;
-    },
-    [garageDataManagementThunk.fulfilled]: (state, { payload }) => {
-      state.loading = false;
-      state.history = payload;
-      console.log("fulfilled");
-    },
-    [garageDataManagementThunk.rejected]: (state) => {
-      state.loading = false;
-    },
-  },
-
   reducers: {
     //...
   },
+  extraReducers: (builder) => {
+    builder
+      .addCase(garageDataManagementThunk.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(garageDataManagementThunk.fulfilled, (state, { payload }) => {
+        state.loading = false;
+        state.history = payload;
+        console.log("fulfilled");
+      })
+      .addCase(garageDataManagementThunk.rejected, (state) => {
+        state.loading = false;
+      });
+  },
 });
+
 
 export default garageDataManagementSlice.reducer;
