@@ -90,7 +90,7 @@ export const InputCar = (props) => {
           onMouseOut={handleMouseOut}
           onClick={submitPlateHandler}
         >
-          Submit
+          Check-in
         </button>
         <br />
         <br />

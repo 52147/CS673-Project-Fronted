@@ -1,10 +1,10 @@
-import React from "react";
-import { render, screen } from "@testing-library/react";
-import { MemoryRouter } from "react-router-dom";
-import { Provider } from "react-redux";
-import LoginComponent from "../../parking-garage-automation/login/index.jsx";
+// import React from "react";
+// import { render, screen } from "@testing-library/react";
+// import { MemoryRouter } from "react-router-dom";
+// import { Provider } from "react-redux";
+// import LoginComponent from "../../parking-garage-automation/login/index.jsx";
 
-import { configureStore } from "@reduxjs/toolkit";
+// import { configureStore } from "@reduxjs/toolkit";
 import inputCarReducer from "../../parking-garage-automation/reducers/inputCarReducer";
 import parkInfoReducer from "../../parking-garage-automation/reducers/parkInfoReducer";
 import loginReducer from '../../parking-garage-automation/reducers/loginReducer';
@@ -17,6 +17,32 @@ import garageDataReducer from "../../parking-garage-automation/reducers/garageDa
 import FormReducer from '../../parking-garage-automation/reducers/FormReducer';
 import forgetPasswordReducer from "../../parking-garage-automation/reducers/forgetPasswordReducer";
 import membershipReducer from "../../parking-garage-automation/reducers/membershipReducer";
+
+
+
+// describe("Login", () => {
+//   it("renders the login page", () => {
+//     render(
+//       <Provider store={store}>
+//         <MemoryRouter>
+//           <LoginComponent />
+//         </MemoryRouter>
+//       </Provider>
+//     );
+
+//     expect(screen.getByText("Forgot Password")).toBeInTheDocument();
+
+//     const submitButton = screen.getByRole('button', { name: 'Submit' });
+//     expect(submitButton).toBeInTheDocument();
+//   });
+// });
+import React from 'react';
+import { Provider } from 'react-redux';
+import { render, fireEvent, screen } from '@testing-library/react';
+import { configureStore } from "@reduxjs/toolkit";
+import { loginThunk } from '../../services/loginThunk';
+import LoginComponent from '../../parking-garage-automation/login';
+import { MemoryRouter } from "react-router-dom";
 
 const store = configureStore({
   reducer: {
@@ -34,7 +60,6 @@ const store = configureStore({
     parkMembership:membershipReducer
   }
 })
-
 describe("Login", () => {
   it("renders the login page", () => {
     render(
@@ -50,5 +75,22 @@ describe("Login", () => {
     const submitButton = screen.getByRole('button', { name: 'Submit' });
     expect(submitButton).toBeInTheDocument();
   });
+
+
+
+
+  it('should show an error message on failed login', async () => {
+    const userData = { username: 'wrong', password: 'wrong' };
+    const res = await store.dispatch(loginThunk(userData, store));
+    console.log("res2", res)
+    expect(res.type).toBe("/login/rejected");
+  });
 });
+
+
+
+
+
+
+
 
