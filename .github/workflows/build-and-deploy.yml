@@ -1,3 +1,10 @@
+name: Build and Deploy
+
+on:
+  push:
+    branches:
+      - garage-data
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -18,3 +25,26 @@ jobs:
 
       - name: Build project
         run: npm run build
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Install Firebase CLI
+        run: |
+          curl -sL https://firebase.tools | bash
+          export PATH=$PATH:$HOME/.firebase/bin
+
+      - name: Login to Firebase
+        uses: w9jds/firebase-action@master
+        with:
+          args: login:ci
+
+      - name: Deploy to Firebase
+        run: |
+          firebase deploy --token $FIREBASE_TOKEN --only hosting
+        env:
+          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
