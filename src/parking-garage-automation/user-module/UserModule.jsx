@@ -1,12 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import styles from "./modules.module.css";
 // import { garageDataManagementThunk } from "../../services/garageDataManagementThunk";
 import { useDispatch, useSelector } from "react-redux";
 
 export const UserModule = () => {
-  const { loading, history } = useSelector((state) => state.garageData);
-  const dispatch = useDispatch();
-
   const data = [
     {
       id: "1",
@@ -26,7 +23,6 @@ export const UserModule = () => {
       topic: "Membership",
       cover: "premium.png",
     },
-
   ];
   // useEffect(() => {
   //   console.log("Fetching history...");
@@ -37,7 +33,7 @@ export const UserModule = () => {
 
   return (
     <>
-      <h1 className= "mt-4 text-white">Client Module</h1>
+      <h1 className="mt-4 text-white">Client Module</h1>
       <div className={`container ${styles.block}`}>
         <div className={`flex row ${styles.group}`}>
           {data.map((value) => {

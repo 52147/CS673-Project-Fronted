@@ -11,7 +11,7 @@ export const ReserveManagement = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [posts, setPosts] = useState([]);
 
-  const { history, loading } = useSelector((state) => state.updateForm);
+  const { history} = useSelector((state) => state.updateForm);
 
   console.log(history);
 
@@ -40,9 +40,7 @@ export const ReserveManagement = () => {
   const resetSearch = () => {
     setSearchQuery("");
     setPosts(history);
-    
   };
-
 
   const handleReset = () => {
     console.log("Resetting form...");
@@ -53,8 +51,7 @@ export const ReserveManagement = () => {
     setTimeout(() => {
       window.location.reload();
     }, "1500");
-
-  }
+  };
 
   return (
     <div className="container-fluid">

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import styles from "./modules.module.css";
 import { garageDataManagementThunk } from "../../services/garageDataManagementThunk";
 import { useDispatch, useSelector } from "react-redux";

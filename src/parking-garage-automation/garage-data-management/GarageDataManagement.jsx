@@ -1,17 +1,10 @@
-
-import { Button, Table, Spinner, Pagination } from "react-bootstrap";
-import { useDispatch, useSelector } from "react-redux";
-import React, { useState, useEffect } from "react";
+import { Table } from "react-bootstrap";
+import React, { useState } from "react";
 import { Data } from "./Data";
-import {
-  garageDataManagementThunk
-} from "../../services/garageDataManagementThunk";
-
 
 export const GarageDataManagement = () => {
-
   // const { loading, history} = useSelector((state) => state.history);
-  // const [active, setActivePage] = useState(1); 
+  // const [active, setActivePage] = useState(1);
 
   const [posts, setPosts] = useState([]);
 
@@ -56,89 +49,77 @@ export const GarageDataManagement = () => {
   // }, [dispatch]);
 
   return (
-  <>
-    <div className="row text-white mt-3 mb-3">
-    <h1>PARKING SPACE MANAGEMENT</h1>
-    </div>
-        <div className="row me-4">
-            <div className="col-12">
-                <Table striped bordered hover className={`mt-1`} variant="light">
+    <>
+      <div className="row text-white mt-3 mb-3">
+        <h1>PARKING SPACE MANAGEMENT</h1>
+      </div>
+      <div className="row me-4">
+        <div className="col-12">
+          <Table striped bordered hover className={`mt-1`} variant="light">
+            <thead>
+              <tr>
+                <th colspan="7">Remaining Parking Spaces</th>
+              </tr>
 
-                    <thead>
-                      <tr>
-                        <th colspan="7"> 
-                        Remaining Parking Spaces
-                        </th>
+              <tr>
+                <th>Parking Section</th>
+                <th>Bicycle</th>
+                <th>Average Vehicle</th>
+                <th>Motorcycle</th>
+                <th>Electric Vehicle</th>
+                <th>Bus</th>
+                <th>Disable</th>
+              </tr>
+            </thead>
 
-                      </tr>
+            <tbody>
+              <tr>
+                <td>A</td>
+                <td>10</td>
+                <td>10</td>
+                <td>10</td>
+                <td>10</td>
+                <td>10</td>
+                <td>10</td>
+              </tr>
+              <tr>
+                <td>B</td>
+                <td>10</td>
+                <td>10</td>
+                <td>10</td>
+                <td>10</td>
+                <td>10</td>
+                <td>10</td>
+              </tr>
+              <tr>
+                <td>C</td>
+                <td>10</td>
+                <td>10</td>
+                <td>10</td>
+                <td>10</td>
+                <td>10</td>
+                <td>10</td>
+              </tr>
+              <tr>
+                <td>D</td>
+                <td>10</td>
+                <td>10</td>
+                <td>10</td>
+                <td>10</td>
+                <td>10</td>
+                <td>10</td>
+              </tr>
 
-                    <tr>
-                        <th>Parking Section</th>
-                        <th>Bicycle</th>
-                        <th>Average Vehicle</th>
-                        <th>Motorcycle</th>
-                        <th>Electric Vehicle</th>
-                        <th>Bus</th>
-                        <th>Disable</th>
-
-                    </tr>
-                    </thead>
-
-                    <tbody>
-
-                      <tr>
-                        <td>A</td>
-                        <td>10</td>
-                        <td>10</td>
-                        <td>10</td>
-                        <td>10</td>
-                        <td>10</td>
-                        <td>10</td>
-                      </tr>
-                      <tr>
-                        <td>B</td>
-                        <td>10</td>
-                        <td>10</td>
-                        <td>10</td>
-                        <td>10</td>
-                        <td>10</td>
-                        <td>10</td>
-                      </tr>
-                      <tr>
-                        <td>C</td>
-                        <td>10</td>
-                        <td>10</td>
-                        <td>10</td>
-                        <td>10</td>
-                        <td>10</td>
-                        <td>10</td>
-                      </tr>
-                      <tr>
-                        <td>D</td>
-                        <td>10</td>
-                        <td>10</td>
-                        <td>10</td>
-                        <td>10</td>
-                        <td>10</td>
-                        <td>10</td>
-                      </tr>
-
-                    <Data posts={posts}></Data>
-                    </tbody>
-
-                </Table>
-            </div>
+              <Data posts={posts}></Data>
+            </tbody>
+          </Table>
         </div>
+      </div>
 
-
-        <div>
-
-            {/* <Pagination className="justify-content-end me-5">{items}</Pagination> */}
-            <br/>
-
-        </div>
+      <div>
+        {/* <Pagination className="justify-content-end me-5">{items}</Pagination> */}
+        <br />
+      </div>
     </>
-
-
-  )
-}
+  );
+};

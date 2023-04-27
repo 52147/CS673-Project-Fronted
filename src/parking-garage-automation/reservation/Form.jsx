@@ -1,6 +1,5 @@
 import { React, useState, useEffect } from "react";
 import { Form, Col, Row, Button, Modal } from "react-bootstrap";
-import styles from "./Form.module.css";
 import { useSelector, useDispatch } from "react-redux";
 import { FormThunk } from "../../services/formThunk";
 import axios from "axios";
@@ -16,7 +15,6 @@ export const ReserveForm = ({ setData }) => {
   const [response, setResponse] = useState(null);
   const [carPlate, setCarPlate] = useState("");
   const [carType, setCarType] = useState("");
-  const [selectedButton, setSelectedButton] = useState(null);
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleClose2 = () => setShowWarningModal(false);
