@@ -50,14 +50,4 @@ describe('clientrecordFormThunk', () => {
   });
 });
 
-describe('clientrecordFormThunk', () => {
-  it('should return success value on successful request', async () => {
-    const mockData = { data: 'success' };
-    axios.get.mockResolvedValue(mockData);
-    const res = await store.dispatch(clientrecordFormThunk({}));
-    console.log('resssss', res);
-    const success = res.payload.data;
-    console.log('success', success);
-    expect(success).toBe('success');
-  });
-});
+//123456
