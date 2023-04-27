@@ -1,17 +1,16 @@
 import { React, useState, useEffect } from "react";
 import { Table, Pagination } from "react-bootstrap";
 import { useSelector, useDispatch } from "react-redux";
-import { FormThunk, clientrecordFormThunk } from "../../services/formThunk";
+import { clientrecordFormThunk } from "../../services/formThunk";
 import { Record } from "./Record";
 
 export const ReserveTable = () => {
-  const [searchQuery, setSearchQuery] = useState("");
   const [posts, setPosts] = useState([]);
   const [active, setActivePage] = useState(1);
 
   const dispatch = useDispatch();
-  const { history, loading} = useSelector((state) => state.updateForm);
-  const {  load, token, users, username } = useSelector((state) => state.users);
+  const { history } = useSelector((state) => state.updateForm);
+  const { username } = useSelector((state) => state.users);
 
   console.log(username);
   // 第一個useEffect，從後端抓資料

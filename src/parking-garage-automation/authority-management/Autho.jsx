@@ -84,7 +84,7 @@ export const Autho = () => {
     setFile(event.target.files[0]);
   };
 
-  const handleImport = async (event) => {
+  const handleImport = async () => {
     const formData = new FormData();
     formData.append("file", file);
 
@@ -151,13 +151,13 @@ export const Autho = () => {
     writeFile(wb, "data.xlsx"); // 使用writeFile 將work book 寫入 excel file
   };
 
-  const handleExport = async () => {
-    let rowData = [["id", "username", "password", "role"]];
-    history.forEach((data) => {
-      rowData.push([data.id, data.username, data.password, data.role]);
-    });
-    exportToCsv("export.csv", rowData);
-  };
+  // const handleExport = async () => {
+  //   let rowData = [["id", "username", "password", "role"]];
+  //   history.forEach((data) => {
+  //     rowData.push([data.id, data.username, data.password, data.role]);
+  //   });
+  //   exportToCsv("export.csv", rowData);
+  // };
 
   const handleSearch = () => {
     const filteredPosts = history.filter((post) =>

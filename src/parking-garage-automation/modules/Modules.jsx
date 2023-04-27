@@ -4,7 +4,7 @@ import { garageDataManagementThunk } from "../../services/garageDataManagementTh
 import { useDispatch, useSelector } from "react-redux";
 
 export const Modules = () => {
-  const { loading, history } = useSelector((state) => state.garageData);
+  const { history } = useSelector((state) => state.garageData);
   const dispatch = useDispatch();
 
   const data = [
@@ -54,8 +54,7 @@ export const Modules = () => {
   useEffect(() => {
     console.log("Fetching history...");
     dispatch(garageDataManagementThunk());
-    console.log(loading);
-    console.log(history);
+
   }, [dispatch]);
 
   return (

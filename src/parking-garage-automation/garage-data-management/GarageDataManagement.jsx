@@ -1,12 +1,12 @@
 import { Table } from "react-bootstrap";
-import React, { useState } from "react";
-import { Data } from "./Data";
+import React from "react";
+// import { Data } from "./Data";
 
 export const GarageDataManagement = () => {
   // const { loading, history} = useSelector((state) => state.history);
   // const [active, setActivePage] = useState(1);
 
-  const [posts, setPosts] = useState([]);
+  // const [posts, setPosts] = useState([]);
 
   // const dispatch = useDispatch();
 
@@ -110,7 +110,7 @@ export const GarageDataManagement = () => {
                 <td>10</td>
               </tr>
 
-              <Data posts={posts}></Data>
+              {/* <Data posts={posts}></Data> */}
             </tbody>
           </Table>
         </div>

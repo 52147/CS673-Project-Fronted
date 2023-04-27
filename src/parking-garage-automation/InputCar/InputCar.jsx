@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import styles from "./inputCar.module.css";
 import { useDispatch, useSelector } from "react-redux";
-import { checkInCarThunk, showBicycleUserThunk } from "../../services/inputCarThunk";
+import { checkInCarThunk } from "../../services/inputCarThunk";
 import { Button, Modal } from "react-bootstrap";
 import MessengerCustomerChat from "react-messenger-customer-chat";
 

@@ -19,7 +19,7 @@ import ReserveTableComponent from "./client-reserve";
 import ReserveManagement from "./reservation-management";
 import AppointmentComponent from "./appointment-management";
 import ForgotPasswordComponent from "./parking-forgot-password";
-import UpdatePasswordComponent from "./updatePassword";
+// import UpdatePasswordComponent from "./updatePassword";
 import ParkingMembershipComponent from "./parking-membership";
 import ParkingMembershipRecordComponent from "./garage-membership";
 import ImageProcessComponent from "./image-process";
@@ -29,7 +29,7 @@ function ParkingGarageAutomation() {
     const [data, setData] = useState('')
     console.log(data);
 
-    let dom = (value) => {
+    let dom = () => {
         return (
             <Routes>
                 <Route path="information/:plates" element={<ParkingInformationComponent setData = {setData}/>}/>

@@ -15,9 +15,8 @@ export const Appointment = () => {
   const dispatch = useDispatch();
   const [searchQuery, setSearchQuery] = useState("");
   const [posts, setPosts] = useState([]);
-  const [filteredData, setFilteredData] = useState([]);
 
-  const { history, loading } = useSelector((state) => state.updateForm);
+  const { history } = useSelector((state) => state.updateForm);
   useEffect(() => {
     console.log("Fetching history...");
     dispatch(appointmentFormThunk());
@@ -71,7 +70,6 @@ export const Appointment = () => {
       return rowString.includes(searchQuery.toLowerCase());
     });
 
-    setFilteredData(filteredPosts);
     setPosts(filteredPosts); // Also update the posts state if needed
   };
 

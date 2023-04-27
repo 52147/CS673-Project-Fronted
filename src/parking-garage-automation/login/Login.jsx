@@ -8,7 +8,7 @@ import { useNavigate } from "react-router";
 
 export const Login = () => {
   const dispatch = useDispatch();
-  const { loading, load, token, users } = useSelector((state) => state.users);
+  const { load, token, users } = useSelector((state) => state.users);
   console.log(users);
 
   const [username, setUsername] = useState("");
@@ -26,7 +26,7 @@ export const Login = () => {
       setShowWarning(true);
       return;
     }
-    
+
     await dispatch(loginThunk({ username, password })).then((req) => {
       console.log(req.type);
       console.log(req);
@@ -39,12 +39,11 @@ export const Login = () => {
       const decoded = jwtDecode(req.payload.token);
       console.log(decoded);
       console.log(decoded.role);
-      if (decoded.role === 1 || decoded.role === 2 ) {
+      if (decoded.role === 1 || decoded.role === 2) {
         window.location.replace(`/modules`);
       } else if (decoded.role === 3) {
         window.location.replace(`/usermodule`);
       }
-
     });
     console.log(token);
     console.log(load);
@@ -54,7 +53,7 @@ export const Login = () => {
 
   const handleClick = () => {
     navigate("/forget");
-  }
+  };
 
   return (
     <>
@@ -86,8 +85,12 @@ export const Login = () => {
               Submit
             </button>
           </form>
-          <button className={`${styles.buttonClass} mt-3`} onClick = {handleClick} type="submit">
-              Forgot Password
+          <button
+            className={`${styles.buttonClass} mt-3`}
+            onClick={handleClick}
+            type="submit"
+          >
+            Forgot Password
           </button>
         </div>
       </div>
@@ -102,13 +105,18 @@ export const Login = () => {
           </Button>
         </Modal.Footer>
       </Modal>
-            {/* Warning modal */}
-            <Modal show={showWarning && formSubmitted} onHide={() => setShowWarning(false)}>
+      {/* Warning modal */}
+      <Modal
+        show={showWarning && formSubmitted}
+        onHide={() => setShowWarning(false)}
+      >
         <Modal.Header closeButton>
           <Modal.Title>Warning</Modal.Title>
-          </Modal.Header>
-          <Modal.Body>Please fill up all input fields before submitting.</Modal.Body>
-        
+        </Modal.Header>
+        <Modal.Body>
+          Please fill up all input fields before submitting.
+        </Modal.Body>
+
         <Modal.Footer>
           <Button variant="primary" onClick={() => setShowWarning(false)}>
             Close

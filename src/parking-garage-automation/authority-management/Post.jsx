@@ -41,7 +41,7 @@ export const Post = ({ posts }) => {
   // setActivePage(posts.length /10);
   return (
     <>
-      {posts.map((post, index) => (
+      {posts.map((post) => (
         <tr key={post.id}>
           <td>
             {editingPost && editingPost.id === post.id ? (
