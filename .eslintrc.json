@@ -1,0 +1,21 @@
+"rules": {
+    "no-unused-vars": ["error", { "argsIgnorePattern": "^_" }],
+    "react-hooks/exhaustive-deps": "error"
+  },
+  "globals": {
+    "firebase": "readonly"
+  },
+  "extends": [
+    "react-app",
+    "react-app/jest"
+  ],
+  "overrides": [
+    {
+      "files": ["**/*.jsx"],
+      "rules": {
+        "react/prop-types": "off"
+      }
+    }
+  ],
+  "ignorePatterns": ["src/reportWebVitals.js"]
+  
