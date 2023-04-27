@@ -37,3 +37,27 @@ describe("clientrecordFormThunk", () => {
     expect(res.type).toBe("/parklot/showUser/rejected");
   });
 });
+import axios from 'axios';
+
+jest.mock('axios');
+describe('clientrecordFormThunk', () => {
+  it('should show an error message on failed request', async () => {
+    axios.get.mockRejectedValue(new Error('Network Error'));
+    const res = await store.dispatch(clientrecordFormThunk({}));
+    const error = res.error.message;
+    console.log('error', error);
+    expect(error).not.toBe('');
+  });
+});
+
+describe('clientrecordFormThunk', () => {
+  it('should return success value on successful request', async () => {
+    const mockData = { data: 'success' };
+    axios.get.mockResolvedValue(mockData);
+    const res = await store.dispatch(clientrecordFormThunk({}));
+    console.log('resssss', res);
+    const success = res.payload.data;
+    console.log('success', success);
+    expect(success).toBe('success');
+  });
+});

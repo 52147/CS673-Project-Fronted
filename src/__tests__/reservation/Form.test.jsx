@@ -47,7 +47,7 @@ describe("FormComponent", () => {
     expect(headingElement).toBeInTheDocument();
   });
 });
-it('should show an error message on failed get form data', async () => {
+it('should show an error message on failed login', async () => {
   const res = await store.dispatch(FormThunk());
   console.log("res3", res)
   expect(res.type).toBe('/parklot/rejected');
