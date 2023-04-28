@@ -1,9 +1,16 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { Post } from "./Post";
 import { utils, writeFile } from "xlsx";
-import styles from  "./autho.module.css";
+import styles from "./autho.module.css";
 
-import { Button, Table, Spinner, Pagination, Form, Modal } from "react-bootstrap";
+import {
+  Button,
+  Table,
+  Spinner,
+  Pagination,
+  Form,
+  Modal,
+} from "react-bootstrap";
 import {
   faSearch,
   faPlus,
@@ -22,43 +29,40 @@ export const Autho = () => {
   const [searchQuery, setSearchQuery] = useState("");
 
   const dispatch = useDispatch();
-  const { loading, history} = useSelector((state) => state.authoHistory);
+  const { loading, history } = useSelector((state) => state.authoHistory);
 
   const [newUsername, setNewUsername] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [newRole, setNewRole] = useState("");
   const [file, setFile] = useState(null);
-  const [exporting, setExporting] = useState(false);
   const [posts, setPosts] = useState([]);
   const [active, setActivePage] = useState(1);
   const [displayMessage, setDisplayMessage] = useState(""); // create state variable to display the message
 
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
+  const paginationClickHandler = useCallback(
+    (number) => {
+      let tempArr = [];
+      for (let i = number * 5 - 5; i <= number * 5 - 1; i++) {
+        if (i < history.length) {
+          tempArr.push(history[i]);
+        }
+      }
+      setActivePage(number);
+      setPosts(tempArr);
+    },
+    [history]
+  );
 
   useEffect(() => {
     if (!loading) {
-      paginationClickHandler(1); // 當進入頁面時，paginationClickHandler設定為 1
+      paginationClickHandler(1);
     }
     setDisplayMessage(loading);
     console.log(loading);
     console.log(history);
-    
-  }, [loading]);
-
-
-
-  let tempArr = [];
-  const paginationClickHandler = (number) => {
-    tempArr = [];
-    for (let i = number * 5 - 5; i <= number * 5 - 1; i++) {
-      if (i < history.length) {
-        tempArr.push(history[i]); // temArr用來更新 post，將data推入 temArr，每次推入10筆資料
-      }
-    }
-    setActivePage(number); // 展示完頁面後，設定pagination的數字標示為active
-    setPosts(tempArr); // 更新 post 為 temArr
-  };
+  }, [loading, history, paginationClickHandler]);
 
   const pageNumbers = Math.ceil(history.length / 5); // 資料數量／１０為Pagination 圖標數量
   // let active = 1;
@@ -84,7 +88,7 @@ export const Autho = () => {
     setFile(event.target.files[0]);
   };
 
-  const handleImport = async (event) => {
+  const handleImport = async () => {
     const formData = new FormData();
     formData.append("file", file);
 
@@ -94,50 +98,50 @@ export const Autho = () => {
   };
 
   // https://jsfiddle.net/jossef/m3rrLzk0/
-  const exportToCsv = (filename, rows) => {
-    let processRow = function (row) {
-      let finalVal = "";
-      for (let j = 0; j < row.length; j++) {
-        let innerValue = row[j] === null ? "" : row[j].toString();
-        if (row[j] instanceof Date) {
-          innerValue = row[j].toLocaleString();
-        }
-        let result = innerValue.replace(/"/g, '""');
-        if (result.search(/("|,|\n)/g) >= 0) {
-          result = '"' + result + '"';
-        }
-        if (j > 0) {
-          finalVal += ",";
-        }
-        finalVal += result;
-      }
-      return finalVal + "\n";
-    };
+  // const exportToCsv = (filename, rows) => {
+  //   let processRow = function (row) {
+  //     let finalVal = "";
+  //     for (let j = 0; j < row.length; j++) {
+  //       let innerValue = row[j] === null ? "" : row[j].toString();
+  //       if (row[j] instanceof Date) {
+  //         innerValue = row[j].toLocaleString();
+  //       }
+  //       let result = innerValue.replace(/"/g, '""');
+  //       if (result.search(/("|,|\n)/g) >= 0) {
+  //         result = '"' + result + '"';
+  //       }
+  //       if (j > 0) {
+  //         finalVal += ",";
+  //       }
+  //       finalVal += result;
+  //     }
+  //     return finalVal + "\n";
+  //   };
 
-    let csvFile = "";
-    for (let i = 0; i < rows.length; i++) {
-      csvFile += processRow(rows[i]);
-    }
+  //   let csvFile = "";
+  //   for (let i = 0; i < rows.length; i++) {
+  //     csvFile += processRow(rows[i]);
+  //   }
 
-    let blob = new Blob([csvFile], { type: "text/csv;charset=utf-8;" });
-    if (navigator.msSaveBlob) {
-      // IE 10+
-      navigator.msSaveBlob(blob, filename);
-    } else {
-      let link = document.createElement("a");
-      if (link.download !== undefined) {
-        // feature detection
-        // Browsers that support HTML5 download attribute
-        let url = URL.createObjectURL(blob);
-        link.setAttribute("href", url);
-        link.setAttribute("download", filename);
-        link.style.visibility = "hidden";
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
-      }
-    }
-  };
+  //   let blob = new Blob([csvFile], { type: "text/csv;charset=utf-8;" });
+  //   if (navigator.msSaveBlob) {
+  //     // IE 10+
+  //     navigator.msSaveBlob(blob, filename);
+  //   } else {
+  //     let link = document.createElement("a");
+  //     if (link.download !== undefined) {
+  //       // feature detection
+  //       // Browsers that support HTML5 download attribute
+  //       let url = URL.createObjectURL(blob);
+  //       link.setAttribute("href", url);
+  //       link.setAttribute("download", filename);
+  //       link.style.visibility = "hidden";
+  //       document.body.appendChild(link);
+  //       link.click();
+  //       document.body.removeChild(link);
+  //     }
+  //   }
+  // };
 
   const handleExportXLS = () => {
     let rowData = [["id", "username", "password", "role"]]; // 設置column名
@@ -151,13 +155,13 @@ export const Autho = () => {
     writeFile(wb, "data.xlsx"); // 使用writeFile 將work book 寫入 excel file
   };
 
-  const handleExport = async () => {
-    let rowData = [["id", "username", "password", "role"]];
-    history.forEach((data) => {
-      rowData.push([data.id, data.username, data.password, data.role]);
-    });
-    exportToCsv("export.csv", rowData);
-  };
+  // const handleExport = async () => {
+  //   let rowData = [["id", "username", "password", "role"]];
+  //   history.forEach((data) => {
+  //     rowData.push([data.id, data.username, data.password, data.role]);
+  //   });
+  //   exportToCsv("export.csv", rowData);
+  // };
 
   const handleSearch = () => {
     const filteredPosts = history.filter((post) =>
@@ -178,7 +182,7 @@ export const Autho = () => {
       //   setShow(true);
       // }
 
-      if(req.payload== false){
+      if (req.payload === false) {
         setShow(true);
       }
       console.log(req.payload);
@@ -186,19 +190,18 @@ export const Autho = () => {
       setNewPassword("");
       setNewRole("");
       console.log(JSON.stringify(history)); // 無法接收add function 的 response
-    })
+    });
     setTimeout(() => {
       window.location.reload();
-    }, "1500");  
+    }, "1500");
   };
 
   return (
     <>
-      <div className="row text-white mt-3 mb-3">
-        <h1>AUTHORITY MANAGEMENT</h1>
-        <p>{displayMessage}</p>
+      <div className="row bg-primary text-white py-3">
+        <h1 className="col-12 text-center">AUTHORITY MANAGEMENT</h1>
       </div>
-
+      <p>{displayMessage}</p>
       <div className="input-group">
         <input
           className="pl-3.5"
@@ -213,7 +216,9 @@ export const Autho = () => {
           </Button>
         </div>
       </div>
-      <div className={`container flex justify-center mt-4 ${styles.marginLeft}`}>
+      <div
+        className={`container flex justify-center mt-4 ${styles.marginLeft}`}
+      >
         {/* <input
           type="file"
           onChange={handleFileChange}
@@ -231,7 +236,6 @@ export const Autho = () => {
           variant="primary"
           onClick={handleExportXLS}
         >
-          {exporting ? <span>Exporting...</span> : <span>Export File</span>}
           <FontAwesomeIcon icon={faDownload} />
         </Button>
 
@@ -291,16 +295,16 @@ export const Autho = () => {
         <Pagination className="justify-content-end me-5">{items}</Pagination>
       </div>
       <Modal show={show} onHide={handleClose}>
-          <Modal.Header closeButton>
-            <Modal.Title> Duplicate Username {newUsername}</Modal.Title>
-          </Modal.Header>
-          <Modal.Body> Inputed Username is duplicate. </Modal.Body>
-          <Modal.Footer>
-            <Button variant="primary" onClick={handleClose}>
-              Close
-            </Button>
-          </Modal.Footer>
-        </Modal>
+        <Modal.Header closeButton>
+          <Modal.Title> Duplicate Username {newUsername}</Modal.Title>
+        </Modal.Header>
+        <Modal.Body> Inputed Username is duplicate. </Modal.Body>
+        <Modal.Footer>
+          <Button variant="primary" onClick={handleClose}>
+            Close
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </>
   );
 };

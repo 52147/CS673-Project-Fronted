@@ -1,7 +1,7 @@
 import {createAsyncThunk}
     from "@reduxjs/toolkit"
 import * as service from './parkHistoryServices'
-import {getHistoryByPlateService} from "./parkHistoryServices";
+// import {getHistoryByPlateService} from "./parkHistoryServices";
 
 
 export const getHistoryThunk = createAsyncThunk(

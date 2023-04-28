@@ -3,6 +3,7 @@ import { Provider } from "react-redux";
 import { configureStore } from "@reduxjs/toolkit";
 import FormComponent from "../../parking-garage-automation/reservation/index.jsx";
 import { MemoryRouter } from "react-router-dom";
+import { FormThunk } from "../../services/formThunk";
 
 import inputCarReducer from "../../parking-garage-automation/reducers/inputCarReducer";
 import parkInfoReducer from "../../parking-garage-automation/reducers/parkInfoReducer";
@@ -45,4 +46,9 @@ describe("FormComponent", () => {
     const headingElement = screen.getByText(/Reservation Form/i);
     expect(headingElement).toBeInTheDocument();
   });
+});
+it('should show an error message on failed login', async () => {
+  const res = await store.dispatch(FormThunk());
+  console.log("res3", res)
+  expect(res.type).toBe('/parklot/rejected');
 });

@@ -1,5 +1,5 @@
 import styles from "./forgetP.module.css";
-import {Alert, Button, Card, Modal, Nav} from "react-bootstrap";
+import { Button, Modal, Nav} from "react-bootstrap";
 import React, {useState} from "react";
 import {useNavigate} from "react-router";
 import {useDispatch} from "react-redux";

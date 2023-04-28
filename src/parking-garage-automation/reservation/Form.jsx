@@ -1,9 +1,8 @@
 import { React, useState, useEffect } from "react";
 import { Form, Col, Row, Button, Modal } from "react-bootstrap";
-import styles from "./Form.module.css";
 import { useSelector, useDispatch } from "react-redux";
 import { FormThunk } from "../../services/formThunk";
-import axios from "axios";
+// import axios from "axios";
 import { useNavigate } from "react-router";
 
 export const ReserveForm = ({ setData }) => {
@@ -11,12 +10,10 @@ export const ReserveForm = ({ setData }) => {
   const { history } = useSelector((state) => state.updateForm)|| {};
   const [selectedParkingSpace, setSelectedParkingSpace] = useState("");
   const [availableSlots, setAvailableSlots] = useState([]);
-  const { users, username } = useSelector((state) => state.users);
+  const { username } = useSelector((state) => state.users);
   const [parkingSpaceNo, setParkingSpaceNo] = useState([]);
-  const [response, setResponse] = useState(null);
   const [carPlate, setCarPlate] = useState("");
   const [carType, setCarType] = useState("");
-  const [selectedButton, setSelectedButton] = useState(null);
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleClose2 = () => setShowWarningModal(false);
@@ -24,6 +21,7 @@ export const ReserveForm = ({ setData }) => {
   const [isFormValid, setIsFormValid] = useState(false);
   const [showWarningModal, setShowWarningModal] = useState(false);
 
+  const navigate = useNavigate();
   // useEffect 顯示被選擇的button
   useEffect(() => {
     setCValues({});
@@ -83,59 +81,59 @@ export const ReserveForm = ({ setData }) => {
   }, [selectedParkingSpace, history]);
 
   // 需要返回給後端的資料樣式
-  const carData = {
-    id: 666,
-    type: "car",
-    a1: "chepai",
-    a2: "chepai",
-    a3: "chepai",
-    a4: "chepai",
-    a5: "chepai",
-    a6: "chepai",
-    a7: "chepai",
-    a8: "chepai",
-    a9: "chepai",
-    a10: "chepai",
-    a11: "chepai",
-    a12: "chepai",
-    a13: "chepai",
-    a14: "chepai",
-    a15: "chepai",
-    a16: "chepai",
-    a17: "chepai",
-    a18: "chepai",
-    a19: "chepai",
-    a20: "chepai",
-    a21: "chepai",
-    a22: "chepai",
-    a23: "chepai",
-    a24: "chepai",
-    b1: "chepbi",
-    b2: "chepbi",
-    b3: "chepbi",
-    b4: "chepbi",
-    b5: "chepbi",
-    b6: "chepbi",
-    b7: "chepbi",
-    b8: "chepbi",
-    b9: "chepbi",
-    b10: "chepbi",
-    b11: "chepbi",
-    b12: "chepbi",
-    b13: "chepbi",
-    b14: "chepbi",
-    b15: "chepbi",
-    b16: "chepbi",
-    b17: "chepbi",
-    b18: "chepbi",
-    b19: "chepbi",
-    b20: "chepbi",
-    b21: "chepbi",
-    b22: "chepbi",
-    b23: "chepbi",
-    b24: "chepbi",
-    // ... include the rest of the JSON data here
-  };
+  // const carData = {
+  //   id: 666,
+  //   type: "car",
+  //   a1: "chepai",
+  //   a2: "chepai",
+  //   a3: "chepai",
+  //   a4: "chepai",
+  //   a5: "chepai",
+  //   a6: "chepai",
+  //   a7: "chepai",
+  //   a8: "chepai",
+  //   a9: "chepai",
+  //   a10: "chepai",
+  //   a11: "chepai",
+  //   a12: "chepai",
+  //   a13: "chepai",
+  //   a14: "chepai",
+  //   a15: "chepai",
+  //   a16: "chepai",
+  //   a17: "chepai",
+  //   a18: "chepai",
+  //   a19: "chepai",
+  //   a20: "chepai",
+  //   a21: "chepai",
+  //   a22: "chepai",
+  //   a23: "chepai",
+  //   a24: "chepai",
+  //   b1: "chepbi",
+  //   b2: "chepbi",
+  //   b3: "chepbi",
+  //   b4: "chepbi",
+  //   b5: "chepbi",
+  //   b6: "chepbi",
+  //   b7: "chepbi",
+  //   b8: "chepbi",
+  //   b9: "chepbi",
+  //   b10: "chepbi",
+  //   b11: "chepbi",
+  //   b12: "chepbi",
+  //   b13: "chepbi",
+  //   b14: "chepbi",
+  //   b15: "chepbi",
+  //   b16: "chepbi",
+  //   b17: "chepbi",
+  //   b18: "chepbi",
+  //   b19: "chepbi",
+  //   b20: "chepbi",
+  //   b21: "chepbi",
+  //   b22: "chepbi",
+  //   b23: "chepbi",
+  //   b24: "chepbi",
+  //   // ... include the rest of the JSON data here
+  // };
 
   // 格式化今天和明天的日期為: 2018-05-05
   const current = new Date(); // get the current date
@@ -145,7 +143,6 @@ export const ReserveForm = ({ setData }) => {
   const day = String(current.getDate()).padStart(2, "0"); // get the day (2 digits) and pad with leading zero if needed
   const formattedDate = `${year}-${month}-${day}`; // concatenate the year, month, and day with hyphens
   console.log(formattedDate); // output: "2023-03-27"
-  const navigate = useNavigate();
   const tomorrow = new Date();
   tomorrow.setDate(tomorrow.getDate() + 1); // set the date to tomorrow
 
@@ -168,7 +165,7 @@ export const ReserveForm = ({ setData }) => {
       carPlate === "" ||
       carType === "" ||
       selectedParkingSpace === "" ||
-      hasSelectedTimeSlot != true
+      hasSelectedTimeSlot !== true
     ) {
       setIsFormValid(false);
       setShowWarningModal(true); // Display warning modal
@@ -177,52 +174,28 @@ export const ReserveForm = ({ setData }) => {
     }
     console.log("cValues", cValues);
   };
+  const handleSubmit = (event) => {
+    event.preventDefault(); // prevent form from refreshing page
+    submitForm().then(() => {
+      navigate(`/payment`);
+    });
+  };
   // 發送資料到後端：3比資料用url param key，1比資料用json放到body帶過去
-  const submitForm = async (event) => {
+  const submitForm = async () => {
     validateForm();
+    console.log(carType);
     if (isFormValid) {
-      // Submit form logic
-      setShow(true);
-      // Display success modal
 
-      event.preventDefault();
-      console.log(cValues);
-      // forData 為 {a1: true, b23: true}
       const formData = {
         ...cValues,
       };
-      Object.keys(formData).forEach((key) => (formData[key] = carPlate)); // 把所有value改為車牌號碼
-      console.log(formData); // or send it to API or save to database
-      console.log(carType);
-      let reserveFee = 1;
-      console.log(Object.keys(formData).length)
+      Object.keys(formData).forEach((key) => (formData[key] = carPlate));
       const totalReserveTime = Object.keys(formData).length;
-      console.log(totalReserveTime * 30);
-      if(carType === "Car"){
-        reserveFee = totalReserveTime * 30;
-      }else if(carType === "Motorcycle"){
-        reserveFee = totalReserveTime * 20;
-      }else{
-        reserveFee = totalReserveTime * 10;
-      }
-      console.log("reserve Fee", reserveFee);
       const withCarType = {
         id: selectedParkingSpace,
         type: carType,
         ...formData,
       };
-      console.log(withCarType);
-      const url = `http://localhost:8080/parklot/save?date=${result}&license=${carPlate}&name=${username}`;
-      console.log("url:", url);
-
-      try {
-        const res = await axios.post(url, withCarType);
-        setResponse(res.data);
-        console.log(" sending data:", res.data);
-      } catch (error) {
-        console.error("Error sending data:", error);
-        setResponse("Error sending data");
-      }
       const sendData = {
         from: "reservation",
         hour: totalReserveTime,
@@ -231,12 +204,7 @@ export const ReserveForm = ({ setData }) => {
         username,
         withCarType,
       };
-      // setData("14567")
-      setData(sendData);
-      setTimeout(() => {
-        // navigate(`/payment/${carPlate}`);
-        // window.location.reload();
-      }, "1500");
+      await setData(sendData);
     } 
   };
 
@@ -278,26 +246,18 @@ export const ReserveForm = ({ setData }) => {
 
   // 將user 選擇的button，格式化資料為想要的格式： a1 -> 24:00 ~ 1:00
   const selectedSlotsOne = Object.keys(cValues)
-    .filter((key) => cValues[key])
-    .map((slot) => {
-      const isColumnA = slot.startsWith("a");
-      console.log(slot);
+  .filter((key) => cValues[key] && key.startsWith("a"))
+  .map((slot) => {
+    const hour = parseInt(slot.substr(1)) - 1;
+    return getTimeRange(hour, true);
+  });
 
-      if (slot.startsWith("a")) {
-        const hour = parseInt(slot.substr(1)) - 1;
-        return getTimeRange(hour, isColumnA);
-      }
-    });
-
-  const selectedSlotsTwo = Object.keys(cValues)
-    .filter((key) => cValues[key])
-    .map((slot) => {
-      const isColumnA = slot.startsWith("b");
-      if (slot.startsWith("b")) {
-        const hour = parseInt(slot.substr(1)) - 1;
-        return getTimeRange(hour, isColumnA);
-      }
-    });
+const selectedSlotsTwo = Object.keys(cValues)
+  .filter((key) => cValues[key] && key.startsWith("b"))
+  .map((slot) => {
+    const hour = parseInt(slot.substr(1)) - 1;
+    return getTimeRange(hour, false);
+  });
   const selectedSlotsStringOne = selectedSlotsOne.join(" ");
   const dateStringOne = `${formattedDate}: ${selectedSlotsStringOne}`;
   const selectedSlotsStringTwo = selectedSlotsTwo.join(" ");
@@ -410,7 +370,7 @@ export const ReserveForm = ({ setData }) => {
 
         <div className="mt-6 ">
           <Button
-            onClick={submitForm}
+            onClick={handleSubmit}
             className="w-full bg-indigo-500 hover:bg-indigo-400 text-white font-bold py-2 px-4 rounded-lg shadow-md"
           >
             Submit

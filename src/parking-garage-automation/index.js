@@ -11,7 +11,6 @@ import NavBarComponent from "./navBar";
 import ModulesComponent from "./modules";
 import AuthoComponent from "./authority-management";
 import FeeComponent from "./garage-fee";
-import GarageDataManagementComponent from "./garage-data-management";
 import ParkingRegisterComponent from "./parking-register";
 import FormComponent from "./reservation";
 import UserModuleComponent from "./user-module";
@@ -19,7 +18,7 @@ import ReserveTableComponent from "./client-reserve";
 import ReserveManagement from "./reservation-management";
 import AppointmentComponent from "./appointment-management";
 import ForgotPasswordComponent from "./parking-forgot-password";
-import UpdatePasswordComponent from "./updatePassword";
+// import UpdatePasswordComponent from "./updatePassword";
 import ParkingMembershipComponent from "./parking-membership";
 import ParkingMembershipRecordComponent from "./garage-membership";
 import ImageProcessComponent from "./image-process";
@@ -29,7 +28,7 @@ function ParkingGarageAutomation() {
     const [data, setData] = useState('')
     console.log(data);
 
-    let dom = (value) => {
+    let dom = () => {
         return (
             <Routes>
                 <Route path="information/:plates" element={<ParkingInformationComponent setData = {setData}/>}/>
@@ -41,7 +40,6 @@ function ParkingGarageAutomation() {
                 <Route path="/modules" exact element={<ModulesComponent/>}/>
                 <Route path="/modules/autho" exact element={<AuthoComponent/>}/>
                 <Route path="/modules/fee" exact element={<FeeComponent/>}/>
-                <Route path="/modules/garageDataManagement" exact element={<GarageDataManagementComponent/>}/>
                 <Route path="/usermodule/form" element={<FormComponent setData = {setData}/>}/>
                 <Route path="usermodule" element={<UserModuleComponent/>}/>
                 <Route path="/register" exact element={<ParkingRegisterComponent/>}/>
@@ -56,7 +54,6 @@ function ParkingGarageAutomation() {
                 <Route path="/imageprocess" element={<ImageProcessComponent/>}/>
             </Routes>
         )
-
     }
     return (
         <div className="row">

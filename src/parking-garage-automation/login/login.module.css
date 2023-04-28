@@ -48,7 +48,7 @@
   width: 250px;
   font-size: 18px;
 }
-.buttonClass:hover{
+.buttonClass:hover {
   appearance: none;
   outline: 0;
   background-color: black;

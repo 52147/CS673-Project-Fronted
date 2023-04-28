@@ -1,56 +1,47 @@
-import React, { useState, useEffect }  from "react";
+import React, { useState } from "react";
 import {
-    faSearch,
-    faEdit,
-    faTrash,
-    faPlus,
-    faUpload,
-    faDownload,
-  } from "@fortawesome/free-solid-svg-icons";
-  import { Button, Table, Spinner, Pagination } from "react-bootstrap";
+  faEdit,
+  faTrash,
+} from "@fortawesome/free-solid-svg-icons";
+import { Button } from "react-bootstrap";
 
-  import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-  AuthorityThunk,
   updateAuthorityThunk,
   deleteAuthorityThunk,
-  importAuthorityThunk,
-  exportAuthorityThunk,
-  addAuthorityThunk
 } from "../../services/authorityThunk";
 import { useDispatch, useSelector } from "react-redux";
 export const Post = ({ posts }) => {
-  const { loading, history } = useSelector((state) => state.authoHistory);
-    // const [active, setActivePage] = useState(1); 
+  const { loading } = useSelector((state) => state.authoHistory);
+  // const [active, setActivePage] = useState(1); 
 
-    const dispatch = useDispatch();
+  const dispatch = useDispatch();
 
-    const [item, setPosts] = useState([]);
-    const [editingPost, setEditingPost] = useState(null);
-    if (loading) {
-        return <h2>Loading...</h2>;
-    }
-    const handleEdit = (post) => {
-        setEditingPost(post);
-      };
-    
-      const handleDelete = (id) => {
-        console.log("123");
-        console.log(id);
-        // handle delete user logic
-        dispatch(deleteAuthorityThunk(id));
-        window.location.reload();
-      };
-      const handleUpdate = (post) => {
-        dispatch(updateAuthorityThunk(post));
-        setEditingPost(null);
-        window.location.reload();
-      };
+  const [editingPost, setEditingPost] = useState(null);
+  if (loading) {
+    return <h2>Loading...</h2>;
+  }
+  const handleEdit = (post) => {
+    setEditingPost(post);
+  };
 
-    // setActivePage(posts.length /10);
+  const handleDelete = (id) => {
+    console.log("123");
+    console.log(id);
+    // handle delete user logic
+    dispatch(deleteAuthorityThunk(id));
+    window.location.reload();
+  };
+  const handleUpdate = (post) => {
+    dispatch(updateAuthorityThunk(post));
+    setEditingPost(null);
+    window.location.reload();
+  };
+
+  // setActivePage(posts.length /10);
   return (
     <>
-      {posts.map((post, index) => (
+      {posts.map((post) => (
         <tr key={post.id}>
           <td>
             {editingPost && editingPost.id === post.id ? (

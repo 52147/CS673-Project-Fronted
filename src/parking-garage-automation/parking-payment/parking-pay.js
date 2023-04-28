@@ -5,7 +5,7 @@ import {useDispatch, useSelector} from "react-redux";
 import zelleImg from '../../image/zelleImg.jpeg'
 import {useNavigate} from "react-router";
 import {checkOutCarThunk} from "../../services/checkOutCarThunk";
-import {getFeeThunk, setFeeThunk} from "../../services/feeManagementThunk";
+import {getFeeThunk } from "../../services/feeManagementThunk";
 import {safeFormThunk} from "../../services/formThunk";
 import {purchaseMembershipThunk} from "../../services/membershipThunk";
 
@@ -55,6 +55,7 @@ const ParkingPayment = ({data}) => {
 
         } else if (data.from === 'reservation') {
             dispatch(safeFormThunk(data))
+            console.log(" dispatch(safeFormThunk(data))")
         }
         else if(data.from === 'membership'){
             dispatch(purchaseMembershipThunk(data))
@@ -72,27 +73,25 @@ const ParkingPayment = ({data}) => {
     const dispatch = useDispatch();
     useEffect(() => {
         if (data.from === "parkInfo") {
-            setFee(ParkingFee)
-            console.log(ParkingFee)
-        }
-        else if (data.from === "reservation") {
-            async function fetchData() {
-                const carType = data.withCarType.type
-                await dispatch(getFeeThunk({carType}))
-                if(data.hour <= firstHour){
-                    setFee(data.hour*firstFee)
-                }else{
-                    setFee(Math.max(firstHour*firstFee +(data.hour-firstHour)*secondFee,maxFee))
-                }
+          setFee(ParkingFee)
+          console.log(ParkingFee)
+        } else if (data.from === "reservation") {
+          async function fetchData() {
+            const carType = data.withCarType.type
+            await dispatch(getFeeThunk({carType}))
+            if (data.hour <= firstHour) {
+              setFee(data.hour * firstFee)
+            } else {
+              setFee(Math.max(firstHour * firstFee + (data.hour - firstHour) * secondFee, maxFee))
             }
-            fetchData();
+          }
+          fetchData();
+        } else if (data.from === "membership") {
+          setFee(data.price)
+          console.log(ParkingFee)
         }
-        else if(data.from === "membership"){
-            setFee(data.price)
-            console.log(ParkingFee)
-        }
-
-    }, [fee]);
+      }, [ParkingFee, data.from, data.hour, data.price, data.withCarType.type, dispatch, firstFee, firstHour, maxFee, secondFee]);
+      
 
     return (<>
             {

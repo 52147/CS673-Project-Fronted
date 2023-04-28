@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import styles from "./modules.module.css";
 import { garageDataManagementThunk } from "../../services/garageDataManagementThunk";
 import { useDispatch, useSelector } from "react-redux";
 
 export const Modules = () => {
-  const { loading, history } = useSelector((state) => state.garageData);
+  const { history } = useSelector((state) => state.garageData);
   const dispatch = useDispatch();
 
   const data = [
@@ -28,24 +28,18 @@ export const Modules = () => {
     },
     {
       id: "4",
-      page: "garageDataManagement",
-      topic: "Parking Space Management",
-      cover: "parking (1).png",
-    },
-    {
-      id: "5",
       page: "appointmentmanagement",
       topic: "Reservation Management",
       cover: "booking (1).png",
     },
     {
-      id: "6",
+      id: "5",
       page: "reservemanagement",
       topic: "Parklot Management",
       cover: "parking-lot.png",
     },
     {
-      id: "7",
+      id: "6",
       page: "membership",
       topic: "Membership Management",
       cover: "membership.png",
@@ -54,8 +48,7 @@ export const Modules = () => {
   useEffect(() => {
     console.log("Fetching history...");
     dispatch(garageDataManagementThunk());
-    console.log(loading);
-    console.log(history);
+
   }, [dispatch]);
 
   return (
@@ -73,7 +66,7 @@ export const Modules = () => {
           {data.map((value) => {
             return (
               <>
-                <div className={`col-3 ${styles.card}`}>
+                <div className={`col-4 ${styles.card}`}>
                   <img className={styles.image} src={value.cover} alt="" />
                   <div className={styles.info}>
                     <h2 className={styles.title}>{value.topic}</h2>

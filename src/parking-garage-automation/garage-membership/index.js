@@ -1,7 +1,7 @@
 import React from "react";
 import ParkingMembershipRecord from "./ParkingMembershipRecord";
 import ListBar from "../listBar/listBar";
-import GarageData from "../garage-historyData/garage-data";
+// import GarageData from "../garage-historyData/garage-data";
 
 
 

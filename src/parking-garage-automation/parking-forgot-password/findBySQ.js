@@ -2,11 +2,11 @@ import styles from "../parking-register/register.module.css";
 import {Button, Modal, Nav} from "react-bootstrap";
 import React, {useState} from "react";
 import {useNavigate} from "react-router";
-import {useDispatch, useSelector} from "react-redux";
+import { useSelector} from "react-redux";
 
 
 const FindBySQ = ({setValue}) => {
-    const {loading, user} = useSelector((state) => state.forgetPassword)
+    const { user} = useSelector((state) => state.forgetPassword)
 
     const data = [
         {
@@ -50,9 +50,9 @@ const FindBySQ = ({setValue}) => {
     const sq2 = data.find(sq => sq.id === user.q2);
 
     const changeQuestionClickHandler = () => {
-        if(question == 1){
+        if(question === 1){
             setQuestion(2)
-        }else if(question == 2){
+        }else if(question === 2){
             setQuestion(1)
         }
     }
@@ -71,7 +71,6 @@ const FindBySQ = ({setValue}) => {
     }
 
 
-    const dispatch = useDispatch();
     const submitClickHandler = () => {
         if(securityAnswer1 === user.a1 || securityAnswer2 === user.a2){
             setValue('reset')

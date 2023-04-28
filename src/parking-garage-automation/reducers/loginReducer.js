@@ -1,7 +1,6 @@
 import {createSlice} from "@reduxjs/toolkit";
 import {loginThunk } from "../../services/loginThunk";
 import jwtDecode from "jwt-decode";
-import {useState} from "react";
 
 const user = localStorage.getItem('userObject') != null? JSON.parse(localStorage.getItem('userObject')):[]
 const name = localStorage.getItem('nameObject') != null? JSON.parse(localStorage.getItem('nameObject')):[]

@@ -1,7 +1,6 @@
 import styles from "./UpdatePassword.module.css";
-import { Button, Nav } from "react-bootstrap";
+import { Button} from "react-bootstrap";
 import React, { useState } from "react";
-import { useNavigate } from "react-router";
 export const UpdatePassword = () => {
   let [password, setPassword] = useState("");
 
