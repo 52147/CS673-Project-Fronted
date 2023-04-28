@@ -49,7 +49,7 @@ export const resetFormThunk = createAsyncThunk(
 
 
 export const safeFormThunk = createAsyncThunk(
-  "/parklot/appointment/showAll",
+  "/parklot/save",
   async (data) => {
       console.log(data);
       const json = await service.safeFormService(data);

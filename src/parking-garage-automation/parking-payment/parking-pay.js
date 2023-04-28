@@ -55,6 +55,7 @@ const ParkingPayment = ({data}) => {
 
         } else if (data.from === 'reservation') {
             dispatch(safeFormThunk(data))
+            console.log(" dispatch(safeFormThunk(data))")
         }
         else if(data.from === 'membership'){
             dispatch(purchaseMembershipThunk(data))

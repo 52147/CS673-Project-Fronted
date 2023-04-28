@@ -2,7 +2,8 @@ import { React, useState, useEffect } from "react";
 import { Form, Col, Row, Button, Modal } from "react-bootstrap";
 import { useSelector, useDispatch } from "react-redux";
 import { FormThunk } from "../../services/formThunk";
-import axios from "axios";
+// import axios from "axios";
+import { useNavigate } from "react-router";
 
 export const ReserveForm = ({ setData }) => {
   const dispatch = useDispatch();
@@ -20,6 +21,7 @@ export const ReserveForm = ({ setData }) => {
   const [isFormValid, setIsFormValid] = useState(false);
   const [showWarningModal, setShowWarningModal] = useState(false);
 
+  const navigate = useNavigate();
   // useEffect 顯示被選擇的button
   useEffect(() => {
     setCValues({});
@@ -172,50 +174,28 @@ export const ReserveForm = ({ setData }) => {
     }
     console.log("cValues", cValues);
   };
+  const handleSubmit = (event) => {
+    event.preventDefault(); // prevent form from refreshing page
+    submitForm().then(() => {
+      navigate(`/payment`);
+    });
+  };
   // 發送資料到後端：3比資料用url param key，1比資料用json放到body帶過去
-  const submitForm = async (event) => {
+  const submitForm = async () => {
     validateForm();
+    console.log(carType);
     if (isFormValid) {
-      // Submit form logic
-      setShow(true);
-      // Display success modal
 
-      event.preventDefault();
-      console.log(cValues);
-      // forData 為 {a1: true, b23: true}
       const formData = {
         ...cValues,
       };
-      Object.keys(formData).forEach((key) => (formData[key] = carPlate)); // 把所有value改為車牌號碼
-      console.log(formData); // or send it to API or save to database
-      console.log(carType);
-      let reserveFee = 1;
-      console.log(Object.keys(formData).length)
+      Object.keys(formData).forEach((key) => (formData[key] = carPlate));
       const totalReserveTime = Object.keys(formData).length;
-      console.log(totalReserveTime * 30);
-      if(carType === "Car"){
-        reserveFee = totalReserveTime * 30;
-      }else if(carType === "Motorcycle"){
-        reserveFee = totalReserveTime * 20;
-      }else{
-        reserveFee = totalReserveTime * 10;
-      }
-      console.log("reserve Fee", reserveFee);
       const withCarType = {
         id: selectedParkingSpace,
         type: carType,
         ...formData,
       };
-      console.log(withCarType);
-      const url = `http://localhost:8080/parklot/save?date=${result}&license=${carPlate}&name=${username}`;
-      console.log("url:", url);
-
-      try {
-        const res = await axios.post(url, withCarType);
-        console.log(" sending data:", res.data);
-      } catch (error) {
-        console.error("Error sending data:", error);
-      }
       const sendData = {
         from: "reservation",
         hour: totalReserveTime,
@@ -224,12 +204,7 @@ export const ReserveForm = ({ setData }) => {
         username,
         withCarType,
       };
-      // setData("14567")
-      setData(sendData);
-      setTimeout(() => {
-        // navigate(`/payment/${carPlate}`);
-        // window.location.reload();
-      }, "1500");
+      await setData(sendData);
     } 
   };
 
@@ -395,7 +370,7 @@ const selectedSlotsTwo = Object.keys(cValues)
 
         <div className="mt-6 ">
           <Button
-            onClick={submitForm}
+            onClick={handleSubmit}
             className="w-full bg-indigo-500 hover:bg-indigo-400 text-white font-bold py-2 px-4 rounded-lg shadow-md"
           >
             Submit
