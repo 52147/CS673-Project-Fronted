@@ -18,9 +18,6 @@ const ListBar = ({active}) => {
         navigate('/modules/autho');
     }
 
-    const garageHandler = () => {
-        navigate('/modules/garageDataManagement');
-    }
     const reserveHandler = () => {
         navigate('/modules/reservemanagement');
     }
@@ -50,11 +47,6 @@ const ListBar = ({active}) => {
 
                     <ListGroup.Item onClick={authoHandler} action href="#Authority">
                         Authority
-                        Management
-                    </ListGroup.Item>
-
-                    <ListGroup.Item onClick={garageHandler} action href="#Garage Data">
-                        Parking Space
                         Management
                     </ListGroup.Item>
 

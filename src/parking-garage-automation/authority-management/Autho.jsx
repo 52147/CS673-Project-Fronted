@@ -1,9 +1,16 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { Post } from "./Post";
 import { utils, writeFile } from "xlsx";
-import styles from  "./autho.module.css";
+import styles from "./autho.module.css";
 
-import { Button, Table, Spinner, Pagination, Form, Modal } from "react-bootstrap";
+import {
+  Button,
+  Table,
+  Spinner,
+  Pagination,
+  Form,
+  Modal,
+} from "react-bootstrap";
 import {
   faSearch,
   faPlus,
@@ -22,7 +29,7 @@ export const Autho = () => {
   const [searchQuery, setSearchQuery] = useState("");
 
   const dispatch = useDispatch();
-  const { loading, history} = useSelector((state) => state.authoHistory);
+  const { loading, history } = useSelector((state) => state.authoHistory);
 
   const [newUsername, setNewUsername] = useState("");
   const [newPassword, setNewPassword] = useState("");
@@ -34,16 +41,19 @@ export const Autho = () => {
 
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
-  const paginationClickHandler = useCallback((number) => {
-    let tempArr = [];
-    for (let i = number * 5 - 5; i <= number * 5 - 1; i++) {
-      if (i < history.length) {
-        tempArr.push(history[i]);
+  const paginationClickHandler = useCallback(
+    (number) => {
+      let tempArr = [];
+      for (let i = number * 5 - 5; i <= number * 5 - 1; i++) {
+        if (i < history.length) {
+          tempArr.push(history[i]);
+        }
       }
-    }
-    setActivePage(number);
-    setPosts(tempArr);
-  }, [history]);
+      setActivePage(number);
+      setPosts(tempArr);
+    },
+    [history]
+  );
 
   useEffect(() => {
     if (!loading) {
@@ -172,7 +182,7 @@ export const Autho = () => {
       //   setShow(true);
       // }
 
-      if(req.payload=== false){
+      if (req.payload === false) {
         setShow(true);
       }
       console.log(req.payload);
@@ -180,19 +190,18 @@ export const Autho = () => {
       setNewPassword("");
       setNewRole("");
       console.log(JSON.stringify(history)); // 無法接收add function 的 response
-    })
+    });
     setTimeout(() => {
       window.location.reload();
-    }, "1500");  
+    }, "1500");
   };
 
   return (
     <>
-      <div className="row text-white mt-3 mb-3">
-        <h1>AUTHORITY MANAGEMENT</h1>
-        <p>{displayMessage}</p>
+      <div className="row bg-primary text-white py-3">
+        <h1 className="col-12 text-center">AUTHORITY MANAGEMENT</h1>
       </div>
-
+      <p>{displayMessage}</p>
       <div className="input-group">
         <input
           className="pl-3.5"
@@ -207,7 +216,9 @@ export const Autho = () => {
           </Button>
         </div>
       </div>
-      <div className={`container flex justify-center mt-4 ${styles.marginLeft}`}>
+      <div
+        className={`container flex justify-center mt-4 ${styles.marginLeft}`}
+      >
         {/* <input
           type="file"
           onChange={handleFileChange}
@@ -284,16 +295,16 @@ export const Autho = () => {
         <Pagination className="justify-content-end me-5">{items}</Pagination>
       </div>
       <Modal show={show} onHide={handleClose}>
-          <Modal.Header closeButton>
-            <Modal.Title> Duplicate Username {newUsername}</Modal.Title>
-          </Modal.Header>
-          <Modal.Body> Inputed Username is duplicate. </Modal.Body>
-          <Modal.Footer>
-            <Button variant="primary" onClick={handleClose}>
-              Close
-            </Button>
-          </Modal.Footer>
-        </Modal>
+        <Modal.Header closeButton>
+          <Modal.Title> Duplicate Username {newUsername}</Modal.Title>
+        </Modal.Header>
+        <Modal.Body> Inputed Username is duplicate. </Modal.Body>
+        <Modal.Footer>
+          <Button variant="primary" onClick={handleClose}>
+            Close
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </>
   );
 };
