@@ -22,9 +22,9 @@ const ParkingInformation = ({setData}) => {
     } = useSelector((state) => state.parkInfo)
     //console.log(PlateNumber);
 
-    const parkInfo = {
-        plate: plates
-    }
+    // const parkInfo = {
+    //     plate: plates
+    // }
 
     const payButtonClickHandler = () => {
         const payInfo=
@@ -43,10 +43,13 @@ const ParkingInformation = ({setData}) => {
 
     const dispatch = useDispatch();
     useEffect(() => {
-        dispatch(getParkingInfoThunk(parkInfo))
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-        setTimeout(() => navigate('/'), 15000)
-    }, []);
+        const parkInfo = {
+          plate: plates,
+        };
+        dispatch(getParkingInfoThunk(parkInfo));
+        setTimeout(() => navigate("/"), 15000);
+      }, [dispatch, navigate, plates]);
+      
 
 
     return (<>
