@@ -1,7 +1,5 @@
 import React from "react";
 import styles from "./modules.module.css";
-// import { garageDataManagementThunk } from "../../services/garageDataManagementThunk";
-import { useDispatch, useSelector } from "react-redux";
 
 export const UserModule = () => {
   const data = [
@@ -24,12 +22,7 @@ export const UserModule = () => {
       cover: "premium.png",
     },
   ];
-  // useEffect(() => {
-  //   console.log("Fetching history...");
-  //   dispatch(garageDataManagementThunk());
-  //   console.log(loading);
-  //   console.log(history);
-  // }, [dispatch]);
+
 
   return (
     <>

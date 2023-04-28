@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { Post } from "./Post";
 import { utils, writeFile } from "xlsx";
 import styles from  "./autho.module.css";
@@ -28,7 +28,6 @@ export const Autho = () => {
   const [newPassword, setNewPassword] = useState("");
   const [newRole, setNewRole] = useState("");
   const [file, setFile] = useState(null);
-  const [exporting, setExporting] = useState(false);
   const [posts, setPosts] = useState([]);
   const [active, setActivePage] = useState(1);
   const [displayMessage, setDisplayMessage] = useState(""); // create state variable to display the message
@@ -38,27 +37,25 @@ export const Autho = () => {
 
   useEffect(() => {
     if (!loading) {
-      paginationClickHandler(1); // 當進入頁面時，paginationClickHandler設定為 1
+      paginationClickHandler(1);
     }
     setDisplayMessage(loading);
     console.log(loading);
     console.log(history);
-    
-  }, [loading]);
+  }, [loading, history, paginationClickHandler]);
 
 
 
-  let tempArr = [];
-  const paginationClickHandler = (number) => {
-    tempArr = [];
+  const paginationClickHandler = useCallback((number) => {
+    let tempArr = [];
     for (let i = number * 5 - 5; i <= number * 5 - 1; i++) {
       if (i < history.length) {
-        tempArr.push(history[i]); // temArr用來更新 post，將data推入 temArr，每次推入10筆資料
+        tempArr.push(history[i]);
       }
     }
-    setActivePage(number); // 展示完頁面後，設定pagination的數字標示為active
-    setPosts(tempArr); // 更新 post 為 temArr
-  };
+    setActivePage(number);
+    setPosts(tempArr);
+  }, [history]);
 
   const pageNumbers = Math.ceil(history.length / 5); // 資料數量／１０為Pagination 圖標數量
   // let active = 1;
@@ -94,50 +91,50 @@ export const Autho = () => {
   };
 
   // https://jsfiddle.net/jossef/m3rrLzk0/
-  const exportToCsv = (filename, rows) => {
-    let processRow = function (row) {
-      let finalVal = "";
-      for (let j = 0; j < row.length; j++) {
-        let innerValue = row[j] === null ? "" : row[j].toString();
-        if (row[j] instanceof Date) {
-          innerValue = row[j].toLocaleString();
-        }
-        let result = innerValue.replace(/"/g, '""');
-        if (result.search(/("|,|\n)/g) >= 0) {
-          result = '"' + result + '"';
-        }
-        if (j > 0) {
-          finalVal += ",";
-        }
-        finalVal += result;
-      }
-      return finalVal + "\n";
-    };
+  // const exportToCsv = (filename, rows) => {
+  //   let processRow = function (row) {
+  //     let finalVal = "";
+  //     for (let j = 0; j < row.length; j++) {
+  //       let innerValue = row[j] === null ? "" : row[j].toString();
+  //       if (row[j] instanceof Date) {
+  //         innerValue = row[j].toLocaleString();
+  //       }
+  //       let result = innerValue.replace(/"/g, '""');
+  //       if (result.search(/("|,|\n)/g) >= 0) {
+  //         result = '"' + result + '"';
+  //       }
+  //       if (j > 0) {
+  //         finalVal += ",";
+  //       }
+  //       finalVal += result;
+  //     }
+  //     return finalVal + "\n";
+  //   };
 
-    let csvFile = "";
-    for (let i = 0; i < rows.length; i++) {
-      csvFile += processRow(rows[i]);
-    }
+  //   let csvFile = "";
+  //   for (let i = 0; i < rows.length; i++) {
+  //     csvFile += processRow(rows[i]);
+  //   }
 
-    let blob = new Blob([csvFile], { type: "text/csv;charset=utf-8;" });
-    if (navigator.msSaveBlob) {
-      // IE 10+
-      navigator.msSaveBlob(blob, filename);
-    } else {
-      let link = document.createElement("a");
-      if (link.download !== undefined) {
-        // feature detection
-        // Browsers that support HTML5 download attribute
-        let url = URL.createObjectURL(blob);
-        link.setAttribute("href", url);
-        link.setAttribute("download", filename);
-        link.style.visibility = "hidden";
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
-      }
-    }
-  };
+  //   let blob = new Blob([csvFile], { type: "text/csv;charset=utf-8;" });
+  //   if (navigator.msSaveBlob) {
+  //     // IE 10+
+  //     navigator.msSaveBlob(blob, filename);
+  //   } else {
+  //     let link = document.createElement("a");
+  //     if (link.download !== undefined) {
+  //       // feature detection
+  //       // Browsers that support HTML5 download attribute
+  //       let url = URL.createObjectURL(blob);
+  //       link.setAttribute("href", url);
+  //       link.setAttribute("download", filename);
+  //       link.style.visibility = "hidden";
+  //       document.body.appendChild(link);
+  //       link.click();
+  //       document.body.removeChild(link);
+  //     }
+  //   }
+  // };
 
   const handleExportXLS = () => {
     let rowData = [["id", "username", "password", "role"]]; // 設置column名
@@ -231,7 +228,6 @@ export const Autho = () => {
           variant="primary"
           onClick={handleExportXLS}
         >
-          {exporting ? <span>Exporting...</span> : <span>Export File</span>}
           <FontAwesomeIcon icon={faDownload} />
         </Button>
 

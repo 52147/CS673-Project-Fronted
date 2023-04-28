@@ -1,4 +1,4 @@
-import { React, useState, useEffect } from "react";
+import { React, useState, useEffect, useCallback } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { appointmentFormThunk } from "../../services/formThunk";
 import {
@@ -28,24 +28,23 @@ export const Appointment = () => {
   useEffect(() => {
     setPosts(history); // step 1
     paginationClickHandler(1); // step 2
-  }, [history]); // 2. 第二個useEffect，每一次reload頁面，更新 history
+  }, [history, paginationClickHandler]); // 2. 第二個useEffect，每一次reload頁面，更新 history
 
 
 
   const [active, setActivePage] = useState(1);
 
 
-  let tempArr = [];
-  const paginationClickHandler = (number) => {
-    tempArr = [];
+  const paginationClickHandler = useCallback((number) => {
+    let tempArr = [];
     for (let i = number * 10 - 10; i <= number * 10 - 1; i++) {
       if (i < history.length) {
-        tempArr.push(history[i]); // temArr用來更新 post，將data推入 temArr，每次推入10筆資料
+        tempArr.push(history[i]);
       }
     }
-    setActivePage(number); // 展示完頁面後，設定pagination的數字標示為active
-    setPosts(tempArr); // 更新 post 為 temArr
-  };
+    setActivePage(number);
+    setPosts(tempArr);
+  }, [history]);
 
   const pageNumbers = Math.ceil(history.length / 10); // 資料數量／１０為Pagination 圖標數量
   // let active = 1;

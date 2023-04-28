@@ -1,4 +1,4 @@
-import {useDispatch, useSelector} from "react-redux";
+import {useDispatch} from "react-redux";
 import React, {useState} from "react";
 import {parkingRegisterThunk} from "../../services/registerThunk";
 import styles from "../parking-register/register.module.css";
@@ -8,7 +8,7 @@ import {useNavigate} from "react-router";
 
 
 const ParkingRegister = () => {
-    const {loading, msg} = useSelector((state) => state.parkRegister)
+    // const {loading, msg} = useSelector((state) => state.parkRegister)
     let [userName, setUserName] = useState('');
     let [password, setPassword] = useState('');
     let [password2, setPassword2] = useState('');

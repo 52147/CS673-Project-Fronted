@@ -1,4 +1,4 @@
-import { React, useState, useEffect } from "react";
+import { React, useState, useEffect, useCallback } from "react";
 import { Table, Pagination } from "react-bootstrap";
 import { useSelector, useDispatch } from "react-redux";
 import { clientrecordFormThunk } from "../../services/formThunk";
@@ -19,15 +19,9 @@ export const ReserveTable = () => {
     dispatch(clientrecordFormThunk(username));
   }, [dispatch, username]);
 
-  // 第二個useEffect，更新資料到pagination第一頁
-  useEffect(() => {
-    setPosts(history);
-    paginationClickHandler(1);
-  }, [history]);
-
-  let tempArr = [];
-  const paginationClickHandler = (number) => {
-    tempArr = [];
+  // 使用 useCallback 來優化 paginationClickHandler
+  const paginationClickHandler = useCallback((number) => {
+    let tempArr = [];
     for (let i = number * 10 - 10; i <= number * 10 - 1; i++) {
       if (i < history.length) {
         tempArr.push(history[i]);
@@ -35,7 +29,13 @@ export const ReserveTable = () => {
     }
     setActivePage(number);
     setPosts(tempArr);
-  };
+  }, [history]);
+
+  // 第二個useEffect，更新資料到pagination第一頁
+  useEffect(() => {
+    setPosts(history);
+    paginationClickHandler(1);
+  }, [history, paginationClickHandler]);
 
   const pageNumbers = Math.ceil(history.length / 10);
   let items = [];

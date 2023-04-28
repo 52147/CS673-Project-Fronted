@@ -1,5 +1,5 @@
 import ParkingInformation from "./parking-info";
-import {useState} from "react";
+// import {useState} from "react";
 
 const ParkingInformationComponent = ({setData}) => {
 
