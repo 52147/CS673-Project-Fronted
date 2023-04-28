@@ -7,7 +7,7 @@ import { useNavigate } from "react-router";
 
 export const ReserveForm = ({ setData }) => {
   const dispatch = useDispatch();
-  const { history } = useSelector((state) => state.updateForm)|| {};
+  const { history } = useSelector((state) => state.updateForm) || {};
   const [selectedParkingSpace, setSelectedParkingSpace] = useState("");
   const [availableSlots, setAvailableSlots] = useState([]);
   const { username } = useSelector((state) => state.users);
@@ -179,13 +179,13 @@ export const ReserveForm = ({ setData }) => {
     submitForm().then(() => {
       navigate(`/payment`);
     });
+    // navigate(`/payment`);
   };
   // 發送資料到後端：3比資料用url param key，1比資料用json放到body帶過去
   const submitForm = async () => {
     validateForm();
     console.log(carType);
     if (isFormValid) {
-
       const formData = {
         ...cValues,
       };
@@ -204,8 +204,10 @@ export const ReserveForm = ({ setData }) => {
         username,
         withCarType,
       };
-      await setData(sendData);
-    } 
+      console.log("sendData");
+      console.log(sendData);
+      setData(sendData);
+    }
   };
 
   const currentDate = new Date().toLocaleDateString();
@@ -246,18 +248,18 @@ export const ReserveForm = ({ setData }) => {
 
   // 將user 選擇的button，格式化資料為想要的格式： a1 -> 24:00 ~ 1:00
   const selectedSlotsOne = Object.keys(cValues)
-  .filter((key) => cValues[key] && key.startsWith("a"))
-  .map((slot) => {
-    const hour = parseInt(slot.substr(1)) - 1;
-    return getTimeRange(hour, true);
-  });
+    .filter((key) => cValues[key] && key.startsWith("a"))
+    .map((slot) => {
+      const hour = parseInt(slot.substr(1)) - 1;
+      return getTimeRange(hour, true);
+    });
 
-const selectedSlotsTwo = Object.keys(cValues)
-  .filter((key) => cValues[key] && key.startsWith("b"))
-  .map((slot) => {
-    const hour = parseInt(slot.substr(1)) - 1;
-    return getTimeRange(hour, false);
-  });
+  const selectedSlotsTwo = Object.keys(cValues)
+    .filter((key) => cValues[key] && key.startsWith("b"))
+    .map((slot) => {
+      const hour = parseInt(slot.substr(1)) - 1;
+      return getTimeRange(hour, false);
+    });
   const selectedSlotsStringOne = selectedSlotsOne.join(" ");
   const dateStringOne = `${formattedDate}: ${selectedSlotsStringOne}`;
   const selectedSlotsStringTwo = selectedSlotsTwo.join(" ");

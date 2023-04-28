@@ -25,7 +25,7 @@ import ImageProcessComponent from "./image-process";
 
 function ParkingGarageAutomation() {
     const [value, setValue] = useState('')
-    const [data, setData] = useState('')
+    const [data, setData] = useState('no reservation data')
     console.log(data);
 
     let dom = () => {
