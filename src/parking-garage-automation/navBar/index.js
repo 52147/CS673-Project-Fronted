@@ -22,10 +22,10 @@ const NavBarComponent = () => {
         setShow(true);
         setTimeout(() => TimeOutHandlerClose(), 3000)
     }
-
-    const [date, setDate] = useState(new Date());
+    const date = new Date();
     useEffect(() => {
-        let time  = date.getTime()/1000
+        
+        let time = date.getTime()/1000
         //let time  = 1680056270
         if(time > users.exp){
             logOutHandler()
@@ -33,7 +33,7 @@ const NavBarComponent = () => {
         //console.log(time)
         //console.log(users)
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [users,date]);
+    }, [users, date]);
     return (
 
 

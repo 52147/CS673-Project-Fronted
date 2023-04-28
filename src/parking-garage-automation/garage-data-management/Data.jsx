@@ -1,6 +1,6 @@
 import React from "react";
 
-export const Data = ({posts}) => {
+export const Data = ({ posts }) => {
   return (
     <>
       {posts.map((post) => (
