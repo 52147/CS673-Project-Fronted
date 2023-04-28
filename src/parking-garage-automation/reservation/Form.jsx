@@ -163,7 +163,7 @@ export const ReserveForm = ({ setData }) => {
       carPlate === "" ||
       carType === "" ||
       selectedParkingSpace === "" ||
-      hasSelectedTimeSlot != true
+      hasSelectedTimeSlot !== true
     ) {
       setIsFormValid(false);
       setShowWarningModal(true); // Display warning modal
@@ -271,26 +271,18 @@ export const ReserveForm = ({ setData }) => {
 
   // 將user 選擇的button，格式化資料為想要的格式： a1 -> 24:00 ~ 1:00
   const selectedSlotsOne = Object.keys(cValues)
-    .filter((key) => cValues[key])
-    .map((slot) => {
-      const isColumnA = slot.startsWith("a");
-      console.log(slot);
+  .filter((key) => cValues[key] && key.startsWith("a"))
+  .map((slot) => {
+    const hour = parseInt(slot.substr(1)) - 1;
+    return getTimeRange(hour, true);
+  });
 
-      if (slot.startsWith("a")) {
-        const hour = parseInt(slot.substr(1)) - 1;
-        return getTimeRange(hour, isColumnA);
-      }
-    });
-
-  const selectedSlotsTwo = Object.keys(cValues)
-    .filter((key) => cValues[key])
-    .map((slot) => {
-      const isColumnA = slot.startsWith("b");
-      if (slot.startsWith("b")) {
-        const hour = parseInt(slot.substr(1)) - 1;
-        return getTimeRange(hour, isColumnA);
-      }
-    });
+const selectedSlotsTwo = Object.keys(cValues)
+  .filter((key) => cValues[key] && key.startsWith("b"))
+  .map((slot) => {
+    const hour = parseInt(slot.substr(1)) - 1;
+    return getTimeRange(hour, false);
+  });
   const selectedSlotsStringOne = selectedSlotsOne.join(" ");
   const dateStringOne = `${formattedDate}: ${selectedSlotsStringOne}`;
   const selectedSlotsStringTwo = selectedSlotsTwo.join(" ");

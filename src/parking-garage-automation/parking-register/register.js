@@ -93,7 +93,7 @@ const ParkingRegister = () => {
             errors.push('Please enter a valid address.');
         }
 
-        if (sq1=='0' || sq2=='0') {
+        if (sq1==='0' || sq2==='0') {
             errors.push('Please select security questions.');
         }else if(sq1===sq2){
             errors.push('Please select different security questions.');

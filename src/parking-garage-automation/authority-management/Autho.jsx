@@ -34,18 +34,6 @@ export const Autho = () => {
 
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
-
-  useEffect(() => {
-    if (!loading) {
-      paginationClickHandler(1);
-    }
-    setDisplayMessage(loading);
-    console.log(loading);
-    console.log(history);
-  }, [loading, history, paginationClickHandler]);
-
-
-
   const paginationClickHandler = useCallback((number) => {
     let tempArr = [];
     for (let i = number * 5 - 5; i <= number * 5 - 1; i++) {
@@ -56,6 +44,15 @@ export const Autho = () => {
     setActivePage(number);
     setPosts(tempArr);
   }, [history]);
+
+  useEffect(() => {
+    if (!loading) {
+      paginationClickHandler(1);
+    }
+    setDisplayMessage(loading);
+    console.log(loading);
+    console.log(history);
+  }, [loading, history, paginationClickHandler]);
 
   const pageNumbers = Math.ceil(history.length / 5); // 資料數量／１０為Pagination 圖標數量
   // let active = 1;
@@ -175,7 +172,7 @@ export const Autho = () => {
       //   setShow(true);
       // }
 
-      if(req.payload== false){
+      if(req.payload=== false){
         setShow(true);
       }
       console.log(req.payload);

@@ -50,9 +50,9 @@ const FindBySQ = ({setValue}) => {
     const sq2 = data.find(sq => sq.id === user.q2);
 
     const changeQuestionClickHandler = () => {
-        if(question == 1){
+        if(question === 1){
             setQuestion(2)
-        }else if(question == 2){
+        }else if(question === 2){
             setQuestion(1)
         }
     }

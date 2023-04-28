@@ -17,6 +17,16 @@ export const Appointment = () => {
   const [posts, setPosts] = useState([]);
 
   const { history } = useSelector((state) => state.updateForm);
+  const paginationClickHandler = useCallback((number) => {
+    let tempArr = [];
+    for (let i = number * 10 - 10; i <= number * 10 - 1; i++) {
+      if (i < history.length) {
+        tempArr.push(history[i]);
+      }
+    }
+    setActivePage(number);
+    setPosts(tempArr);
+  }, [history]);
   useEffect(() => {
     console.log("Fetching history...");
     dispatch(appointmentFormThunk());
@@ -35,16 +45,7 @@ export const Appointment = () => {
   const [active, setActivePage] = useState(1);
 
 
-  const paginationClickHandler = useCallback((number) => {
-    let tempArr = [];
-    for (let i = number * 10 - 10; i <= number * 10 - 1; i++) {
-      if (i < history.length) {
-        tempArr.push(history[i]);
-      }
-    }
-    setActivePage(number);
-    setPosts(tempArr);
-  }, [history]);
+
 
   const pageNumbers = Math.ceil(history.length / 10); // 資料數量／１０為Pagination 圖標數量
   // let active = 1;
