@@ -1,0 +1,8 @@
+{
+  "projects": {
+    "staging": "parking-lot-management-s-9d929",
+    "default": "parking-lot-management-s-9d929"
+  },
+  "targets": {},
+  "etags": {}
+}

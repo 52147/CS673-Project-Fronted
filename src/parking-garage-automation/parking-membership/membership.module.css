@@ -1,0 +1,32 @@
+.textColor{
+    color: #50A3A2;
+}
+
+
+.payButton{
+    width : 25%;
+    font-size: x-large !important;
+}
+
+.textRight{
+    text-align: right;
+}
+
+.textLeft{
+    text-align: left;
+}
+
+.form{
+    width : 50% !important;
+}
+
+.card{
+    width : 70% !important;
+}
+
+.image {
+    width: 80px;
+    height: 80px;
+    display: block;
+    margin: 0 auto 12px auto;
+}

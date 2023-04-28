@@ -1,0 +1,36 @@
+.payButton{
+    width : 25%!important;
+    font-size: x-large !important;
+}
+
+
+.backG{
+    text-align: center;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background: #50A3A2 center;
+}
+
+.textRight{
+    text-align: right;
+}
+
+.textLeft{
+    text-align: left;
+}
+
+.textCenter{
+    text-align: center;
+}
+
+.content{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.buttonWidth{
+    width: 15%;
+}
