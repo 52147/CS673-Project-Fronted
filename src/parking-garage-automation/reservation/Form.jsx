@@ -18,7 +18,7 @@ export const ReserveForm = ({ setData }) => {
   const handleClose = () => setShow(false);
   const handleClose2 = () => setShowWarningModal(false);
 
-  const [isFormValid, setIsFormValid] = useState(false);
+  // const [isFormValid, setIsFormValid] = useState(false);
   const [showWarningModal, setShowWarningModal] = useState(false);
 
   const navigate = useNavigate();
@@ -167,48 +167,52 @@ export const ReserveForm = ({ setData }) => {
       selectedParkingSpace === "" ||
       hasSelectedTimeSlot !== true
     ) {
-      setIsFormValid(false);
+      // setIsFormValid(false);
       setShowWarningModal(true); // Display warning modal
     } else {
-      setIsFormValid(true);
+      // setIsFormValid(true);
+
+      submitForm();
     }
     console.log("cValues", cValues);
   };
-  const handleSubmit = (event) => {
-    event.preventDefault(); // prevent form from refreshing page
-    submitForm().then(() => {
-      navigate(`/payment`);
-    });
-    // navigate(`/payment`);
-  };
+  // const handleSubmit = (event) => {
+  //   event.preventDefault(); // prevent form from refreshing page
+  //   submitForm().then(() => {
+  //     // navigate(`/payment`);
+  //   });
+  //   // navigate(`/payment`);
+  // };
   // 發送資料到後端：3比資料用url param key，1比資料用json放到body帶過去
   const submitForm = async () => {
-    validateForm();
+    // validateForm();
     console.log(carType);
-    if (isFormValid) {
-      const formData = {
-        ...cValues,
-      };
-      Object.keys(formData).forEach((key) => (formData[key] = carPlate));
-      const totalReserveTime = Object.keys(formData).length;
-      const withCarType = {
-        id: selectedParkingSpace,
-        type: carType,
-        ...formData,
-      };
-      const sendData = {
-        from: "reservation",
-        hour: totalReserveTime,
-        result,
-        carPlate,
-        username,
-        withCarType,
-      };
-      console.log("sendData");
-      console.log(sendData);
-      setData(sendData);
-    }
+    // if (isFormValid) {
+    const formData = {
+      ...cValues,
+    };
+    Object.keys(formData).forEach((key) => (formData[key] = carPlate));
+    const totalReserveTime = Object.keys(formData).length;
+    const withCarType = {
+      id: selectedParkingSpace,
+      type: carType,
+      ...formData,
+    };
+    const sendData = {
+      from: "reservation",
+      hour: totalReserveTime,
+      result,
+      carPlate,
+      username,
+      withCarType,
+    };
+    console.log("sendData");
+    // console.log(sendData);
+    setData(sendData);
+    navigate(`/payment`);
+    // }
   };
+  // setData("123456");
 
   const currentDate = new Date().toLocaleDateString();
   const curr = new Date();
@@ -372,7 +376,7 @@ export const ReserveForm = ({ setData }) => {
 
         <div className="mt-6 ">
           <Button
-            onClick={handleSubmit}
+            onClick={validateForm}
             className="w-full bg-indigo-500 hover:bg-indigo-400 text-white font-bold py-2 px-4 rounded-lg shadow-md"
           >
             Submit
