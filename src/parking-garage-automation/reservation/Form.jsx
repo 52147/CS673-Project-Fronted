@@ -176,13 +176,7 @@ export const ReserveForm = ({ setData }) => {
     }
     console.log("cValues", cValues);
   };
-  // const handleSubmit = (event) => {
-  //   event.preventDefault(); // prevent form from refreshing page
-  //   submitForm().then(() => {
-  //     // navigate(`/payment`);
-  //   });
-  //   // navigate(`/payment`);
-  // };
+  
   // 發送資料到後端：3比資料用url param key，1比資料用json放到body帶過去
   const submitForm = async () => {
     // validateForm();
