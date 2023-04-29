@@ -10,6 +10,7 @@ This is a full-stack web application that provides a parking lot management syst
 - [Features](#features)
 - [Technologies Used](#technologies-used)
 - [Getting Started](#getting-started)
+- [Deployment](#deployment)
 - [Usage](#usage)
 - [Contributing](#contributing)
 - [License](#license)
@@ -67,6 +68,18 @@ npm start
 ```
 
 4. Open http://localhost:3000 to view the application in the browser.
+Clone the backend repository using the following command:
+```
+git clone https://github.com/52147/CS673-Project-Backend.git
+```
+5. Open MySql and Run the sql file in backend project resource file to create table and data.
+6. Run the backend using intellj.
+7. Start use the features.
+
+## Deployment
+
+- The frontend is deployed on Firebase.
+- The backend and database are deployed on Railway.
 
 ## Usage
 
@@ -102,7 +115,5 @@ Contributions are always welcome! If you want to contribute to the project, foll
 5. Create a pull request to the main repository.
 
 ## License
-
-This project is licensed under the MIT License.
 
 This project is licensed under the MIT License.
