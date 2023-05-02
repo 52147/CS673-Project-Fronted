@@ -53,7 +53,7 @@ function ParkingGarageAutomation() {
                 <Route path="/usermodule/membership" element={<ParkingMembershipComponent setData = {setData}/>}/>
                 <Route path="/modules/membership" element={<ParkingMembershipRecordComponent/>}/>
                 <Route path="/imageprocess" element={<ImageProcessComponent/>}/>
-                <Route path="/autoInout" element={<AutoInputCar/>}/>
+                <Route path="/autoInput" element={<AutoInputCar/>}/>
             </Routes>
         )
     }
