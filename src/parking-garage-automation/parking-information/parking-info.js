@@ -5,6 +5,8 @@ import {useDispatch, useSelector} from "react-redux";
 import React, {useEffect} from "react";
 import {getParkingInfoThunk} from "../../services/parkInfoThunk";
 import {useParams} from "react-router-dom";
+import '../../parking-garage-automation/parking-information/parkinginfoMock'
+
 
 
 
@@ -114,7 +116,7 @@ const ParkingInformation = ({setData}) => {
                                 <h3>Total Parking Time:</h3>
                             </div>
                             <div className={`col-6 text-white ${styles.textLeft}`}>
-                                <h3>{TotalParkingTime}</h3>
+                                <h3>{Math.round(TotalParkingTime/60)} hour {TotalParkingTime%60} min</h3>
                             </div>
                         </div>
 

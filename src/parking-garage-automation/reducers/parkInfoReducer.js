@@ -8,7 +8,7 @@ const initialState = {
     DepartureTime: '',
     TotalParkingTime:'',
     ParkingFee:'',
-    msg:''
+    msg:'fail'
 }
 
 const parkInfoSlice = createSlice({
@@ -19,9 +19,9 @@ const parkInfoSlice = createSlice({
     },
     extraReducers: (builder) => {
       builder
-        .addCase(getParkingInfoThunk.pending, (state) => {
-          state.loading = true;
-        })
+        // .addCase(getParkingInfoThunk.pending, (state) => {
+        //     state.loading = true;
+        // })
         .addCase(getParkingInfoThunk.fulfilled, (state, action) => {
           state.loading = false;
           state.PlateNumber = action.payload.content.parkinfo.plate;
@@ -33,11 +33,12 @@ const parkInfoSlice = createSlice({
           }
           state.TotalParkingTime = action.payload.content.parking_time;
           state.ParkingFee = action.payload.content.parkingFee;
-          state.msg = 'success';
+          state.msg = action.payload.msg;
+          console.log(action.payload);
         })
-        .addCase(getParkingInfoThunk.rejected, (state) => {
+        .addCase(getParkingInfoThunk.rejected, (state,action) => {
           state.loading = false;
-          state.msg = 'fail';
+          state.msg = 'fail'
           console.log('reject');
         });
     },
