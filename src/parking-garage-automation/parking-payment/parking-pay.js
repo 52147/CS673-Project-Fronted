@@ -20,6 +20,7 @@ const ParkingPayment = ({data}) => {
         maxFee,
     } = useSelector((state) => state.parkFee)
 
+
     const {
         PlateNumber,
         DepartureTime,
@@ -73,23 +74,26 @@ const ParkingPayment = ({data}) => {
     useEffect(() => {
         if (data.from === "parkInfo") {
             setFee(ParkingFee)
-            console.log(ParkingFee)
+            //console.log(ParkingFee)
         }
         else if (data.from === "reservation") {
             async function fetchData() {
                 const carType = data.withCarType.type
                 await dispatch(getFeeThunk({carType}))
+                console.log(data.withCarType.type)
                 if(data.hour <= firstHour){
                     setFee(data.hour*firstFee)
+
                 }else{
                     setFee(Math.max(firstHour*firstFee +(data.hour-firstHour)*secondFee,maxFee))
                 }
+                console.log(fee)
             }
             fetchData();
         }
         else if(data.from === "membership"){
             setFee(data.price)
-            console.log(ParkingFee)
+            //console.log(ParkingFee)
         }
 
     }, [fee]);

@@ -16,9 +16,9 @@ const parkFeeSlice = createSlice({
     reducers: {},
     extraReducers: (builder) => {
       builder
-        .addCase(getFeeThunk.pending, (state) => {
-          state.loading = true;
-        })
+        // .addCase(getFeeThunk.pending, (state) => {
+        //   state.loading = true;
+        // })
         .addCase(getFeeThunk.fulfilled, (state, { payload }) => {
           state.loading = false;
           state.firstHour = payload.content.hour;

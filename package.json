@@ -19,6 +19,7 @@
     "firebase": "^9.17.2",
     "jquery": "^3.6.4",
     "jwt-decode": "^3.1.2",
+    "mockjs": "^1.1.0",
     "react": "^18.2.0",
     "react-bootstrap": "^2.7.2",
     "react-datepicker": "^4.10.0",
@@ -34,7 +35,8 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test --transformIgnorePatterns \"node_modules/(?!axios)/\" --coverage",    "eject": "react-scripts eject"
+    "test": "react-scripts test --transformIgnorePatterns \"node_modules/(?!axios)/\" --coverage",
+    "eject": "react-scripts eject"
   },
   "eslintConfig": {
     "extends": [
