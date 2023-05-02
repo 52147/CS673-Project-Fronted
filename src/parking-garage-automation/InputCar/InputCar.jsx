@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styles from "./inputCar.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import { checkInCarThunk } from "../../services/inputCarThunk";
@@ -6,20 +6,40 @@ import { Button, Modal } from "react-bootstrap";
 import MessengerCustomerChat from "react-messenger-customer-chat";
 
 export const InputCar = (props) => {
-  const { responseMsg } = useSelector(
-    (state) => state.checkInCars
-  );
+  const [webSocketData, setWebSocketReturnData] = useState("");
+
+  useEffect(() => {
+    const ws = new WebSocket("ws://localhost:8080");
+
+    ws.onmessage = (event) => {
+      const data = JSON.parse(event.data);
+      // const data = {
+      //     plate: contact,
+      //     Entrance: "true"
+      // }
+
+      setWebSocketReturnData(data);
+      if (data.Entrance === "false") {
+        window.location.replace(`/information/${data.plate}`);
+      }
+    };
+
+    return () => {
+      ws.close();
+    };
+  }, []);
+
+  const { responseMsg } = useSelector((state) => state.checkInCars);
+
   const [contact, setContact] = useState("");
   const dispatch = useDispatch();
   const [isMouseOver, setMouseOver] = useState(false);
   const [show, setShow] = useState(false);
 
-
-
   const submitPlateHandler = async () => {
     const content = {
       plate: contact,
-      carType: "Car"
+      carType: "Car",
     };
     console.log(content);
 
@@ -30,10 +50,9 @@ export const InputCar = (props) => {
         setShow(true);
       }
       console.log(responseMsg);
+      console.log(req.payload.content);
       console.log(req.payload.content.Entrance);
     });
-
-
   };
   const handleClose = () => setShow(false);
 
@@ -67,6 +86,14 @@ export const InputCar = (props) => {
     <div className={styles.body}>
       <div className={styles.container}>
         <h1>Input Plate License Number</h1>
+
+        <div>
+          <p>Plate from car plate recognition model: {webSocketData.plate}</p>
+          <p>
+            Entrance from car plate recognition model: {webSocketData.Entrance}
+          </p>
+        </div>
+
         {
           // !loading && <p>{responseMsg}</p>
         }
@@ -109,14 +136,12 @@ export const InputCar = (props) => {
             </Button>
           </Modal.Footer>
         </Modal>
-        {
-          props.showMessengerCustomerChat ? (
-            <MessengerCustomerChat
-              pageId="107150052349235"
-              appId="2210845679103617"
-            />
-          ) : undefined
-        }
+        {props.showMessengerCustomerChat ? (
+          <MessengerCustomerChat
+            pageId="107150052349235"
+            appId="2210845679103617"
+          />
+        ) : undefined}
       </div>
     </div>
   );
