@@ -6,10 +6,18 @@ import { Button, Modal } from "react-bootstrap";
 import MessengerCustomerChat from "react-messenger-customer-chat";
 
 export const InputCar = (props) => {
-  const [webSocketData, setWebSocketReturnData] = useState("");
+  const [webSocketReturnData, setWebSocketReturnData] = useState("");
 
   useEffect(() => {
-    const ws = new WebSocket("ws://localhost:8080");
+    const ws = new WebSocket("ws://localhost:8080/websocket");
+
+    ws.onopen = () => {
+      console.log('WebSocket connection opened');
+    };
+
+    ws.onclose = () => {
+      console.log('WebSocket connection closed');
+    };
 
     ws.onmessage = (event) => {
       const data = JSON.parse(event.data);
@@ -17,16 +25,21 @@ export const InputCar = (props) => {
       //     plate: contact,
       //     Entrance: "true"
       // }
-
+      console.log(data)
+      console.log(data.entrance === "false")
       setWebSocketReturnData(data);
-      if (data.Entrance === "false") {
+      if (!data.entrance) {
+        console.log("go")
         window.location.replace(`/information/${data.plate}`);
       }
-    };
+    }
+
 
     return () => {
       ws.close();
     };
+
+    
   }, []);
 
   const { responseMsg } = useSelector((state) => state.checkInCars);
@@ -88,9 +101,9 @@ export const InputCar = (props) => {
         <h1>Input Plate License Number</h1>
 
         <div>
-          <p>Plate from car plate recognition model: {webSocketData.plate}</p>
+          <p>Plate from car plate recognition model: {webSocketReturnData.plate}</p>
           <p>
-            Entrance from car plate recognition model: {webSocketData.Entrance}
+            Entrance from car plate recognition model: {webSocketReturnData.entrance}
           </p>
         </div>
 
