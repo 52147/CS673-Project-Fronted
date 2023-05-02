@@ -22,7 +22,7 @@ import ForgotPasswordComponent from "./parking-forgot-password";
 import ParkingMembershipComponent from "./parking-membership";
 import ParkingMembershipRecordComponent from "./garage-membership";
 import ImageProcessComponent from "./image-process";
-import AutoInputCar from "./InputCar/AutoInputCar";
+import {AutoInputCar} from "./InputCar/AutoInputCar";
 
 function ParkingGarageAutomation() {
     const [value, setValue] = useState('')

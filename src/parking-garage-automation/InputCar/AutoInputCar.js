@@ -1,12 +1,11 @@
-import React, {useEffect, useState} from "react";
-import ParkingFee from "../garage-fee/parkingFee";
-import {useDispatch, useSelector} from "react-redux";
-import {checkInCarThunk} from "../../services/inputCarThunk";
+import React, { useState, useEffect } from "react";
 import styles from "./inputCar.module.css";
-import {Button, Modal} from "react-bootstrap";
+import { useDispatch, useSelector } from "react-redux";
+import { checkInCarThunk } from "../../services/inputCarThunk";
+import { Button, Modal } from "react-bootstrap";
 import MessengerCustomerChat from "react-messenger-customer-chat";
 
-const AutoInputCar = (props)=>{
+export const AutoInputCar = (props) => {
     const [webSocketReturnData, setWebSocketReturnData] = useState("");
 
     useEffect(() => {
@@ -101,12 +100,12 @@ const AutoInputCar = (props)=>{
             <div className={styles.container}>
                 <h1>Input Plate License Number</h1>
 
-                {/*<div>*/}
-                {/*  <p>Plate from car plate recognition model: {webSocketReturnData.plate}</p>*/}
-                {/*  <p>*/}
-                {/*    Entrance from car plate recognition model: {webSocketReturnData.entrance}*/}
-                {/*  </p>*/}
-                {/*</div>*/}
+                <div>
+                  <p>Plate from car plate recognition model: {webSocketReturnData.plate}</p>
+                  <p>
+                    Entrance from car plate recognition model: {webSocketReturnData.entrance}
+                  </p>
+                </div>
 
                 {
                     // !loading && <p>{responseMsg}</p>
@@ -160,5 +159,3 @@ const AutoInputCar = (props)=>{
         </div>
     );
 };
-
-export default AutoInputCar;
