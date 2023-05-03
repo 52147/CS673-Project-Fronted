@@ -22,6 +22,7 @@ import ForgotPasswordComponent from "./parking-forgot-password";
 import ParkingMembershipComponent from "./parking-membership";
 import ParkingMembershipRecordComponent from "./garage-membership";
 import ImageProcessComponent from "./image-process";
+import {AutoInputCar} from "./InputCar/AutoInputCar";
 
 function ParkingGarageAutomation() {
     const [value, setValue] = useState('')
@@ -52,6 +53,7 @@ function ParkingGarageAutomation() {
                 <Route path="/usermodule/membership" element={<ParkingMembershipComponent setData = {setData}/>}/>
                 <Route path="/modules/membership" element={<ParkingMembershipRecordComponent/>}/>
                 <Route path="/imageprocess" element={<ImageProcessComponent/>}/>
+                <Route path="/autoInput" element={<AutoInputCar/>}/>
             </Routes>
         )
     }
