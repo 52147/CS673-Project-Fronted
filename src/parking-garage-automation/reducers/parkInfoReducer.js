@@ -36,7 +36,7 @@ const parkInfoSlice = createSlice({
           state.msg = action.payload.msg;
           console.log(action.payload);
         })
-        .addCase(getParkingInfoThunk.rejected, (state,action) => {
+        .addCase(getParkingInfoThunk.rejected, (state) => {
           state.loading = false;
           state.msg = 'fail'
           console.log('reject');

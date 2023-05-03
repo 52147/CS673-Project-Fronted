@@ -37,7 +37,7 @@ export default Mock.mock(
     (req) => {
         console.log(req)
         let req_data = JSON.parse(req.body)
-        if (req_data.plate == "ABC") {
+        if (req_data.plate === "ABC") {
             console.log(data_success)
             return data_success;
 

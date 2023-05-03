@@ -1,13 +1,12 @@
 import React, { useState, useEffect } from "react";
 import styles from "./inputCar.module.css";
-import { useDispatch, useSelector } from "react-redux";
-import { checkInCarThunk } from "../../services/inputCarThunk";
+// import { useDispatch, useSelector } from "react-redux";
+// import { checkInCarThunk } from "../../services/inputCarThunk";
 import { Button, Modal } from "react-bootstrap";
 import MessengerCustomerChat from "react-messenger-customer-chat";
 
 export const AutoInputCar = (props) => {
     const [webSocketReturnData, setWebSocketReturnData] = useState("");
-
     useEffect(() => {
         const ws = new WebSocket("ws://localhost:8080/websocket");
 
@@ -31,6 +30,8 @@ export const AutoInputCar = (props) => {
             if (!data.entrance) {
                 console.log("go")
                 window.location.replace(`/information/${data.plate}`);
+            } else {
+                setShow(true);
             }
         }
 
@@ -42,58 +43,58 @@ export const AutoInputCar = (props) => {
 
     }, []);
 
-    const { responseMsg } = useSelector((state) => state.checkInCars);
+    // const { responseMsg } = useSelector((state) => state.checkInCars);
 
-    const [contact, setContact] = useState("");
-    const dispatch = useDispatch();
-    const [isMouseOver, setMouseOver] = useState(false);
+    // const [contact, setContact] = useState("");
+    // const dispatch = useDispatch();
+    // const [isMouseOver, setMouseOver] = useState(false);
     const [show, setShow] = useState(false);
 
-    const submitPlateHandler = async () => {
-        const content = {
-            plate: contact,
-            carType: "Car",
-        };
-        console.log(content);
+    // const submitPlateHandler = async () => {
+    //     const content = {
+    //         plate: contact,
+    //         carType: "Car",
+    //     };
+    //     console.log(content);
 
-        await dispatch(checkInCarThunk(content)).then((req) => {
-            if (req.payload.content.Entrance === "false") {
-                window.location.replace(`/information/${contact}`);
-            } else {
-                setShow(true);
-            }
-            console.log(responseMsg);
-            console.log(req.payload.content);
-            console.log(req.payload.content.Entrance);
-        });
-    };
+    //     await dispatch(checkInCarThunk(content)).then((req) => {
+    //         if (req.payload.content.Entrance === "false") {
+    //             window.location.replace(`/information/${contact}`);
+    //         } else {
+    //             setShow(true);
+    //         }
+    //         console.log(responseMsg);
+    //         console.log(req.payload.content);
+    //         console.log(req.payload.content.Entrance);
+    //     });
+    // };
     const handleClose = () => setShow(false);
 
-    function handleMouseOver() {
-        setMouseOver(true);
-    }
-    function handleMouseOut() {
-        setMouseOver(false);
-    }
+    // function handleMouseOver() {
+    //     setMouseOver(true);
+    // }
+    // function handleMouseOut() {
+    //     setMouseOver(false);
+    // }
     // send a random id to backend
-    const handleCreateUser = () => {
-        const content = {
-            carType: "Bicycle",
-            plate: contact,
-        };
-        dispatch(checkInCarThunk(content)).then((req) => {
-            if (req.payload.content.Entrance === "false") {
-                window.location.replace(`/information/${contact}`);
-            } else {
-                setShow(true);
-            }
-            console.log(responseMsg);
-            console.log(req.payload.content.Entrance);
-        });
-        // dispatch(showBicycleUserThunk()).then((req) =>{
-        //   console.log(req);
-        // });
-    };
+    // const handleCreateUser = () => {
+    //     const content = {
+    //         carType: "Bicycle",
+    //         plate: contact,
+    //     };
+    //     dispatch(checkInCarThunk(content)).then((req) => {
+    //         if (req.payload.content.Entrance === "false") {
+    //             window.location.replace(`/information/${contact}`);
+    //         } else {
+    //             setShow(true);
+    //         }
+    //         console.log(responseMsg);
+    //         console.log(req.payload.content.Entrance);
+    //     });
+    //     // dispatch(showBicycleUserThunk()).then((req) =>{
+    //     //   console.log(req);
+    //     // });
+    // };
 
     return (
         <div className={styles.body}>
@@ -113,8 +114,8 @@ export const AutoInputCar = (props) => {
                 {
                     // loading && <p>loading = true</p>
                 }
-                <p>{contact}</p>
-                <input
+                {/* <p>{contact}</p> */}
+                {/* <input
                     className={styles.inputClass}
                     onChange={(event) => setContact(event.target.value)}
                     name="carNumber"
@@ -136,11 +137,11 @@ export const AutoInputCar = (props) => {
                 <br />
                 <button className={styles.buttonClass} onClick={handleCreateUser}>
                     Bicycle User Press Here
-                </button>
+                </button> */}
 
                 <Modal show={show} onHide={handleClose}>
                     <Modal.Header closeButton>
-                        <Modal.Title>Welcome Car {contact}</Modal.Title>
+                        <Modal.Title>Welcome Car {webSocketReturnData.entrance}</Modal.Title>
                     </Modal.Header>
                     <Modal.Body> Welcome to Victory Eight Parking Lot</Modal.Body>
                     <Modal.Footer>
