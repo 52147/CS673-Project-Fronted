@@ -8,7 +8,7 @@ const initialState = {
     DepartureTime: '',
     TotalParkingTime:'',
     ParkingFee:'',
-    msg:'fail'
+    msg:''
 }
 
 const parkInfoSlice = createSlice({

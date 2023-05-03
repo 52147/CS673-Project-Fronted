@@ -12,6 +12,7 @@ import '../../parking-garage-automation/parking-information/parkinginfoMock'
 
 const ParkingInformation = ({setData}) => {
     const {plates} = useParams();
+    console.log(plates)
 
     const {
         loading,
@@ -40,7 +41,7 @@ const ParkingInformation = ({setData}) => {
 
     const navigate = useNavigate()
     const navHome = () => {
-        navigate('/');
+        navigate('/autoInput');
     }
 
     const dispatch = useDispatch();
@@ -49,7 +50,7 @@ const ParkingInformation = ({setData}) => {
           plate: plates,
         };
         dispatch(getParkingInfoThunk(parkInfo));
-        setTimeout(() => navigate("/"), 15000);
+        //setTimeout(() => navigate("/"), 15000);
       }, [dispatch, navigate, plates]);
       
 
@@ -141,8 +142,6 @@ const ParkingInformation = ({setData}) => {
                         </div>
 
                     </div>
-
-
                 }
 
 

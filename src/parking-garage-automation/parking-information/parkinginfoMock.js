@@ -33,7 +33,7 @@ let data_error =
 
 const COMMENTS_API = 'http://localhost:8080'
 export default Mock.mock(
-    COMMENTS_API + "/index/check/checkPlate", 'post',
+    COMMENTS_API + "/index/check/checkPlate/mock", 'post',
     (req) => {
         console.log(req)
         let req_data = JSON.parse(req.body)
