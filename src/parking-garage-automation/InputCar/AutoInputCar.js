@@ -9,35 +9,35 @@ export const AutoInputCar = (props) => {
     const [webSocketReturnData, setWebSocketReturnData] = useState("");
 
     useEffect(() => {
-      const ws = new WebSocket("ws://localhost:8080/websocket");
+        const ws = new WebSocket("ws://localhost:8080/websocket");
 
-      ws.onopen = () => {
-        console.log('WebSocket connection opened');
-      };
+        ws.onopen = () => {
+            console.log('WebSocket connection opened');
+        };
 
-      ws.onclose = () => {
-        console.log('WebSocket connection closed');
-      };
+        ws.onclose = () => {
+            console.log('WebSocket connection closed');
+        };
 
-      ws.onmessage = (event) => {
-        const data = JSON.parse(event.data);
-        // const data = {
-        //     plate: contact,
-        //     Entrance: "true"
-        // }
-        console.log(data)
-        console.log(data.entrance === "false")
-        setWebSocketReturnData(data);
-        if (!data.entrance) {
-          console.log("go")
-          window.location.replace(`/information/${data.plate}`);
+        ws.onmessage = (event) => {
+            const data = JSON.parse(event.data);
+            // const data = {
+            //     plate: contact,
+            //     Entrance: "true"
+            // }
+            console.log(data)
+            console.log(data.entrance === "false")
+            setWebSocketReturnData(data);
+            if (!data.entrance) {
+                console.log("go")
+                window.location.replace(`/information/${data.plate}`);
+            }
         }
-      }
 
 
-      return () => {
-        ws.close();
-      };
+        return () => {
+            ws.close();
+        };
 
 
     }, []);
@@ -101,10 +101,10 @@ export const AutoInputCar = (props) => {
                 <h1>Input Plate License Number</h1>
 
                 <div>
-                  <p>Plate from car plate recognition model: {webSocketReturnData.plate}</p>
-                  <p>
-                    Entrance from car plate recognition model: {webSocketReturnData.entrance}
-                  </p>
+                    <p>Plate from car plate recognition model: {webSocketReturnData.plate}</p>
+                    <p>
+                        Entrance from car plate recognition model: {webSocketReturnData.entrance}
+                    </p>
                 </div>
 
                 {
