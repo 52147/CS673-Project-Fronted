@@ -72,26 +72,28 @@ const ParkingPayment = ({data}) => {
     const dispatch = useDispatch();
     useEffect(() => {
         if (data.from === "parkInfo") {
-          setFee(ParkingFee)
-          console.log(ParkingFee)
-        }
-        else if (data.from === "reservation") {
+          setFee(ParkingFee);
+          console.log(ParkingFee);
+        } else if (data.from === "reservation") {
           async function fetchData() {
-            const carType = data.withCarType.type
-            await dispatch(getFeeThunk({carType}))
-            if(data.hour <= firstHour){
-              setFee(data.hour*firstFee)
-            }else{
-              setFee(Math.max(firstHour*firstFee +(data.hour-firstHour)*secondFee,maxFee))
+            const carType = data.withCarType?.type;
+            if (carType) {
+              await dispatch(getFeeThunk({ carType }));
+              if (data.hour <= firstHour) {
+                setFee(data.hour * firstFee);
+              } else {
+                setFee(Math.max(firstHour * firstFee + (data.hour - firstHour) * secondFee, maxFee));
+              }
+            } else {
+              // handle null case
             }
           }
           fetchData();
+        } else if (data.from === "membership") {
+          setFee(data.price);
+          console.log(ParkingFee);
         }
-        else if(data.from === "membership"){
-          setFee(data.price)
-          console.log(ParkingFee)
-        }
-      }, [data.from, data.price, dispatch,ParkingFee, data.hour, data.withCarType.type, firstFee, firstHour, maxFee, secondFee]);
+      }, [data.withCarType?.type,ParkingFee, data.from, data.hour, data.price, dispatch, firstFee, firstHour, maxFee, secondFee]);
       
       
       
