@@ -6,116 +6,116 @@ import { Button, Modal } from "react-bootstrap";
 import MessengerCustomerChat from "react-messenger-customer-chat";
 
 export const AutoInputCar = (props) => {
-    const [webSocketReturnData, setWebSocketReturnData] = useState("");
-    useEffect(() => {
-        const ws = new WebSocket("ws://localhost:8080/websocket");
+  const [webSocketReturnData, setWebSocketReturnData] = useState("");
+  useEffect(() => {
+    // 1. 建立一個 websocket連接
+    const ws = new WebSocket("ws://localhost:8080/websocket");
+    // 2. onopen 用於指定連接成功後的回調函數
+    ws.onopen = () => {
+      console.log("WebSocket connection opened");
+    };
+    // 3. onclose 用於指定連接關閉後的回調函數
+    ws.onclose = () => {
+      console.log("WebSocket connection closed");
+    };
+    // 4. onmessage 用於指定服務器接收到信息時的回調函數
+    ws.onmessage = (event) => {
+      const data = JSON.parse(event.data);
+      // const data = {
+      //     plate: contact,
+      //     Entrance: "true"
+      // }
+      console.log(data);
+      console.log(data.entrance === "false");
+      setWebSocketReturnData(data);
+      if (data.entrance === "false") {
+        window.location.replace(`/information/${data.plate}`);
+      } else {
+        setShow(true);
+      }
+    };
+    return () => {
+      // 5. close 關閉當前連接
+      ws.close();
+    };
+  }, []);
 
-        ws.onopen = () => {
-            console.log('WebSocket connection opened');
-        };
+  // const { responseMsg } = useSelector((state) => state.checkInCars);
 
-        ws.onclose = () => {
-            console.log('WebSocket connection closed');
-        };
+  // const [contact, setContact] = useState("");
+  // const dispatch = useDispatch();
+  // const [isMouseOver, setMouseOver] = useState(false);
+  const [show, setShow] = useState(false);
 
-        ws.onmessage = (event) => {
-            const data = JSON.parse(event.data);
-            // const data = {
-            //     plate: contact,
-            //     Entrance: "true"
-            // }
-            console.log(data)
-            console.log(data.entrance === "false")
-            setWebSocketReturnData(data);
-            if (!data.entrance) {
-                console.log("go")
-                window.location.replace(`/information/${data.plate}`);
-            } else {
-                setShow(true);
-            }
+  // const submitPlateHandler = async () => {
+  //     const content = {
+  //         plate: contact,
+  //         carType: "Car",
+  //     };
+  //     console.log(content);
+
+  //     await dispatch(checkInCarThunk(content)).then((req) => {
+  //         if (req.payload.content.Entrance === "false") {
+  //             window.location.replace(`/information/${contact}`);
+  //         } else {
+  //             setShow(true);
+  //         }
+  //         console.log(responseMsg);
+  //         console.log(req.payload.content);
+  //         console.log(req.payload.content.Entrance);
+  //     });
+  // };
+  const handleClose = () => setShow(false);
+
+  // function handleMouseOver() {
+  //     setMouseOver(true);
+  // }
+  // function handleMouseOut() {
+  //     setMouseOver(false);
+  // }
+  // send a random id to backend
+  // const handleCreateUser = () => {
+  //     const content = {
+  //         carType: "Bicycle",
+  //         plate: contact,
+  //     };
+  //     dispatch(checkInCarThunk(content)).then((req) => {
+  //         if (req.payload.content.Entrance === "false") {
+  //             window.location.replace(`/information/${contact}`);
+  //         } else {
+  //             setShow(true);
+  //         }
+  //         console.log(responseMsg);
+  //         console.log(req.payload.content.Entrance);
+  //     });
+  //     // dispatch(showBicycleUserThunk()).then((req) =>{
+  //     //   console.log(req);
+  //     // });
+  // };
+
+  return (
+    <div className={styles.body}>
+      <div className={styles.container}>
+        <h1>Input Plate License Number</h1>
+
+        <div>
+          <p>
+            Plate from car plate recognition model: {webSocketReturnData.plate}
+          </p>
+          <p>
+            Entrance from car plate recognition model:{" "}
+            {webSocketReturnData.entrance}
+          </p>
+        </div>
+
+        {
+          // !loading && <p>{responseMsg}</p>
         }
-
-
-        return () => {
-            ws.close();
-        };
-
-
-    }, []);
-
-    // const { responseMsg } = useSelector((state) => state.checkInCars);
-
-    // const [contact, setContact] = useState("");
-    // const dispatch = useDispatch();
-    // const [isMouseOver, setMouseOver] = useState(false);
-    const [show, setShow] = useState(false);
-
-    // const submitPlateHandler = async () => {
-    //     const content = {
-    //         plate: contact,
-    //         carType: "Car",
-    //     };
-    //     console.log(content);
-
-    //     await dispatch(checkInCarThunk(content)).then((req) => {
-    //         if (req.payload.content.Entrance === "false") {
-    //             window.location.replace(`/information/${contact}`);
-    //         } else {
-    //             setShow(true);
-    //         }
-    //         console.log(responseMsg);
-    //         console.log(req.payload.content);
-    //         console.log(req.payload.content.Entrance);
-    //     });
-    // };
-    const handleClose = () => setShow(false);
-
-    // function handleMouseOver() {
-    //     setMouseOver(true);
-    // }
-    // function handleMouseOut() {
-    //     setMouseOver(false);
-    // }
-    // send a random id to backend
-    // const handleCreateUser = () => {
-    //     const content = {
-    //         carType: "Bicycle",
-    //         plate: contact,
-    //     };
-    //     dispatch(checkInCarThunk(content)).then((req) => {
-    //         if (req.payload.content.Entrance === "false") {
-    //             window.location.replace(`/information/${contact}`);
-    //         } else {
-    //             setShow(true);
-    //         }
-    //         console.log(responseMsg);
-    //         console.log(req.payload.content.Entrance);
-    //     });
-    //     // dispatch(showBicycleUserThunk()).then((req) =>{
-    //     //   console.log(req);
-    //     // });
-    // };
-
-    return (
-        <div className={styles.body}>
-            <div className={styles.container}>
-                <h1>Input Plate License Number</h1>
-
-                <div>
-                    <p>Plate from car plate recognition model: {webSocketReturnData.plate}</p>
-                    <p>
-                        Entrance from car plate recognition model: {webSocketReturnData.entrance}
-                    </p>
-                </div>
-
-                {
-                    // !loading && <p>{responseMsg}</p>
-                }
-                {
-                    // loading && <p>loading = true</p>
-                }
-                {/* <p>{contact}</p> */}
-                {/* <input
+        {
+          // loading && <p>loading = true</p>
+        }
+        {/* <p>{contact}</p> */}
+        {/* <input
                     className={styles.inputClass}
                     onChange={(event) => setContact(event.target.value)}
                     name="carNumber"
@@ -139,24 +139,26 @@ export const AutoInputCar = (props) => {
                     Bicycle User Press Here
                 </button> */}
 
-                <Modal show={show} onHide={handleClose}>
-                    <Modal.Header closeButton>
-                        <Modal.Title>Welcome Car {webSocketReturnData.entrance}</Modal.Title>
-                    </Modal.Header>
-                    <Modal.Body> Welcome to Victory Eight Parking Lot</Modal.Body>
-                    <Modal.Footer>
-                        <Button variant="primary" onClick={handleClose}>
-                            Close
-                        </Button>
-                    </Modal.Footer>
-                </Modal>
-                {props.showMessengerCustomerChat ? (
-                    <MessengerCustomerChat
-                        pageId="107150052349235"
-                        appId="2210845679103617"
-                    />
-                ) : undefined}
-            </div>
-        </div>
-    );
+        <Modal show={show} onHide={handleClose}>
+          <Modal.Header closeButton>
+            <Modal.Title>
+              Welcome Car {webSocketReturnData.entrance}
+            </Modal.Title>
+          </Modal.Header>
+          <Modal.Body> Welcome to Victory Eight Parking Lot</Modal.Body>
+          <Modal.Footer>
+            <Button variant="primary" onClick={handleClose}>
+              Close
+            </Button>
+          </Modal.Footer>
+        </Modal>
+        {props.showMessengerCustomerChat ? (
+          <MessengerCustomerChat
+            pageId="107150052349235"
+            appId="2210845679103617"
+          />
+        ) : undefined}
+      </div>
+    </div>
+  );
 };
